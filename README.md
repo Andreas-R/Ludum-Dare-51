@@ -1,10 +1,10 @@
-# LowRezJam2022
+# Ludum Dare 51
 
-Implemented in Godot 3.4.5
+Implemented in Godot 3.5.1
 
 ## Setup Godot with C#:
 
-* install newest Godot version (3.4.5): https://godotengine.org/download/windows (download Mono version, otherwise no C# support !!!)
+* install newest Godot version (3.5.1): https://godotengine.org/download/windows (download Mono version, otherwise no C# support !!!)
 * install newest .NET SDK version: https://dotnet.microsoft.com/en-us/download
 * In Godot go to `Editor` > `Editor Settings`. In the Settings navigate to `Mono` > `Editor`. Enable `External Editor` and select VS Code or other preferred Editor.
 * In VS Code make sure following extensions are installed:
