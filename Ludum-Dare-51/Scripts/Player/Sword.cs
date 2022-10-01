@@ -7,7 +7,9 @@ public class Sword : Node2D {
     private Timer attackTimer;
     private Sprite swordSprite;
     private CollisionShape2D swordCollider;
+    private AudioStreamPlayer2D audioPlayer;
     private Player player;
+
     private bool isAttacking = false;
     private float startRotation;
     private float attackArchAnglRadians;
@@ -18,6 +20,7 @@ public class Sword : Node2D {
         this.attackTimer = GetNode<Timer>("AttackTimer");
         this.swordSprite = GetNode<Sprite>("Sword/Sprite");
         this.swordCollider = GetNode<CollisionShape2D>("Sword/Collider");
+        this.audioPlayer = GetNode<AudioStreamPlayer2D>("AudioPlayer");
         this.player = GetParent<Player>();
 
         this.attackArchAnglRadians = Mathf.Deg2Rad(attackArchAngle);
@@ -41,6 +44,9 @@ public class Sword : Node2D {
         this.isAttacking = true;
         this.swordSprite.Visible = true;
         this.swordCollider.Disabled = false;
+
+        audioPlayer.Play();
+
         this.attackTimer.Start();
     }
 
