@@ -66,6 +66,13 @@ dash={
  ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="Player"
+2d_physics/layer_2="Sword"
+2d_physics/layer_3="Wall"
+2d_physics/layer_4="Enemy"
+
 [mono]
 
 project/assembly_name="Ludum-Dare-51"

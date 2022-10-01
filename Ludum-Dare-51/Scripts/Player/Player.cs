@@ -7,9 +7,13 @@ public class Player : RigidBody2D {
 
     private PlayerState state;
 
+    private AnimatedSprite playerSprite;
+
     private float movementDeadzone = 0.2f;
     
     public override void _Ready() {
+        playerSprite = GetNode<AnimatedSprite>("PlayerSprite");
+
         this.state = PlayerState.RUNNING;
     }
 
@@ -19,10 +23,13 @@ public class Player : RigidBody2D {
 
     public override void _IntegrateForces(Physics2DDirectBodyState bodyState) {
         if (this.state == PlayerState.DEAD) return;
+        
+        Vector2 movementInput = this.GetMoveInputDirection();
 
         switch(this.state) {
             case PlayerState.RUNNING: {
-                this.HandleMovement(bodyState);
+                this.HandleMovement(bodyState, movementInput);
+                this.HandleSpriteFlip(movementInput);
                 break;
             }
             case PlayerState.ATTACKING: {
@@ -84,11 +91,17 @@ public class Player : RigidBody2D {
         return moveDir;
     }
 
-    private void HandleMovement(Physics2DDirectBodyState bodyState) {
-        Vector2 movementInput = this.GetMoveInputDirection();
-
+    private void HandleMovement(Physics2DDirectBodyState bodyState, Vector2 movementInput) {
         Vector2 newVelocity = movementInput * runSpeed;
-
         bodyState.LinearVelocity = newVelocity;
+    }
+
+    private void HandleSpriteFlip(Vector2 movementInput) {
+        if (movementInput.x > movementDeadzone) {
+            playerSprite.FlipH = true;
+        }
+        if (movementInput.x < -movementDeadzone) {
+            playerSprite.FlipH = false;
+        }
     }
 }

@@ -1,14 +1,40 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scripts/Player/Player.cs" type="Script" id=1]
 [ext_resource path="res://Physics/PlayerPhysics.tres" type="PhysicsMaterial" id=2]
-[ext_resource path="res://Textures/Player-test.png" type="Texture" id=3]
+[ext_resource path="res://Textures/rex.png" type="Texture" id=3]
+[ext_resource path="res://Textures/sword.png" type="Texture" id=4]
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 3 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 3 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="SpriteFrames" id=5]
+animations = [ {
+"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
+"loop": true,
+"name": "running",
+"speed": 5.0
+} ]
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 31.0
-height = 38.0
+radius = 25.0
+height = 30.0
+
+[sub_resource type="CapsuleShape2D" id=6]
+radius = 2.0
+height = 8.8
 
 [node name="Player" type="RigidBody2D"]
+collision_mask = 12
 mode = 2
 mass = 5.10204
 physics_material_override = ExtResource( 2 )
@@ -16,10 +42,30 @@ gravity_scale = 0.0
 script = ExtResource( 1 )
 runSpeed = 250.0
 
-[node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 0, -50 )
-texture = ExtResource( 3 )
+[node name="PlayerSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 0, -35 )
+scale = Vector2( 5, 5 )
+frames = SubResource( 5 )
+animation = "running"
+playing = true
 
 [node name="Collider" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -50 )
+position = Vector2( 0, -40 )
 shape = SubResource( 1 )
+
+[node name="SwordPivot" type="Node2D" parent="."]
+position = Vector2( 0, -40 )
+
+[node name="Sword" type="KinematicBody2D" parent="SwordPivot"]
+position = Vector2( 0, -60 )
+scale = Vector2( 5, 5 )
+collision_layer = 2
+collision_mask = 8
+
+[node name="Sprite" type="Sprite" parent="SwordPivot/Sword"]
+rotation = 1.5708
+scale = Vector2( 1, 1 )
+texture = ExtResource( 4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SwordPivot/Sword"]
+shape = SubResource( 6 )

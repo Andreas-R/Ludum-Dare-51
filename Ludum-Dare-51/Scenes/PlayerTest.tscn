@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Textures/Room-001.png" type="Texture" id=1]
 [ext_resource path="res://Prefabs/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scripts/Room.cs" type="Script" id=3]
+[ext_resource path="res://Physics/WallPhysics.tres" type="PhysicsMaterial" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 200, 400 )
@@ -25,26 +26,38 @@ texture = ExtResource( 1 )
 wait_time = 10.0
 autostart = true
 
-[node name="Wall" type="KinematicBody2D" parent="Room"]
+[node name="Wall" type="StaticBody2D" parent="Room"]
 position = Vector2( -800, 0 )
+collision_layer = 4
+collision_mask = 0
+physics_material_override = ExtResource( 4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Room/Wall"]
 shape = SubResource( 1 )
 
-[node name="Wall2" type="KinematicBody2D" parent="Room"]
+[node name="Wall2" type="StaticBody2D" parent="Room"]
 position = Vector2( 800, 0 )
+collision_layer = 4
+collision_mask = 0
+physics_material_override = ExtResource( 4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Room/Wall2"]
 shape = SubResource( 1 )
 
-[node name="Wall3" type="KinematicBody2D" parent="Room"]
+[node name="Wall3" type="StaticBody2D" parent="Room"]
 position = Vector2( 0, -600 )
+collision_layer = 4
+collision_mask = 0
+physics_material_override = ExtResource( 4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Room/Wall3"]
 shape = SubResource( 2 )
 
-[node name="Wall4" type="KinematicBody2D" parent="Room"]
+[node name="Wall4" type="StaticBody2D" parent="Room"]
 position = Vector2( 0, 600 )
+collision_layer = 4
+collision_mask = 0
+physics_material_override = ExtResource( 4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Room/Wall4"]
 shape = SubResource( 2 )
