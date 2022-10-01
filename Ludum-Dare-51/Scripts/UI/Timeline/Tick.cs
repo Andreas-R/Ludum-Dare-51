@@ -3,7 +3,7 @@ using System;
 
 public class Tick : ColorRect {
     private float timelineLength = 1600f;
-    private float numberOfSecondsOnTimeline = 4f;
+    private int numberOfSecondsOnTimeline = 4;
 
     private float thicknessX;
     private float thicknessY;
@@ -30,6 +30,15 @@ public class Tick : ColorRect {
 
         this.MarginRight = xPos + thicknessX;
         this.MarginLeft = xPos - thicknessX;
+
+        float s = Mathf.Abs((Metronome.instance.elapsedTime % 1) - 0.5f) * 2f;
+        float u = 0.8f;
+        s = (Mathf.Max(u, s) - u) / (1f - u);
+        float v = 0.75f;
+        s = (v + (1 - v) * s);
+
+        this.MarginBottom = thicknessY * s;
+        this.MarginTop = -thicknessY * s;
 
         float alpha = 1f - (Mathf.Abs(t - 0.5f) * 2f);
         alpha = Mathf.SmoothStep(0f, 1f, alpha);
