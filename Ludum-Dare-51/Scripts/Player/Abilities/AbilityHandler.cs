@@ -5,11 +5,16 @@ public class AbilityHandler : Node {
     private static int ABILITY_MAX_LEVEL = 5;
     private static int MAX_EQUIPPED_ABILITIES = 3;
 
+    public Player player;
     private Dictionary<AbilityType, AbstractAbility> abilities = new Dictionary<AbilityType, AbstractAbility>();
+
+    public override void _Ready() {
+        player = GetParent<Player>();
+    }
 
     public override void _Process(float delta) {
         foreach (AbstractAbility ability in abilities.Values) {
-            ability.OnProcess(delta);
+            ability.OnProcess(this, delta);
         }
     }
 
