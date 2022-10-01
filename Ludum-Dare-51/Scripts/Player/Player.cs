@@ -8,9 +8,11 @@ public class Player : RigidBody2D {
     private AnimatedSprite playerSprite;
     private float movementDeadzone = 0.2f;
     public Vector2 lastNonZeroMoveDir = Vector2.Left;
+    public LifePointManager lifePointManager;
     
     public override void _Ready() {
         this.playerSprite = GetNode<AnimatedSprite>("PlayerSprite");
+        this.lifePointManager = GetNode<LifePointManager>("LifePointManager");
 
         this.state = PlayerState.RUNNING;
     }
@@ -105,5 +107,15 @@ public class Player : RigidBody2D {
         if (movementInput.x < -movementDeadzone) {
             this.playerSprite.FlipH = false;
         }
+    }
+
+    public void OnDeath(){
+        ChangeState(PlayerState.DEAD);
+        playerSprite.FlipV = true;
+        GD.Print("Dead");
+    }
+
+    public void Damage(float damage){
+        lifePointManager.Damage(damage);
     }
 }

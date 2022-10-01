@@ -4,25 +4,22 @@ using System;
 public class AbstractEnemy : RigidBody2D
 {
     [Export]
-    public float maxHealth;
-    [Export]
     public float moveSpeed;
     [Export]
     public float damage;
-    [Export]
-    public NodePath playerNodePath;
-    protected RigidBody2D _playerNode;
-
-    public float _currentHealth;
+    //[Export]
+    //public NodePath playerNodePath;
+    protected Player _playerNode;
 
     private AnimatedSprite _sprite;
+    protected LifePointManager lifePointManager;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        _playerNode = GetNode<RigidBody2D>(playerNodePath);
-        _currentHealth = maxHealth;
+        _playerNode = GetNode<Player>("../Player");
         _sprite = GetNode<AnimatedSprite>("Sprite");
+        lifePointManager = GetNode<LifePointManager>("LifePointManager");
         OnReady();
     }
 
@@ -32,24 +29,12 @@ public class AbstractEnemy : RigidBody2D
         Move(bodyState);
     }
 
-    public void BeAttacked(float damage){
-        GD.Print("ouch");
+    public void Damage(float damage){
+        lifePointManager.Damage(damage);
         OnHit();
-        GD.Print(_currentHealth);
-        _currentHealth -= damage;
-        if(_currentHealth <= 0){
-            Die();
-        }
-        
     }
 
     public virtual void CollisionEnter(Node body){
-    }
-
-    public void Die(){
-        OnDeath();
-        GD.Print("Oh no. I am dead");
-        QueueFree();
     }
 
     protected void HandleSpriteFlip(Vector2 movementInput) {
@@ -68,5 +53,7 @@ public class AbstractEnemy : RigidBody2D
     }
 
     protected virtual void OnDeath(){
+        QueueFree();
+        GD.Print("Dead");
     }
 }

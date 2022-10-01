@@ -40,8 +40,7 @@ public class PlayerFollowingEnemy : AbstractEnemy
     {
         base.CollisionEnter(body);
         if(body.Equals(_playerNode)){
-            GD.Print("Hit");
-            //TODO: DO damage to player
+            _playerNode.Damage(damage);
         }
     }
 }

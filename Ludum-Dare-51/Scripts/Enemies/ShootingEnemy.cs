@@ -38,6 +38,8 @@ public class ShootingEnemy : AbstractEnemy
             //TODO: Play animation
             Arrow arrow = _arrowPrefab.Instance() as Arrow;
             arrow.target = _playerNode.Position;
+            arrow.playerNode = _playerNode;
+            arrow.damage = damage;
             arrow.Position = Position + (_playerNode.Position - Position).Normalized() * 40f;
             arrow.Rotation = Position.AngleToPoint(_playerNode.Position);
             GetTree().Root.GetNode<Node>("Main").AddChild(arrow);

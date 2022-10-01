@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Textures/slime.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Enemies/PlayerFollowingEnemy.cs" type="Script" id=2]
+[ext_resource path="res://Scripts/LifePointManager.cs" type="Script" id=3]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 20.0
@@ -33,12 +34,12 @@ animations = [ {
 [node name="FollowingEnemy" type="RigidBody2D"]
 collision_layer = 8
 collision_mask = 15
+mode = 2
 gravity_scale = 0.0
+contacts_reported = 1
+contact_monitor = true
 script = ExtResource( 2 )
-maxHealth = 10.0
 moveSpeed = 500.0
-damage = 10.0
-playerNodePath = NodePath("../Player")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
@@ -46,11 +47,17 @@ shape = SubResource( 1 )
 [node name="Sprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 5, 5 )
 frames = SubResource( 4 )
+frame = 1
 playing = true
 
 [node name="MoveTimer" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
 
+[node name="LifePointManager" type="Node" parent="."]
+script = ExtResource( 3 )
+maxHealth = 10.0
+
 [connection signal="body_entered" from="." to="." method="CollisionEnter"]
 [connection signal="timeout" from="MoveTimer" to="." method="StopMove"]
+[connection signal="OnDeath" from="LifePointManager" to="." method="OnDeath"]
