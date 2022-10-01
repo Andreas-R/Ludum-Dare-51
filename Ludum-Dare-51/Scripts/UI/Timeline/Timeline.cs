@@ -6,11 +6,9 @@ public class Timeline : Control {
 
     public override void _Process(float delta) {
         if (Metronome.instance.IsFrame(-1, 0)) {
-            GD.Print(Metronome.instance.elapsedTime);
             this.SpawnTick(largeTickPrefab);
         }
         if (Metronome.instance.IsFrame(-1, 0.5f)) {
-            GD.Print(Metronome.instance.elapsedTime);
             this.SpawnTick(smallTickPrefab);
         }
     }
