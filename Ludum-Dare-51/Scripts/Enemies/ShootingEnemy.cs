@@ -20,7 +20,7 @@ public class ShootingEnemy : AbstractEnemy
         //_reloadTimer = GetNode<Timer>("ReloadTimer");
     }
 
-    public override void Move(Physics2DDirectBodyState bodyState){
+    protected override void Move(Physics2DDirectBodyState bodyState){
         Vector2 moveDir = (_playerNode.Position - Position);
         if(moveDir.Length() > range * (1-rangeOverFollow)){
             moveDir = moveDir.Normalized() * moveSpeed;

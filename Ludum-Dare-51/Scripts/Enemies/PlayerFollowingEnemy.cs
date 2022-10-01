@@ -13,7 +13,7 @@ public class PlayerFollowingEnemy : AbstractEnemy
         _moveTimer = GetNode<Timer>("MoveTimer"); 
     }
 
-    public override void Move(Physics2DDirectBodyState bodyState){
+    protected override void Move(Physics2DDirectBodyState bodyState){
         if(!_isMoving){
             bodyState.LinearVelocity = Vector2.Zero;
             if(Metronome.instance.IsFrame(-1, 0f)){
