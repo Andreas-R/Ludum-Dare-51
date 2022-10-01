@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Scripts/Player/Player.cs" type="Script" id=1]
 [ext_resource path="res://Physics/PlayerPhysics.tres" type="PhysicsMaterial" id=2]
 [ext_resource path="res://Textures/rex.png" type="Texture" id=3]
 [ext_resource path="res://Textures/sword.png" type="Texture" id=4]
 [ext_resource path="res://Scripts/Player/Sword.cs" type="Script" id=5]
+[ext_resource path="res://Audio/wosh_2.wav" type="AudioStream" id=6]
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 3 )
@@ -68,7 +69,6 @@ collision_mask = 8
 [node name="Sprite" type="Sprite" parent="SwordPivot/Sword"]
 visible = false
 rotation = 1.5708
-scale = Vector2( 1, 1 )
 texture = ExtResource( 4 )
 
 [node name="Collider" type="CollisionShape2D" parent="SwordPivot/Sword"]
@@ -78,5 +78,10 @@ disabled = true
 [node name="AttackTimer" type="Timer" parent="SwordPivot"]
 wait_time = 0.5
 one_shot = true
+
+[node name="AudioPlayer" type="AudioStreamPlayer2D" parent="SwordPivot"]
+stream = ExtResource( 6 )
+volume_db = -20.0
+pitch_scale = 1.5
 
 [connection signal="timeout" from="SwordPivot/AttackTimer" to="SwordPivot" method="StopAttack"]

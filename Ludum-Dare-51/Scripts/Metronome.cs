@@ -57,13 +57,13 @@ public class Metronome : Node {
         }
 
         if (cycleSecond == -1) {
-            float elappsedTime_timeInSecond = elapsedTime - Mathf.Floor(elapsedTime);
+            float elapsedTime_timeInSecond = elapsedTime - Mathf.Floor(elapsedTime);
             float lastTime_timeInSecond = lastTime - Mathf.Floor(lastTime);
 
-            if (elappsedTime_timeInSecond >= lastTime_timeInSecond) {
-                return cycleSecond > lastTime && cycleSecond <= elapsedTime;
+            if (elapsedTime_timeInSecond >= lastTime_timeInSecond) {
+                return timeInSecond > lastTime_timeInSecond && timeInSecond <= elapsedTime_timeInSecond;
             } else {
-                return cycleSecond > lastTime || cycleSecond <= elapsedTime;
+                return timeInSecond > lastTime_timeInSecond || timeInSecond <= elapsedTime_timeInSecond;
             }
         } else {
             float cycleTime = cycleSecond + timeInSecond;
