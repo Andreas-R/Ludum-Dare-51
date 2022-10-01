@@ -1,12 +1,9 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Resources/Room_001.tres" type="Resource" id=1]
 [ext_resource path="res://Scripts/Level/RoomHandler.cs" type="Script" id=2]
-[ext_resource path="res://Resources/Room_004.tres" type="Resource" id=3]
-[ext_resource path="res://Resources/Room_003.tres" type="Resource" id=4]
 [ext_resource path="res://Resources/Room_002.tres" type="Resource" id=5]
 [ext_resource path="res://Physics/WallPhysics.tres" type="PhysicsMaterial" id=6]
-[ext_resource path="res://Textures/Room-001.png" type="Texture" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 200, 400 )
@@ -17,11 +14,10 @@ extents = Vector2( 1000, 200 )
 [node name="RoomHandler" type="Node2D"]
 position = Vector2( 0, -50 )
 script = ExtResource( 2 )
-rooms = [ ExtResource( 1 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 3 ) ]
+rooms = [ ExtResource( 1 ), ExtResource( 5 ) ]
 
 [node name="RoomSprite" type="Sprite" parent="."]
 scale = Vector2( 5, 5 )
-texture = ExtResource( 7 )
 
 [node name="Wall" type="StaticBody2D" parent="."]
 position = Vector2( -800, 0 )
