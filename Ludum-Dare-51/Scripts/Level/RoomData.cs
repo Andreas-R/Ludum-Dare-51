@@ -5,8 +5,7 @@ public class RoomData : Resource {
   public string id;
 
   [Export]
-  public Texture roomImage;
-
+  public Texture[] roomImage;
   [Export]
   public float spawnWeight;
 
