@@ -15,24 +15,18 @@ public class AbstractEnemy : RigidBody2D
 
     public float _currentHealth;
 
+    private AnimatedSprite _sprite;
+
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
         _playerNode = GetNode<RigidBody2D>(playerNodePath);
         _currentHealth = maxHealth;
+        _sprite = GetNode<AnimatedSprite>("Sprite");
+        OnReady();
     }
 
-    //  // Called every frame. 'delta' is the elapsed time since the previous frame.
-    //  public override void _Process(float delta)
-    //  {
-    //      
-    //  }
-
-    /* public override void _PhysicsProcess(float delta)
-    {
-        base._PhysicsProcess(delta);
-        Move(delta);
-    } */
+    public virtual void OnReady(){}
 
     public override void _IntegrateForces(Physics2DDirectBodyState bodyState) {
         Move(bodyState);
@@ -49,8 +43,7 @@ public class AbstractEnemy : RigidBody2D
         
     }
 
-    public void CollisionEnter(){
-        GD.Print("collision detected");
+    public virtual void CollisionEnter(Node body){
     }
 
     public void Die(){
@@ -59,12 +52,21 @@ public class AbstractEnemy : RigidBody2D
         QueueFree();
     }
 
-    public virtual void Move(Physics2DDirectBodyState bodyState){
+    protected void HandleSpriteFlip(Vector2 movementInput) {
+        if (movementInput.x > 0) {
+            _sprite.FlipH = true;
+        }
+        if (movementInput.x < 0) {
+            _sprite.FlipH = false;
+        }
     }
 
-    public virtual void OnHit(){
+    protected virtual void Move(Physics2DDirectBodyState bodyState){
     }
 
-    public virtual void OnDeath(){
+    protected virtual void OnHit(){
+    }
+
+    protected virtual void OnDeath(){
     }
 }
