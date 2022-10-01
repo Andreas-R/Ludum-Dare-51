@@ -1,6 +1,25 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Scripts/Player.cs" type="Script" id=1]
+[ext_resource path="res://Scripts/Player/Player.cs" type="Script" id=1]
+[ext_resource path="res://Physics/PlayerPhysics.tres" type="PhysicsMaterial" id=2]
+[ext_resource path="res://Textures/Player-test.png" type="Texture" id=3]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 31.0
+height = 38.0
 
 [node name="Player" type="RigidBody2D"]
+mode = 2
+mass = 5.10204
+physics_material_override = ExtResource( 2 )
+gravity_scale = 0.0
 script = ExtResource( 1 )
+runSpeed = 250.0
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 0, -50 )
+texture = ExtResource( 3 )
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -50 )
+shape = SubResource( 1 )
