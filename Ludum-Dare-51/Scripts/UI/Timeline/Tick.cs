@@ -3,15 +3,15 @@ using System;
 
 public class Tick : ColorRect {
     private float timelineLength = 1600f;
-    private float numberOfSecondsOnTimeline = 5f;
+    private float numberOfSecondsOnTimeline = 4f;
 
     private float thicknessX;
     private float thicknessY;
     private float elapsedTime;
 
     public override void _Ready() {
-        thicknessX = MarginRight - MarginLeft;
-        thicknessY = MarginBottom - MarginTop;
+        thicknessX = (MarginRight - MarginLeft) * 0.5f;
+        thicknessY = (MarginBottom - MarginTop) * 0.5f;
 
         elapsedTime = 0f;
 
@@ -25,6 +25,10 @@ public class Tick : ColorRect {
     }
 
     private void PlaceTick() {
-        
+        float t = elapsedTime / numberOfSecondsOnTimeline;
+        float xPos = ((-timelineLength) * t + (timelineLength) * (1f - t)) * 0.5f;
+
+        MarginRight = xPos + thicknessX;
+        MarginLeft = xPos - thicknessX;
     }
 }
