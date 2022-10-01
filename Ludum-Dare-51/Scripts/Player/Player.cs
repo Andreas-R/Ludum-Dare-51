@@ -18,7 +18,9 @@ public class Player : RigidBody2D {
     }
 
     public override void _Process(float delta) {
-        
+        if (Metronome.instance.IsFrame(-1, 0)) {
+            StartMoveAnimation();
+        }
     }
 
     public override void _IntegrateForces(Physics2DDirectBodyState bodyState) {
@@ -117,5 +119,11 @@ public class Player : RigidBody2D {
 
     public void Damage(float damage){
         lifePointManager.Damage(damage);
+    }
+    
+    private void StartMoveAnimation() {
+        playerSprite.Frame = 0;
+        playerSprite.Playing = true;
+        playerSprite.Play();
     }
 }

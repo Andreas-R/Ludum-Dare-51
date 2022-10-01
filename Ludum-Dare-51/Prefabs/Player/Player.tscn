@@ -7,11 +7,8 @@
 [ext_resource path="res://Scripts/Player/Sword.cs" type="Script" id=5]
 [ext_resource path="res://Audio/wosh_2.wav" type="AudioStream" id=6]
 [ext_resource path="res://Scripts/Player/Abilities/AbilityHandler.cs" type="Script" id=7]
-[ext_resource path="res://Scripts/LifePointManager.cs" type="Script" id=8]
-
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 3 )
-region = Rect2( 0, 0, 32, 32 )
+[ext_resource path="res://Prefabs/Shadow.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Scripts/LifePointManager.cs" type="Script" id=9]
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 3 )
@@ -21,10 +18,14 @@ region = Rect2( 32, 0, 32, 32 )
 atlas = ExtResource( 3 )
 region = Rect2( 64, 0, 32, 32 )
 
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 32, 32 )
+
 [sub_resource type="SpriteFrames" id=5]
 animations = [ {
-"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
-"loop": true,
+"frames": [ SubResource( 3 ), SubResource( 4 ), SubResource( 2 ), SubResource( 4 ), SubResource( 2 ) ],
+"loop": false,
 "name": "running",
 "speed": 5.0
 } ]
@@ -38,6 +39,7 @@ radius = 2.0
 height = 8.8
 
 [node name="Player" type="RigidBody2D"]
+z_index = 1
 collision_mask = 12
 mode = 2
 mass = 5.10204
@@ -47,12 +49,17 @@ script = ExtResource( 1 )
 runSpeed = 250.0
 
 [node name="PlayerSprite" type="AnimatedSprite" parent="."]
-position = Vector2( 0, -35 )
+position = Vector2( 0, -3.8147e-06 )
 scale = Vector2( 5, 5 )
 frames = SubResource( 5 )
 animation = "running"
-frame = 2
+frame = 4
 playing = true
+offset = Vector2( 0, -7 )
+
+[node name="Node2D" parent="." instance=ExtResource( 8 )]
+position = Vector2( 0, -4.76837e-07 )
+scale = Vector2( 5, 5 )
 
 [node name="Collider" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -40 )
@@ -90,7 +97,7 @@ pitch_scale = 1.5
 script = ExtResource( 7 )
 
 [node name="LifePointManager" type="Node" parent="."]
-script = ExtResource( 8 )
+script = ExtResource( 9 )
 maxHealth = 100.0
 
 [connection signal="timeout" from="SwordPivot/AttackTimer" to="SwordPivot" method="StopAttack"]
