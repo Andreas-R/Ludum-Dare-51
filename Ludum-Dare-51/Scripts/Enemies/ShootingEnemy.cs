@@ -25,11 +25,11 @@ public class ShootingEnemy : AbstractEnemy
         if(moveDir.Length() > range * (1-rangeOverFollow)){
             moveDir = moveDir.Normalized() * moveSpeed;
             bodyState.LinearVelocity = moveDir;
-            HandleSpriteFlip(moveDir);
         }
         else{
             bodyState.LinearVelocity = Vector2.Zero;
         }
+        HandleSpriteFlip(moveDir);
     }
 
     public override void _Process(float delta){

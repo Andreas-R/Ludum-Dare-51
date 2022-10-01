@@ -19,13 +19,12 @@ public class Arrow : KinematicBody2D
         if (move.Length() > 2f){
             var collision = MoveAndCollide(move.Normalized() * delta * moveSpeed);
             if(collision != null){
-                GD.Print("Hit");
+                //GD.Print("Hit");
                 //TODO: Check if hit was Player & damage them
                 QueueFree();
             }
         }
         else{
-            //Dead Arrow
             QueueFree();
         }
     }
