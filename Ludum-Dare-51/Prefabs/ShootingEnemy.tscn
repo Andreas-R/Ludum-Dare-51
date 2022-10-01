@@ -48,7 +48,7 @@ shape = SubResource( 1 )
 rotation = -6.28319
 scale = Vector2( 5, 5 )
 frames = SubResource( 4 )
-frame = 1
+frame = 2
 playing = true
 
 [connection signal="body_entered" from="." to="." method="CollisionEnter"]

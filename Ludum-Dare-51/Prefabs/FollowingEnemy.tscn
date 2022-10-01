@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Textures/slime.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Enemies/PlayerFollowingEnemy.cs" type="Script" id=2]
+[ext_resource path="res://Prefabs/Shadow.tscn" type="PackedScene" id=3]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 20.0
@@ -38,14 +39,20 @@ moveSpeed = 300.0
 damage = 10.0
 playerNodePath = NodePath("../Player")
 
+[node name="Node2D" parent="." instance=ExtResource( 3 )]
+position = Vector2( 0, 11 )
+scale = Vector2( 5, 5 )
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
+position = Vector2( 0, 16 )
 scale = Vector2( 5, 5 )
 frames = SubResource( 4 )
 frame = 3
 playing = true
+offset = Vector2( 0, -3 )
 
 [node name="MoveTimer" type="Timer" parent="."]
 wait_time = 0.5
