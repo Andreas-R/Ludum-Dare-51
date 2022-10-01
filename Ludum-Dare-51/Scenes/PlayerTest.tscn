@@ -13,11 +13,11 @@
 [node name="LevelManager" type="Node" parent="."]
 script = ExtResource( 7 )
 
+[node name="HUD" parent="." instance=ExtResource( 6 )]
+
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
 
 [node name="RoomHandler" parent="." instance=ExtResource( 1 )]
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
-
-[node name="HUD" parent="." instance=ExtResource( 6 )]
