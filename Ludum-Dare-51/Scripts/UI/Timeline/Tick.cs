@@ -39,7 +39,6 @@ public class Tick : ColorRect {
         this.Color = color;
 
         if (t > 1f) {
-            GD.Print("AAA");
             QueueFree();
         }
     }
