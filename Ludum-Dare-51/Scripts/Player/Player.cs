@@ -1,18 +1,16 @@
 using Godot;
-using System;
 
 public class Player : RigidBody2D {
     [Export]
     public float runSpeed = 100f;
 
     private PlayerState state;
-
     private AnimatedSprite playerSprite;
-
     private float movementDeadzone = 0.2f;
+    public Vector2 lastNonZeroMoveDir = Vector2.Left;
     
     public override void _Ready() {
-        playerSprite = GetNode<AnimatedSprite>("PlayerSprite");
+        this.playerSprite = GetNode<AnimatedSprite>("PlayerSprite");
 
         this.state = PlayerState.RUNNING;
     }
@@ -70,7 +68,7 @@ public class Player : RigidBody2D {
         }
     }
 
-    private Vector2 GetMoveInputDirection() {
+    public Vector2 GetMoveInputDirection() {
         float left = Input.GetActionRawStrength("move_left");
         float right = Input.GetActionRawStrength("move_right");
         float up = Input.GetActionRawStrength("move_up");
@@ -88,6 +86,10 @@ public class Player : RigidBody2D {
             moveDir = moveDir.Normalized();
         }
 
+        if (moveDir != Vector2.Zero) {
+            this.lastNonZeroMoveDir = moveDir;
+        }
+
         return moveDir;
     }
 
@@ -98,10 +100,10 @@ public class Player : RigidBody2D {
 
     private void HandleSpriteFlip(Vector2 movementInput) {
         if (movementInput.x > movementDeadzone) {
-            playerSprite.FlipH = true;
+            this.playerSprite.FlipH = true;
         }
         if (movementInput.x < -movementDeadzone) {
-            playerSprite.FlipH = false;
+            this.playerSprite.FlipH = false;
         }
     }
 }

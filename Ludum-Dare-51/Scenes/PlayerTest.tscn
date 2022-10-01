@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Textures/Room-001.png" type="Texture" id=1]
 [ext_resource path="res://Prefabs/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scripts/Room.cs" type="Script" id=3]
 [ext_resource path="res://Physics/WallPhysics.tres" type="PhysicsMaterial" id=4]
+[ext_resource path="res://Scripts/Metronome.cs" type="Script" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 200, 400 )
@@ -12,6 +13,9 @@ extents = Vector2( 200, 400 )
 extents = Vector2( 1000, 200 )
 
 [node name="Main" type="Node2D"]
+
+[node name="Metronome" type="Node" parent="."]
+script = ExtResource( 5 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
