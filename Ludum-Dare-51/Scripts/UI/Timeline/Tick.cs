@@ -10,16 +10,16 @@ public class Tick : ColorRect {
     private float elapsedTime;
 
     public override void _Ready() {
-        thicknessX = (MarginRight - MarginLeft) * 0.5f;
-        thicknessY = (MarginBottom - MarginTop) * 0.5f;
+        thicknessX = (this.MarginRight - this.MarginLeft) * 0.5f;
+        thicknessY = (this.MarginBottom - this.MarginTop) * 0.5f;
 
-        elapsedTime = 0f;
+        this.elapsedTime = 0f;
 
         PlaceTick();
     }
 
     public override void _Process(float delta) {
-        elapsedTime += delta;
+        this.elapsedTime += delta;
 
         PlaceTick();
     }
@@ -28,7 +28,19 @@ public class Tick : ColorRect {
         float t = elapsedTime / numberOfSecondsOnTimeline;
         float xPos = ((-timelineLength) * t + (timelineLength) * (1f - t)) * 0.5f;
 
-        MarginRight = xPos + thicknessX;
-        MarginLeft = xPos - thicknessX;
+        this.MarginRight = xPos + thicknessX;
+        this.MarginLeft = xPos - thicknessX;
+
+        float alpha = 1f - (Mathf.Abs(t - 0.5f) * 2f);
+        alpha = Mathf.SmoothStep(0f, 1f, alpha);
+
+        Color color = this.Color;
+        color.a = alpha;
+        this.Color = color;
+
+        if (t > 1f) {
+            GD.Print("AAA");
+            QueueFree();
+        }
     }
 }

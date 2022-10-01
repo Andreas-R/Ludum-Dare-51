@@ -3,14 +3,14 @@ using Godot;
 public class Metronome : Node {
     public static Metronome instance;
 
-    public static float CYCLE_TIME = 10;
+    public static int CYCLE_TIME = 10;
 
-    private float elappsedTime;
+    public float elapsedTime;
     private float lastTime;
 
     public override void _Ready() {
         instance = this;
-        elappsedTime = 0;
+        elapsedTime = -1f;
         lastTime = 0;
     }
 
@@ -19,10 +19,10 @@ public class Metronome : Node {
     }
 
     public override void _Process(float delta) {
-        lastTime = elappsedTime;
-        elappsedTime += delta;
-        if (elappsedTime >= CYCLE_TIME) {
-            elappsedTime -= CYCLE_TIME;
+        lastTime = elapsedTime;
+        elapsedTime += delta;
+        if (elapsedTime >= CYCLE_TIME) {
+            elapsedTime -= CYCLE_TIME;
         }
     }
 
@@ -37,29 +37,41 @@ public class Metronome : Node {
         return false;
     }
 
-    public bool IsFrame(int cycleSecond, float timeInSecond) {
+    public bool IsFrame(int cycleSecond, float timeInSecond, float delay = 0f) {
+        timeInSecond -= delay;
+
+        if (timeInSecond < 0f) {
+            int negativeSconds = Mathf.FloorToInt(timeInSecond);
+            timeInSecond -= negativeSconds;
+            cycleSecond += negativeSconds;
+            
+            while (cycleSecond < 0) {
+                cycleSecond += CYCLE_TIME;
+            }
+        }
+
         if (cycleSecond != -1) {
-            if (Mathf.FloorToInt(elappsedTime) != cycleSecond && Mathf.FloorToInt(lastTime) != cycleSecond) {
+            if (Mathf.FloorToInt(elapsedTime) != cycleSecond && Mathf.FloorToInt(lastTime) != cycleSecond) {
                 return false;
             }
         }
 
         if (cycleSecond == -1) {
-            float elappsedTime_timeInSecond = elappsedTime - Mathf.Floor(elappsedTime);
+            float elappsedTime_timeInSecond = elapsedTime - Mathf.Floor(elapsedTime);
             float lastTime_timeInSecond = lastTime - Mathf.Floor(lastTime);
 
             if (elappsedTime_timeInSecond >= lastTime_timeInSecond) {
-                return cycleSecond > lastTime && cycleSecond <= elappsedTime;
+                return cycleSecond > lastTime && cycleSecond <= elapsedTime;
             } else {
-                return cycleSecond > lastTime || cycleSecond <= elappsedTime;
+                return cycleSecond > lastTime || cycleSecond <= elapsedTime;
             }
         } else {
             float cycleTime = cycleSecond + timeInSecond;
 
-            if (elappsedTime >= lastTime) {
-                return cycleTime > lastTime && cycleTime <= elappsedTime;
+            if (elapsedTime >= lastTime) {
+                return cycleTime > lastTime && cycleTime <= elapsedTime;
             } else {
-                return cycleTime > lastTime || cycleTime <= elappsedTime;
+                return cycleTime > lastTime || cycleTime <= elapsedTime;
             }
         }
     }
