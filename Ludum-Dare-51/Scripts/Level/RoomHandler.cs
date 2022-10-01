@@ -11,13 +11,27 @@ public class RoomHandler : Node2D {
     private RandomNumberGenerator rng = new RandomNumberGenerator();
     private int roomCounter = 0;
     private int lastRoomIndex = -1;
-
+    private int spriteIndex = 0;
+    private int spriteCount = 0;
+    private RoomData currentRoom;
     public override void _Ready() {
         roomSprite = GetNode<Sprite>("RoomSprite");
-
+        
         rng.Randomize();
-
         ChangeToRandomRoom();
+    }
+
+    public override void _Process(float delta) {
+        if (Metronome.instance.IsFrame(-1, 0)) {
+            int nextIndex = spriteIndex + 1;
+            if (nextIndex < spriteCount) {
+                roomSprite.Texture = currentRoom.roomImage[nextIndex];
+                spriteIndex = nextIndex;
+            } else {
+                spriteIndex = 0;
+                roomSprite.Texture = currentRoom.roomImage[0];
+            }
+        }
     }
 
     public void ChangeToRandomRoom() {
@@ -53,6 +67,8 @@ public class RoomHandler : Node2D {
     }
 
     private void ChangeToRoom(RoomData room) {
-        roomSprite.Texture = room.roomImage;
+        currentRoom = room;
+        spriteCount = room.roomImage.Length;
+        roomSprite.Texture = room.roomImage[0];
     }
 }

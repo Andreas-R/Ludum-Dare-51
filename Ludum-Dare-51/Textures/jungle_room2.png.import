@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/skeleton_nobow.png-c4e82234a1bb0eaa609f663bfaa8117c.stex"
+path="res://.import/jungle_room2.png-c1ebf334d0a0a5beacec2811fc7c8d83.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/skeleton_nobow.png"
-dest_files=[ "res://.import/skeleton_nobow.png-c4e82234a1bb0eaa609f663bfaa8117c.stex" ]
+source_file="res://Textures/jungle_room2.png"
+dest_files=[ "res://.import/jungle_room2.png-c1ebf334d0a0a5beacec2811fc7c8d83.stex" ]
 
 [params]
 
