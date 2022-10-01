@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Prefabs/Level/RoomHandler.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Prefabs/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Prefabs/Player/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Prefabs/FollowingEnemy.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Prefabs/Metronome.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Prefabs/UI/HUD.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scripts/Level/LevelManager.cs" type="Script" id=7]
@@ -21,3 +22,30 @@ current = true
 [node name="RoomHandler" parent="." instance=ExtResource( 1 )]
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
+
+[node name="FollowingEnemy" parent="." instance=ExtResource( 3 )]
+position = Vector2( -347, -172 )
+
+[node name="FollowingEnemy2" parent="." instance=ExtResource( 3 )]
+position = Vector2( 230, -171 )
+
+[node name="FollowingEnemy3" parent="." instance=ExtResource( 3 )]
+position = Vector2( 299, 5 )
+
+[node name="FollowingEnemy4" parent="." instance=ExtResource( 3 )]
+position = Vector2( 137, 101 )
+
+[node name="FollowingEnemy5" parent="." instance=ExtResource( 3 )]
+position = Vector2( -158, 126 )
+
+[node name="FollowingEnemy6" parent="." instance=ExtResource( 3 )]
+position = Vector2( -316, 1 )
+
+[node name="FollowingEnemy7" parent="." instance=ExtResource( 3 )]
+position = Vector2( -210, -281 )
+
+[node name="FollowingEnemy8" parent="." instance=ExtResource( 3 )]
+position = Vector2( 24, -284 )
+
+[node name="FollowingEnemy9" parent="." instance=ExtResource( 3 )]
+position = Vector2( 221, -275 )

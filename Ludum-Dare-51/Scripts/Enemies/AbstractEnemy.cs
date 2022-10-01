@@ -11,8 +11,8 @@ public class AbstractEnemy : RigidBody2D
     //public NodePath playerNodePath;
     protected Player _playerNode;
 
-    private AnimatedSprite _sprite;
     protected LifePointManager lifePointManager;
+    public AnimatedSprite _sprite;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -37,6 +37,12 @@ public class AbstractEnemy : RigidBody2D
     public virtual void CollisionEnter(Node body){
     }
 
+    public void StartMoveAnimation() {
+        _sprite.Frame = 0;
+        _sprite.Playing = true;
+        _sprite.Play();
+    }
+
     protected void HandleSpriteFlip(Vector2 movementInput) {
         if (movementInput.x > 0) {
             _sprite.FlipH = true;
@@ -45,6 +51,7 @@ public class AbstractEnemy : RigidBody2D
             _sprite.FlipH = false;
         }
     }
+
 
     protected virtual void Move(Physics2DDirectBodyState bodyState){
     }

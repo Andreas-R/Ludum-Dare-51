@@ -24,7 +24,7 @@ public class PlayerFollowingEnemy : AbstractEnemy
 
     private void InitMove(Physics2DDirectBodyState bodyState){
         _isMoving = true;
-        //TODO: Start Move Animation
+        StartMoveAnimation();
         _moveTimer.Start();
         Vector2 moveDir = (_playerNode.Position - Position).Normalized();
         moveDir = moveDir * moveSpeed;

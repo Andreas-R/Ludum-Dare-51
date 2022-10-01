@@ -8,25 +8,22 @@
 radius = 20.0
 height = 0.0
 
-[sub_resource type="AtlasTexture" id=5]
-flags = 4
-atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 9, 8 )
-
 [sub_resource type="AtlasTexture" id=6]
-flags = 4
 atlas = ExtResource( 1 )
 region = Rect2( 9, 0, 9, 8 )
 
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 9, 8 )
+
 [sub_resource type="AtlasTexture" id=7]
-flags = 4
 atlas = ExtResource( 1 )
 region = Rect2( 18, 0, 9, 8 )
 
 [sub_resource type="SpriteFrames" id=4]
 animations = [ {
-"frames": [ SubResource( 5 ), SubResource( 6 ), SubResource( 7 ) ],
-"loop": true,
+"frames": [ SubResource( 6 ), SubResource( 5 ), SubResource( 7 ), SubResource( 5 ) ],
+"loop": false,
 "name": "default",
 "speed": 5.0
 } ]
@@ -39,7 +36,9 @@ gravity_scale = 0.0
 contacts_reported = 1
 contact_monitor = true
 script = ExtResource( 2 )
-moveSpeed = 500.0
+moveSpeed = 300.0
+damage = 10.0
+playerNodePath = NodePath("../Player")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
@@ -47,7 +46,7 @@ shape = SubResource( 1 )
 [node name="Sprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 5, 5 )
 frames = SubResource( 4 )
-frame = 1
+frame = 3
 playing = true
 
 [node name="MoveTimer" type="Timer" parent="."]

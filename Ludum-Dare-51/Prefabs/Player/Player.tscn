@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Scripts/Player/Player.cs" type="Script" id=1]
 [ext_resource path="res://Physics/PlayerPhysics.tres" type="PhysicsMaterial" id=2]
@@ -6,7 +6,8 @@
 [ext_resource path="res://Textures/sword.png" type="Texture" id=4]
 [ext_resource path="res://Scripts/Player/Sword.cs" type="Script" id=5]
 [ext_resource path="res://Audio/wosh_2.wav" type="AudioStream" id=6]
-[ext_resource path="res://Scripts/LifePointManager.cs" type="Script" id=7]
+[ext_resource path="res://Scripts/Player/Abilities/AbilityHandler.cs" type="Script" id=7]
+[ext_resource path="res://Scripts/LifePointManager.cs" type="Script" id=8]
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 3 )
@@ -50,6 +51,7 @@ position = Vector2( 0, -35 )
 scale = Vector2( 5, 5 )
 frames = SubResource( 5 )
 animation = "running"
+frame = 2
 playing = true
 
 [node name="Collider" type="CollisionShape2D" parent="."]
@@ -84,8 +86,11 @@ stream = ExtResource( 6 )
 volume_db = -20.0
 pitch_scale = 1.5
 
-[node name="LifePointManager" type="Node" parent="."]
+[node name="AbilityHandler" type="Node" parent="."]
 script = ExtResource( 7 )
+
+[node name="LifePointManager" type="Node" parent="."]
+script = ExtResource( 8 )
 maxHealth = 100.0
 
 [connection signal="timeout" from="SwordPivot/AttackTimer" to="SwordPivot" method="StopAttack"]
