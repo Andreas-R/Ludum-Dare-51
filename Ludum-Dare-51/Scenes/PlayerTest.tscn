@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Prefabs/Level/RoomHandler.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Prefabs/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Prefabs/Player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Prefabs/Metronome.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Prefabs/UI/HUD.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scripts/Level/LevelManager.cs" type="Script" id=7]
