@@ -1,7 +1,7 @@
 [gd_resource type="Resource" load_steps=4 format=2]
 
 [ext_resource path="res://Scripts/Level/RoomData.cs" type="Script" id=1]
-[ext_resource path="res://Textures/Room-002.png" type="Texture" id=2]
+[ext_resource path="res://Textures/room-002.png" type="Texture" id=2]
 [ext_resource path="res://Textures/room-001.png" type="Texture" id=3]
 
 [resource]
