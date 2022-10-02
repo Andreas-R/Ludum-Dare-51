@@ -1,8 +1,9 @@
-[gd_resource type="Resource" load_steps=4 format=2]
+[gd_resource type="Resource" load_steps=5 format=2]
 
 [ext_resource path="res://Scripts/Level/RoomData.cs" type="Script" id=1]
 [ext_resource path="res://Textures/dungeon_room2.png" type="Texture" id=2]
 [ext_resource path="res://Textures/dungeon_room1.png" type="Texture" id=3]
+[ext_resource path="res://Sound/defaultMedium.wav" type="AudioStream" id=4]
 
 [resource]
 script = ExtResource( 1 )
@@ -11,3 +12,4 @@ roomImage = [ ExtResource( 3 ), ExtResource( 2 ) ]
 spawnWeight = 10.0
 minSpawnRoomCount = 0
 spawnAbleEnemies = null
+bgMusicSample = ExtResource( 4 )
