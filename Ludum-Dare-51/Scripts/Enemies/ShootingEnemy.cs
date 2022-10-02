@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public class ShootingEnemy : AbstractEnemy {
     private static PackedScene arrowPrefab = ResourceLoader.Load("res://Prefabs/Enemies/Arrow.tscn") as PackedScene;
