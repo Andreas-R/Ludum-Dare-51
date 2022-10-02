@@ -14,7 +14,7 @@ public class Metronome : Node {
 
     public override void _Ready() {
         instance = this;
-        elapsedTime = -1f;
+        elapsedTime = 0f;
         lastTime = 0f;
     }
 

@@ -21,6 +21,7 @@ public class RoomHandler : Node2D {
         bgMusicHandler = GetParent().GetNode<BgMusicHandler>("BgMusicHandler");
         
         rng.Randomize();
+        ChangeToRandomRoom();
     }
 
     public override void _Process(float delta) {
