@@ -15,11 +15,13 @@ public class FireballAbility : AbstractAbility {
     }
 
     public override void OnProcess(Player player, float delta) {
-        if (Metronome.instance.IsBeat(GetFrequency(), new float[] {0f})) {
+        if (Metronome.instance.IsBeat(this.GetBeatFrequency(), this.GetSubBeatFrequency())) {
             float numberOfFireballs = GetNumberOfFireBalls();
             
             for (int i = 0; i < numberOfFireballs; i += 1) {
                 Fireball fireball = FireballAbility.fireballPrefab.Instance() as Fireball;
+                float scale = GetScale();
+                fireball.Scale = new Vector2(scale, scale);
                 fireball.direction = (player.GetGlobalMousePosition() - player.GetCenter()).Normalized();
                 fireball.Rotation = player.GetCenter().AngleToPoint(player.GetGlobalMousePosition());
                 if (numberOfFireballs > 1) {
@@ -40,14 +42,18 @@ public class FireballAbility : AbstractAbility {
         return this.level1 + 1;
     }
 
+    private float GetScale() {
+        return 1 + this.level1 * 0.25f;
+    }
+
     private int GetNumberOfFireBalls() {
         return this.level2 + 3;
     }
 
-    private int[] GetFrequency() {
+    public override int[] GetBeatFrequency() {
         switch (this.level3) {
             case 0: {
-                return new int[] {3};
+                return new int[] {5};
             }
             case 1: {
                 return new int[] {1, 5};
@@ -59,8 +65,12 @@ public class FireballAbility : AbstractAbility {
                 return new int[] {-1};
             }
             default: {
-                return new int[] {1};
+                return new int[] {5};
             }
         }
+    }
+
+    public override float[] GetSubBeatFrequency() {
+        return new float[] {0f};
     }
 }

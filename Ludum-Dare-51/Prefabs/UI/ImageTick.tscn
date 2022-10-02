@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scripts/UI/Timeline/Tick.cs" type="Script" id=1]
+[ext_resource path="res://Textures/fireball.png" type="Texture" id=2]
+
+[node name="LargeTick" type="TextureRect"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -40.0
+margin_top = -40.0
+margin_right = 40.0
+margin_bottom = 40.0
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 6
+script = ExtResource( 1 )
