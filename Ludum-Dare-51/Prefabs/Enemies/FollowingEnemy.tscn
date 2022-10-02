@@ -1,11 +1,12 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Textures/slime.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Enemies/PlayerFollowingEnemy.cs" type="Script" id=2]
 [ext_resource path="res://Prefabs/Shadow.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Scripts/LifePointManager.cs" type="Script" id=4]
-[ext_resource path="res://Scripts/DamageReceiver.cs" type="Script" id=5]
-[ext_resource path="res://Scripts/DamageDealer.cs" type="Script" id=6]
+[ext_resource path="res://Scripts/Damage/LifePointManager.cs" type="Script" id=4]
+[ext_resource path="res://Scripts/Damage/DamageReceiver.cs" type="Script" id=5]
+[ext_resource path="res://Scripts/Damage/DamageDealer.cs" type="Script" id=6]
+[ext_resource path="res://Physics/EnemyPhysics.tres" type="PhysicsMaterial" id=7]
 
 [sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 1 )
@@ -27,17 +28,27 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="CapsuleShape2D" id=1]
+[sub_resource type="CapsuleShape2D" id=10]
+radius = 14.0
+height = 0.0
+
+[sub_resource type="CapsuleShape2D" id=8]
+radius = 16.0
+height = 0.0
+
+[sub_resource type="CapsuleShape2D" id=9]
 radius = 16.0
 height = 0.0
 
 [node name="FollowingEnemy" type="RigidBody2D"]
 collision_layer = 4
-collision_mask = 6
+collision_mask = 7
 mode = 2
+physics_material_override = ExtResource( 7 )
 gravity_scale = 0.0
 contacts_reported = 1
 contact_monitor = true
+can_sleep = false
 script = ExtResource( 2 )
 moveSpeed = 300.0
 
@@ -55,8 +66,8 @@ scale = Vector2( 5, 5 )
 z_index = -1
 
 [node name="Collider" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -15 )
-shape = SubResource( 1 )
+position = Vector2( 0, -13 )
+shape = SubResource( 10 )
 
 [node name="DamageReceiver" type="Area2D" parent="."]
 collision_layer = 512
@@ -64,8 +75,8 @@ collision_mask = 0
 script = ExtResource( 5 )
 
 [node name="Collider" type="CollisionShape2D" parent="DamageReceiver"]
-position = Vector2( 0, -15 )
-shape = SubResource( 1 )
+position = Vector2( 0, -13 )
+shape = SubResource( 8 )
 
 [node name="DamageDealer" type="Area2D" parent="."]
 collision_layer = 0
@@ -74,8 +85,8 @@ script = ExtResource( 6 )
 damage = 10.0
 
 [node name="Collider" type="CollisionShape2D" parent="DamageDealer"]
-position = Vector2( 0, -15 )
-shape = SubResource( 1 )
+position = Vector2( 0, -13 )
+shape = SubResource( 9 )
 
 [node name="LifePointManager" type="Node" parent="."]
 script = ExtResource( 4 )

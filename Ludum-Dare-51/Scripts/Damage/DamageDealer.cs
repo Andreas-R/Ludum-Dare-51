@@ -8,7 +8,12 @@ public class DamageDealer : Area2D {
         DamageReceiver receiver = area2D as DamageReceiver;
 
         if (receiver != null) {
-            receiver.Damage(damage);
+            this.HandleDamage(receiver, damage);
         }
+    }
+
+    // Overwrite in child class if knockback is required
+    public virtual void HandleDamage(DamageReceiver receiver, float damage) {
+        receiver.Damage(damage, Vector2.Zero, 0f);
     }
 }

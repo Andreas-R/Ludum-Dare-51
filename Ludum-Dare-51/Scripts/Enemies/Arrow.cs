@@ -1,37 +1,20 @@
 using Godot;
-using System;
 
-public class Arrow : KinematicBody2D
-{
-    public Vector2 target;
+public class Arrow : RigidBody2D {
     [Export]
-    public float moveSpeed;
-    public Player playerNode;
-    public float damage;
+    public float speed;
 
-    public override void _Ready()
-    {
-        
+    public Vector2 direction;
+
+    public override void _Process(float delta) {
+        this.Position += this.direction * this.speed * delta;
     }
 
-    public override void _PhysicsProcess(float delta)
-    {
-        base._PhysicsProcess(delta);
-        Vector2 move = (target - Position);
-        if (move.Length() > 2f){
-            var collision = MoveAndCollide(move.Normalized() * delta * moveSpeed);
-            if(collision != null){
-                /* if(collision.Collider.Equals(playerNode)){
-                    GD.Print("Hit");
-                    playerNode.Damage(damage);
-                } */
-                //GD.Print("Hit");
-                //TODO: Check if hit was Player & damage them
-                QueueFree();
-            }
-        }
-        else{
-            QueueFree();
-        }
+    public void OnBodyEntered(Node body) {
+        this.OnDestroy();
+    }
+
+    public void OnDestroy() {
+        QueueFree();
     }
 }

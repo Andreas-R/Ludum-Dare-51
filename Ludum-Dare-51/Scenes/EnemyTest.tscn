@@ -8,7 +8,7 @@
 [ext_resource path="res://Prefabs/UI/HUD.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Prefabs/Enemies/ShootingEnemy.tscn" type="PackedScene" id=7]
 
-[node name="Main" type="Node2D"]
+[node name="Main" type="YSort"]
 
 [node name="Metronome" type="Node" parent="."]
 script = ExtResource( 5 )
@@ -27,7 +27,6 @@ current = true
 
 [node name="FollowingEnemy" parent="." instance=ExtResource( 1 )]
 position = Vector2( -350, -234 )
-mode = 2
 
 [node name="ShootingEnemy" parent="." instance=ExtResource( 7 )]
 position = Vector2( -227, 163 )

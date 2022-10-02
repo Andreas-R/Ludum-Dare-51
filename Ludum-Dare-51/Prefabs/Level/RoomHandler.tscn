@@ -18,6 +18,7 @@ rooms = [ ExtResource( 1 ), ExtResource( 5 ) ]
 
 [node name="RoomSprite" type="Sprite" parent="."]
 scale = Vector2( 5, 5 )
+z_index = -100
 
 [node name="Wall" type="StaticBody2D" parent="."]
 position = Vector2( -800, 0 )
