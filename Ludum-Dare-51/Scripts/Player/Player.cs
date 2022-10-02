@@ -110,20 +110,21 @@ public class Player : RigidBody2D {
             this.playerSprite.FlipH = false;
         }
     }
-
-    public void OnDeath(){
-        ChangeState(PlayerState.DEAD);
-        playerSprite.FlipV = true;
-        GD.Print("Dead");
-    }
-
-    public void Damage(float damage){
-        lifePointManager.Damage(damage);
-    }
     
     private void StartMoveAnimation() {
         playerSprite.Frame = 0;
         playerSprite.Playing = true;
         playerSprite.Play();
+    }
+
+    public void OnHit(Vector2 direction, float knockbackForce) {
+        GD.Print("Player hit");
+        // TODO
+    }
+
+    public void OnDeath() {
+        GD.Print("Player dead");
+        ChangeState(PlayerState.DEAD);
+        playerSprite.FlipV = true;
     }
 }

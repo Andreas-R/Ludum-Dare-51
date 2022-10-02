@@ -6,10 +6,10 @@ public class Timeline : Control {
 
     public override void _Process(float delta) {
         if (Metronome.instance.IsFrame(-1, 0)) {
-            this.SpawnTick(largeTickPrefab);
+            this.SpawnTick(Timeline.largeTickPrefab);
         }
         if (Metronome.instance.IsFrame(-1, 0.5f)) {
-            this.SpawnTick(smallTickPrefab);
+            this.SpawnTick(Timeline.smallTickPrefab);
         }
     }
 

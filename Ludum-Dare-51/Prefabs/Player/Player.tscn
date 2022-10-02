@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Scripts/Player/Player.cs" type="Script" id=1]
 [ext_resource path="res://Physics/PlayerPhysics.tres" type="PhysicsMaterial" id=2]
@@ -9,6 +9,8 @@
 [ext_resource path="res://Scripts/Player/Abilities/AbilityHandler.cs" type="Script" id=7]
 [ext_resource path="res://Prefabs/Shadow.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scripts/LifePointManager.cs" type="Script" id=9]
+[ext_resource path="res://Scripts/DamageReceiver.cs" type="Script" id=10]
+[ext_resource path="res://Scripts/DamageDealer.cs" type="Script" id=11]
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 3 )
@@ -40,7 +42,7 @@ height = 8.8
 
 [node name="Player" type="RigidBody2D"]
 z_index = 1
-collision_mask = 12
+collision_mask = 2
 mode = 2
 mass = 5.10204
 physics_material_override = ExtResource( 2 )
@@ -57,11 +59,21 @@ frame = 4
 playing = true
 offset = Vector2( 0, -7 )
 
-[node name="Node2D" parent="." instance=ExtResource( 8 )]
+[node name="Shadow" parent="." instance=ExtResource( 8 )]
 position = Vector2( 0, -4.76837e-07 )
 scale = Vector2( 5, 5 )
+z_index = -1
 
 [node name="Collider" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -40 )
+shape = SubResource( 1 )
+
+[node name="DamageReceiver" type="Area2D" parent="."]
+collision_layer = 256
+collision_mask = 0
+script = ExtResource( 10 )
+
+[node name="Collider" type="CollisionShape2D" parent="DamageReceiver"]
 position = Vector2( 0, -40 )
 shape = SubResource( 1 )
 
@@ -69,11 +81,13 @@ shape = SubResource( 1 )
 position = Vector2( 0, -40 )
 script = ExtResource( 5 )
 
-[node name="Sword" type="KinematicBody2D" parent="SwordPivot"]
+[node name="Sword" type="Area2D" parent="SwordPivot"]
 position = Vector2( 0, -60 )
 scale = Vector2( 5, 5 )
-collision_layer = 2
-collision_mask = 8
+collision_layer = 0
+collision_mask = 1536
+script = ExtResource( 11 )
+damage = 40.0
 
 [node name="Sprite" type="Sprite" parent="SwordPivot/Sword"]
 visible = false
@@ -93,12 +107,15 @@ stream = ExtResource( 6 )
 volume_db = -20.0
 pitch_scale = 1.5
 
-[node name="AbilityHandler" type="Node" parent="."]
-script = ExtResource( 7 )
-
 [node name="LifePointManager" type="Node" parent="."]
 script = ExtResource( 9 )
 maxHealth = 100.0
 
+[node name="AbilityHandler" type="Node" parent="."]
+script = ExtResource( 7 )
+
+[connection signal="OnDamage" from="DamageReceiver" to="LifePointManager" method="Damage"]
+[connection signal="area_entered" from="SwordPivot/Sword" to="SwordPivot/Sword" method="OnArea2DEnter"]
 [connection signal="timeout" from="SwordPivot/AttackTimer" to="SwordPivot" method="StopAttack"]
 [connection signal="OnDeath" from="LifePointManager" to="." method="OnDeath"]
+[connection signal="OnHit" from="LifePointManager" to="." method="OnHit"]

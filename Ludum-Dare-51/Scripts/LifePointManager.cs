@@ -1,33 +1,28 @@
 using Godot;
 using System;
 
-public class LifePointManager : Node
-{
+public class LifePointManager : Node {
     [Export]
     public float maxHealth;
-    public float currentHealth;
 
+    [Signal]
+    public delegate void OnHit(Vector2 direction, float knockbackForce);
     [Signal]
     public delegate void OnDeath();
 
-    private Node _parent;
+    private float currentHealth;
 
-    // Called when the node enters the scene tree for the first time.
-    public override void _Ready()
-    {
+    public override void _Ready() {
         currentHealth = maxHealth;
-        _parent = GetParent();
     }
 
-    public void Damage(float damage){
-        currentHealth -= damage;
-        if(currentHealth <= 0){
-            Die();
+    public void Damage(float damage, Vector2 direction, float knockbackForce) {
+        currentHealth = Math.Max(0, currentHealth - damage);
+
+        if (currentHealth <= 0){
+            EmitSignal(nameof(OnDeath));
+        } else {
+            EmitSignal(nameof(OnHit), direction, knockbackForce);
         }
     }
-
-    public void Die(){
-        EmitSignal(nameof(OnDeath));
-    }
-
 }
