@@ -15,6 +15,8 @@ public class AbilityUpgradeHandler : Node {
 
     [Export]
     public Texture[] fireBallUpgradeMenuImages;
+    [Export]
+    public Texture[] iceNovaUpgradeMenuImages;
 
     public AbilityHandler playerAbilityHandler;
     public Dictionary<AbilityType, Texture[]> abilityMenuImages = new Dictionary<AbilityType, Texture[]>();
@@ -24,6 +26,7 @@ public class AbilityUpgradeHandler : Node {
 
         // add all ability images here
         this.abilityMenuImages.Add(AbilityType.FIREBALL, fireBallUpgradeMenuImages);
+        this.abilityMenuImages.Add(AbilityType.ICE_NOVA, iceNovaUpgradeMenuImages);
     }
 
     public List<AbilityUpgrade> GetPossibleUpgrades() {

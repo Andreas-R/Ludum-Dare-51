@@ -11,6 +11,8 @@ public class Timeline : Control {
 
     [Export]
     public Texture fireBallTickImage;
+    [Export]
+    public Texture iceNovaTickImage;
 
     private AbilityHandler playerAbilityHandler;
 
@@ -31,6 +33,10 @@ public class Timeline : Control {
                 switch(typeAndAbility.Key) {
                     case AbilityType.FIREBALL: {
                         this.SpawnImageTick(fireBallTickImage);
+                        break;
+                    }
+                    case AbilityType.ICE_NOVA: {
+                        this.SpawnImageTick(iceNovaTickImage);
                         break;
                     }
                 }

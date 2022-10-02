@@ -54,6 +54,10 @@ public class AbilityHandler : Node {
                     this.abilities[abilityType] = new FireballAbility();
                     return true;
                 }
+                case AbilityType.ICE_NOVA: {
+                    this.abilities[abilityType] = new IceNovaAbility();
+                    return true;
+                }
                 default: {
                     return false;
                 }
