@@ -11,6 +11,8 @@ public class Metronome : Node {
     
     public float currentBeat;
     public float lastBeat;
+    public float audioServerDelay;
+    public bool isPlaying;
 
     public override void _Ready() {
         instance = this;
@@ -18,6 +20,8 @@ public class Metronome : Node {
         lastTime = -1f;
         currentBeat = 0f;
         lastBeat = -1f;
+        audioServerDelay = (float) (AudioServer.GetTimeToNextMix() + AudioServer.GetOutputLatency());
+        isPlaying = false;
     }
 
     public override void _ExitTree() {
@@ -25,6 +29,8 @@ public class Metronome : Node {
     }
 
     public override void _Process(float delta) {
+        if (!isPlaying) return;
+
         lastTime = elapsedTime;
         elapsedTime += delta;
 
@@ -34,6 +40,10 @@ public class Metronome : Node {
 
         lastBeat = TimeToBeat(lastTime);
         currentBeat = TimeToBeat(elapsedTime);
+    }
+
+    public void Start() {
+        isPlaying = true;
     }
 
     public bool IsBeat(int[] beats, float[] timesInBeat) {
@@ -47,7 +57,25 @@ public class Metronome : Node {
         return false;
     }
 
+    
+    public bool IsBeatWithAudioDelay(int[] beats, float[] timesInBeat) {
+        for (int i = 0; i < beats.Length; i++) {
+            for (int j = 0; j < timesInBeat.Length; j++) {
+                if (this.IsBeat(beats[i], timesInBeat[j], Mathf.Max(0, audioServerDelay))) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public bool IsBeatWithAudioDelay(int beat, float timeInBeat) {
+        return this.IsBeat(beat, timeInBeat, Mathf.Max(0, audioServerDelay));
+    }
+
     public bool IsBeat(int beat, float timeInBeat, float delayInSecond = 0f) {
+        if (!isPlaying) return false;
+
         timeInBeat -= TimeToBeat(delayInSecond);
 
         if (timeInBeat < 0f) {
