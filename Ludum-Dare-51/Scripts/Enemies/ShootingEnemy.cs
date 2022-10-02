@@ -15,16 +15,22 @@ public class ShootingEnemy : AbstractEnemy {
 
     public override void _Process(float delta) {
         if (IsHit()) return;
-
+        bool isFrame = Metronome.instance.IsFrame(-1, 0f);
+        Vector2 playerPosition = this.player.GetCenter();
         if (
-            Metronome.instance.IsFrame(-1, 0f) &&
-            (this.player.GetCenter() - this.GlobalPosition).LengthSquared() <= Mathf.Pow(this.range, 2)
+           isFrame &&
+            (playerPosition - this.GlobalPosition).LengthSquared() <= Mathf.Pow(this.range, 2)
         ) {
+            Aim(playerPosition);
+            StartAttackAnimation();
             Arrow arrow = ShootingEnemy.arrowPrefab.Instance() as Arrow;
-            arrow.direction = (this.player.GetCenter() - this.GlobalPosition).Normalized();
+            arrow.direction = (playerPosition - this.GlobalPosition).Normalized();
             arrow.GlobalPosition = this.GlobalPosition + arrow.direction * 40f;
-            arrow.Rotation = this.GlobalPosition.AngleToPoint(this.player.GetCenter());
+            arrow.Rotation = this.GlobalPosition.AngleToPoint(playerPosition);
             GetTree().Root.GetNode<Node>("Main").AddChild(arrow);
+        } 
+        if (isFrame) {
+            StartMoveAnimation();
         }
     }
 
@@ -41,5 +47,9 @@ public class ShootingEnemy : AbstractEnemy {
         }
 
         HandleSpriteFlip(moveDir);
+    }
+
+    public void OnShootFinished() {
+         Aim(this.GlobalPosition + (IsFlipped() ? Vector2.Right : Vector2.Left));
     }
 }

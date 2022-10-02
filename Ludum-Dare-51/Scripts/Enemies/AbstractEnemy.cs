@@ -2,6 +2,7 @@ using Godot;
 
 public class AbstractEnemy : RigidBody2D {
     protected AnimatedSprite sprite;
+    protected AnimatedSprite weaponSprite = null;
     protected Timer hitTimer;
     protected Player player;
     
@@ -10,6 +11,9 @@ public class AbstractEnemy : RigidBody2D {
 
     public override void _Ready() {
         this.sprite = GetNode<AnimatedSprite>("Sprite");
+        if (HasNode("Weapon")) {
+            this.weaponSprite = GetNode<AnimatedSprite>("Weapon");
+        }
         this.hitTimer = GetNode<Timer>("HitTimer");
         this.player = GetTree().Root.GetNode<Player>("Main/Player");
     }
@@ -20,13 +24,39 @@ public class AbstractEnemy : RigidBody2D {
         this.sprite.Play();
     }
 
+    public void StartAttackAnimation() {
+        this.weaponSprite.Frame = 0;
+        this.weaponSprite.Playing = true;
+        this.weaponSprite.Play();
+    }
+
+    public void Aim(Vector2 targetPosition) {
+        Vector2 direction = Position - targetPosition;
+        float angle = Vector2.Left.AngleTo(direction);
+        if (this.weaponSprite.FlipH == false) angle += Mathf.Pi;
+        this.weaponSprite.Rotation = angle; 
+    }
+
     protected void HandleSpriteFlip(Vector2 movementInput) {
         if (movementInput.x > 0) {
             this.sprite.FlipH = true;
+            if (this.weaponSprite != null && this.weaponSprite.FlipH != true) {
+                this.weaponSprite.FlipH = true;
+                this.weaponSprite.Position = new Vector2( this.weaponSprite.Position.x * -1,  this.weaponSprite.Position.y);
+            }
         }
         if (movementInput.x < 0) {
             this.sprite.FlipH = false;
+            if (this.weaponSprite != null && this.weaponSprite.FlipH != false) {
+                this.weaponSprite.FlipH = false;
+                this.weaponSprite.Position = new Vector2( this.weaponSprite.Position.x * -1,  this.weaponSprite.Position.y);
+            }
         }
+    }
+
+
+    public bool IsFlipped() {
+        return this.sprite.FlipH;
     }
 
     public bool IsHit() {

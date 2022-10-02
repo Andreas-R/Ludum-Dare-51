@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://Scripts/Player/Player.cs" type="Script" id=1]
 [ext_resource path="res://Physics/PlayerPhysics.tres" type="PhysicsMaterial" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://Scripts/Damage/LifePointManager.cs" type="Script" id=9]
 [ext_resource path="res://Scripts/Damage/DamageReceiver.cs" type="Script" id=10]
 [ext_resource path="res://Scripts/Damage/SwordDamageDealer.cs" type="Script" id=11]
+[ext_resource path="res://Textures/slash.png" type="Texture" id=12]
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 3 )
@@ -43,6 +44,30 @@ height = 36.0
 [sub_resource type="CapsuleShape2D" id=9]
 radius = 2.0
 height = 8.8
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 12 )
+region = Rect2( 0, 0, 21, 41 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 12 )
+region = Rect2( 21, 0, 21, 41 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 12 )
+region = Rect2( 42, 0, 21, 41 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 12 )
+region = Rect2( 63, 0, 21, 41 )
+
+[sub_resource type="SpriteFrames" id=14]
+animations = [ {
+"frames": [ null, SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), null ],
+"loop": false,
+"name": "default",
+"speed": 12.0
+} ]
 
 [node name="Player" type="RigidBody2D"]
 collision_mask = 6
@@ -85,7 +110,7 @@ position = Vector2( 0, -38 )
 shape = SubResource( 8 )
 
 [node name="SwordPivot" type="Node2D" parent="."]
-position = Vector2( 0, -40 )
+position = Vector2( -5, -40 )
 script = ExtResource( 5 )
 
 [node name="Sword" type="Area2D" parent="SwordPivot"]
@@ -98,13 +123,19 @@ script = ExtResource( 11 )
 damage = 40.0
 
 [node name="Sprite" type="Sprite" parent="SwordPivot/Sword"]
-visible = false
+position = Vector2( 0, 2.6 )
 rotation = 1.5708
 texture = ExtResource( 4 )
 
 [node name="Collider" type="CollisionShape2D" parent="SwordPivot/Sword"]
 shape = SubResource( 9 )
 disabled = true
+
+[node name="Slash" type="AnimatedSprite" parent="SwordPivot/Sword"]
+rotation = 1.5708
+frames = SubResource( 14 )
+frame = 5
+playing = true
 
 [node name="AttackTimer" type="Timer" parent="SwordPivot"]
 wait_time = 0.5

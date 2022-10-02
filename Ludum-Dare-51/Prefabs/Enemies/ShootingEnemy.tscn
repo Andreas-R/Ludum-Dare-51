@@ -1,35 +1,52 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=19 format=2]
 
-[ext_resource path="res://Textures/skeleton_example.png" type="Texture" id=1]
+[ext_resource path="res://Textures/skeleton_bow.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Enemies/ShootingEnemy.cs" type="Script" id=2]
 [ext_resource path="res://Scripts/Damage/LifePointManager.cs" type="Script" id=3]
 [ext_resource path="res://Prefabs/Shadow.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scripts/Damage/DamageDealer.cs" type="Script" id=5]
 [ext_resource path="res://Scripts/Damage/DamageReceiver.cs" type="Script" id=6]
 [ext_resource path="res://Physics/EnemyPhysics.tres" type="PhysicsMaterial" id=7]
+[ext_resource path="res://Textures/skeleton_nobow.png" type="Texture" id=8]
 
 [sub_resource type="CapsuleShape2D" id=10]
 radius = 17.0
 height = 22.0
 
-[sub_resource type="AtlasTexture" id=5]
-atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 8, 12 )
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 8 )
+region = Rect2( 16, 0, 8, 13 )
 
-[sub_resource type="AtlasTexture" id=6]
-atlas = ExtResource( 1 )
-region = Rect2( 8, 0, 8, 12 )
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 8 )
+region = Rect2( 0, 0, 8, 13 )
 
-[sub_resource type="AtlasTexture" id=7]
-atlas = ExtResource( 1 )
-region = Rect2( 16, 0, 8, 12 )
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 8 )
+region = Rect2( 8, 0, 8, 13 )
 
 [sub_resource type="SpriteFrames" id=4]
 animations = [ {
-"frames": [ SubResource( 5 ), SubResource( 6 ), SubResource( 7 ) ],
-"loop": true,
+"frames": [ SubResource( 11 ), SubResource( 12 ), SubResource( 12 ), SubResource( 13 ), SubResource( 13 ), SubResource( 13 ), SubResource( 12 ), SubResource( 12 ) ],
+"loop": false,
 "name": "default",
-"speed": 5.0
+"speed": 8.0
+} ]
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 1 )
+region = Rect2( 7, 0, 7, 7 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 7, 7 )
+
+[sub_resource type="SpriteFrames" id=16]
+animations = [ {
+"frames": [ SubResource( 14 ), SubResource( 15 ) ],
+"loop": false,
+"name": "default",
+"speed": 10.0
 } ]
 
 [sub_resource type="CapsuleShape2D" id=8]
@@ -61,8 +78,19 @@ position = Vector2( 1.90735e-06, -9.53674e-07 )
 rotation = -6.28319
 scale = Vector2( 5, 5 )
 frames = SubResource( 4 )
+frame = 7
 playing = true
 offset = Vector2( 0, -6 )
+flip_h = true
+
+[node name="Weapon" type="AnimatedSprite" parent="."]
+position = Vector2( 12, -30 )
+rotation = -6.28319
+scale = Vector2( 5, 5 )
+frames = SubResource( 16 )
+frame = 1
+playing = true
+flip_h = true
 
 [node name="Shadow" parent="." instance=ExtResource( 4 )]
 position = Vector2( 0, 9.53674e-07 )
@@ -75,6 +103,7 @@ collision_mask = 0
 script = ExtResource( 6 )
 
 [node name="Collider" type="CollisionShape2D" parent="DamageReceiver"]
+visible = false
 position = Vector2( 0, -28 )
 shape = SubResource( 8 )
 
@@ -85,6 +114,7 @@ script = ExtResource( 5 )
 damage = 10.0
 
 [node name="Collider" type="CollisionShape2D" parent="DamageDealer"]
+visible = false
 position = Vector2( 0, -28 )
 shape = SubResource( 9 )
 
@@ -96,6 +126,7 @@ maxHealth = 100.0
 wait_time = 0.25
 one_shot = true
 
+[connection signal="animation_finished" from="Weapon" to="." method="OnShootFinished"]
 [connection signal="OnDamage" from="DamageReceiver" to="LifePointManager" method="Damage"]
 [connection signal="area_entered" from="DamageDealer" to="DamageDealer" method="OnArea2DEnter"]
 [connection signal="OnDeath" from="LifePointManager" to="." method="OnDeath"]

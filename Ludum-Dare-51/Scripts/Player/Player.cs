@@ -10,6 +10,7 @@ public class Player : RigidBody2D {
     private LifePointManager lifePointManager;
     private Timer invulnerableTimer;
     private CollisionShape2D damageReceiverCollider;
+    private Node2D swordPivot;
 
     private float movementDeadzone = 0.2f;
 
@@ -18,6 +19,7 @@ public class Player : RigidBody2D {
     
     public override void _Ready() {
         this.center = GetNode<Node2D>("Center");
+        this.swordPivot = GetNode<Node2D>("SwordPivot");
         this.playerSprite = GetNode<AnimatedSprite>("PlayerSprite");
         this.lifePointManager = GetNode<LifePointManager>("LifePointManager");
         this.invulnerableTimer = GetNode<Timer>("InvulnerableTimer");
@@ -40,7 +42,7 @@ public class Player : RigidBody2D {
         switch(this.state) {
             case PlayerState.RUNNING: {
                 this.HandleMovement(bodyState, movementInput);
-                this.HandleSpriteFlip(movementInput);
+                this.HandleSpriteFlip();
                 break;
             }
             case PlayerState.ATTACKING: {
@@ -107,11 +109,18 @@ public class Player : RigidBody2D {
         bodyState.LinearVelocity = newVelocity;
     }
 
-    private void HandleSpriteFlip(Vector2 movementInput) {
-        if (movementInput.x > movementDeadzone) {
+    private void HandleSpriteFlip() {
+         Vector2 attackDir = (GetGlobalMousePosition() - GetCenter()).Normalized();
+        if (attackDir.x > movementDeadzone) {
+            if (this.playerSprite.FlipH != true) {
+                this.swordPivot.Position = new Vector2( this.swordPivot.Position.x * -1,  this.swordPivot.Position.y);
+            }
             this.playerSprite.FlipH = true;
         }
-        if (movementInput.x < -movementDeadzone) {
+        if (attackDir.x < -movementDeadzone) {
+            if (this.playerSprite.FlipH != false) {
+                this.swordPivot.Position = new Vector2( this.swordPivot.Position.x * -1,  this.swordPivot.Position.y);
+            }
             this.playerSprite.FlipH = false;
         }
     }
