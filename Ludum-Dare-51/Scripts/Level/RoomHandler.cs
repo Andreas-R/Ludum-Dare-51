@@ -14,7 +14,7 @@ public class RoomHandler : Node2D {
     [Export]
     public float spawnWallMargin = 50f;
     [Export]
-    public int chestSpawnFrequency = 1;
+    public int chestSpawnFrequency = 4;
 
     private Sprite roomSprite;
     private Chest chest;
