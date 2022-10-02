@@ -6,13 +6,21 @@ public class Player : RigidBody2D {
 
     private PlayerState state;
     private AnimatedSprite playerSprite;
+    private LifePointManager lifePointManager;
+    private Timer invulnerableTimer;
+    private CollisionShape2D damageReceiverCollider;
+
     private float movementDeadzone = 0.2f;
     public Vector2 lastNonZeroMoveDir = Vector2.Left;
-    public LifePointManager lifePointManager;
+
+    private Color hitColor = new Color(1f, 0.5f, 0.5f);
+    private Color defaultColor = new Color(1f, 1f, 1f);
     
     public override void _Ready() {
         this.playerSprite = GetNode<AnimatedSprite>("PlayerSprite");
         this.lifePointManager = GetNode<LifePointManager>("LifePointManager");
+        this.invulnerableTimer = GetNode<Timer>("InvulnerableTimer");
+        this.damageReceiverCollider = GetNode<CollisionShape2D>("DamageReceiver/Collider");
 
         this.state = PlayerState.RUNNING;
     }
@@ -117,13 +125,24 @@ public class Player : RigidBody2D {
         playerSprite.Play();
     }
 
+    private bool IsInvulnerable() {
+        return !invulnerableTimer.IsStopped();
+    }
+
+    private void OnVulnerableEnd() {
+        this.lifePointManager.isInvulnerable = false;
+        this.damageReceiverCollider.Disabled = false;
+        playerSprite.Modulate = defaultColor;
+    }
+
     public void OnHit(Vector2 direction, float knockbackForce) {
-        GD.Print("Player hit");
-        // TODO
+        this.lifePointManager.isInvulnerable = true;
+        this.damageReceiverCollider.Disabled = true;
+        playerSprite.Modulate = hitColor;
+        invulnerableTimer.Start();
     }
 
     public void OnDeath() {
-        GD.Print("Player dead");
         ChangeState(PlayerState.DEAD);
         playerSprite.FlipV = true;
     }

@@ -122,8 +122,13 @@ maxHealth = 500.0
 [node name="AbilityHandler" type="Node" parent="."]
 script = ExtResource( 7 )
 
+[node name="InvulnerableTimer" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
+
 [connection signal="OnDamage" from="DamageReceiver" to="LifePointManager" method="Damage"]
 [connection signal="area_entered" from="SwordPivot/Sword" to="SwordPivot/Sword" method="OnArea2DEnter"]
 [connection signal="timeout" from="SwordPivot/AttackTimer" to="SwordPivot" method="StopAttack"]
 [connection signal="OnDeath" from="LifePointManager" to="." method="OnDeath"]
 [connection signal="OnHit" from="LifePointManager" to="." method="OnHit"]
+[connection signal="timeout" from="InvulnerableTimer" to="." method="OnVulnerableEnd"]

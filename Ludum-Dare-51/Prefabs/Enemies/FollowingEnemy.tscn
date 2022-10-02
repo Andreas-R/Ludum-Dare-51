@@ -96,8 +96,13 @@ maxHealth = 100.0
 wait_time = 0.5
 one_shot = true
 
+[node name="HitTimer" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
+
 [connection signal="OnDamage" from="DamageReceiver" to="LifePointManager" method="Damage"]
 [connection signal="area_entered" from="DamageDealer" to="DamageDealer" method="OnArea2DEnter"]
 [connection signal="OnDeath" from="LifePointManager" to="." method="OnDeath"]
 [connection signal="OnHit" from="LifePointManager" to="." method="OnHit"]
 [connection signal="timeout" from="MoveTimer" to="." method="StopMove"]
+[connection signal="timeout" from="HitTimer" to="." method="OnHitEnd"]
