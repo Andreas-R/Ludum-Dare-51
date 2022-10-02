@@ -3,12 +3,19 @@ using System;
 using System.Collections.Generic;
 
 public class RoomHandler : Node2D {
+    private static RandomNumberGenerator rng = new RandomNumberGenerator();
+
     [Export]
     public RoomData[] rooms;
+    [Export]
+    public Vector2 roomStart = new Vector2(-600, -400);
+    [Export]
+    public Vector2 roomEnd = new Vector2(600, 400);
+    [Export]
+    public float spawnWallMargin = 50f;
 
     private Sprite roomSprite;
 
-    private RandomNumberGenerator rng = new RandomNumberGenerator();
     private int roomCounter = 0;
     private int lastRoomIndex = -1;
     private int spriteIndex = 0;
@@ -16,6 +23,7 @@ public class RoomHandler : Node2D {
     private RoomData currentRoom;
     private BgMusicHandler bgMusicHandler;
     private static Vector2 scale = new Vector2(5f, 5f);
+
     public override void _Ready() {
         roomSprite = GetNode<Sprite>("RoomSprite");
         bgMusicHandler = GetParent().GetNode<BgMusicHandler>("BgMusicHandler");
@@ -79,6 +87,8 @@ public class RoomHandler : Node2D {
         spriteCount = room.roomImage.Length;
         roomSprite.Texture = room.roomImage[0];
         bgMusicHandler.ChangeMainBackgroundMusic(room.bgMusicSample);
+
+        this.SpawnEnemies(room);
     }
 
     private void SpawnEnemies(RoomData room) {
@@ -86,7 +96,17 @@ public class RoomHandler : Node2D {
         float lifeMultiplier = 1f + (roomCounter * 0.2f);
 
         for (int i = 0; i < numberOfEnemies; i += 1) {
-
+            PackedScene enemyPrefab = room.spawnableEnemies[rng.RandiRange(0, room.spawnableEnemies.Length - 1)];
+            AbstractEnemy enemy = enemyPrefab.Instance() as AbstractEnemy;
+            enemy.GlobalPosition = this.GetRandomSpawnPosition();
+            GetTree().Root.GetNode<Node>("Main").AddChild(enemy);
         }
+    }
+
+    private Vector2 GetRandomSpawnPosition() {
+        return new Vector2(
+            rng.RandfRange(roomStart.x + spawnWallMargin, roomEnd.x + spawnWallMargin),
+            rng.RandfRange(roomStart.y - spawnWallMargin, roomEnd.y - spawnWallMargin)
+        );
     }
 }
