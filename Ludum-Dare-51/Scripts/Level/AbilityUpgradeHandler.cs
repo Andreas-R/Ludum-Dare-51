@@ -16,8 +16,8 @@ public class AbilityUpgradeHandler : Node {
     [Export]
     public Texture[] fireBallUpgradeMenuImages;
 
-    private AbilityHandler playerAbilityHandler;
-    private Dictionary<AbilityType, Texture[]> abilityMenuImages = new Dictionary<AbilityType, Texture[]>();
+    public AbilityHandler playerAbilityHandler;
+    public Dictionary<AbilityType, Texture[]> abilityMenuImages = new Dictionary<AbilityType, Texture[]>();
 
     public override void _Ready() {
         this.playerAbilityHandler = GetTree().Root.GetNode<AbilityHandler>("Main/Player/AbilityHandler");
