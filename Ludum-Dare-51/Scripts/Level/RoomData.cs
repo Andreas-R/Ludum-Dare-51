@@ -14,7 +14,7 @@ public class RoomData : Resource {
   public int minSpawnRoomCount;
 
   [Export]
-  public PackedScene[] spawnableEnemies;
+  public Resource[] spawnableEnemies;
 
   [Export]
   public AudioStreamSample bgMusicSample;

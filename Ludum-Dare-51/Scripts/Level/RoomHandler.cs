@@ -96,7 +96,7 @@ public class RoomHandler : Node2D {
         float lifeMultiplier = 1f + (roomCounter * 0.2f);
 
         for (int i = 0; i < numberOfEnemies; i += 1) {
-            PackedScene enemyPrefab = room.spawnableEnemies[rng.RandiRange(0, room.spawnableEnemies.Length - 1)];
+            PackedScene enemyPrefab = room.spawnableEnemies[rng.RandiRange(0, room.spawnableEnemies.Length - 1)] as PackedScene;
             AbstractEnemy enemy = enemyPrefab.Instance() as AbstractEnemy;
             enemy.GlobalPosition = this.GetRandomSpawnPosition();
             GetTree().Root.GetNode<Node>("Main").AddChild(enemy);
