@@ -1,9 +1,13 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Resources/Room_001.tres" type="Resource" id=1]
 [ext_resource path="res://Scripts/Level/RoomHandler.cs" type="Script" id=2]
+[ext_resource path="res://Textures/chest.png" type="Texture" id=3]
+[ext_resource path="res://Textures/e-tooltip.png" type="Texture" id=4]
 [ext_resource path="res://Resources/Room_002.tres" type="Resource" id=5]
 [ext_resource path="res://Physics/WallPhysics.tres" type="PhysicsMaterial" id=6]
+[ext_resource path="res://Textures/upgrade-menu.png" type="Texture" id=7]
+[ext_resource path="res://Scripts/UI/Abilities/UpgradeMenu.cs" type="Script" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 200, 400 )
@@ -19,6 +23,48 @@ rooms = [ ExtResource( 1 ), ExtResource( 5 ) ]
 [node name="RoomSprite" type="Sprite" parent="."]
 scale = Vector2( 5, 5 )
 z_index = -100
+
+[node name="Chest" type="Sprite" parent="."]
+visible = false
+scale = Vector2( 5, 5 )
+texture = ExtResource( 3 )
+offset = Vector2( 0, -9 )
+hframes = 2
+frame = 1
+
+[node name="Tooltip" type="Sprite" parent="Chest"]
+position = Vector2( 0, -22 )
+texture = ExtResource( 4 )
+
+[node name="MenuParent" type="Node2D" parent="Chest"]
+scale = Vector2( 1, 1 )
+z_index = 50
+
+[node name="UpgradeMenu" type="TextureRect" parent="Chest/MenuParent"]
+margin_left = -26.0
+margin_top = -47.0
+margin_right = 26.0
+margin_bottom = -17.0
+texture = ExtResource( 7 )
+script = ExtResource( 8 )
+
+[node name="Upgrade1" type="TextureRect" parent="Chest/MenuParent/UpgradeMenu"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 17.0
+margin_bottom = 25.0
+
+[node name="Upgrade2" type="TextureRect" parent="Chest/MenuParent/UpgradeMenu"]
+margin_left = 18.0
+margin_top = 1.0
+margin_right = 34.0
+margin_bottom = 25.0
+
+[node name="Upgrade3" type="TextureRect" parent="Chest/MenuParent/UpgradeMenu"]
+margin_left = 35.0
+margin_top = 1.0
+margin_right = 51.0
+margin_bottom = 25.0
 
 [node name="Wall" type="StaticBody2D" parent="."]
 position = Vector2( -800, 0 )

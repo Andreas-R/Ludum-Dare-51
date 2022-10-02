@@ -7,7 +7,7 @@ public abstract class AbstractAbility {
     public int level2Max = 0;
     public int level3Max = 0;
 
-    public abstract void OnProcess(AbilityHandler abilityHandler, float delta);
+    public abstract void OnProcess(Player player, float delta);
 
     public int GetTotalLevel() {
         return level1 + level2 + level3;

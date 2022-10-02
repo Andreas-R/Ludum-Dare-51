@@ -1,7 +1,6 @@
 using Godot;
 
 public class FireballAbility : AbstractAbility {
-    private Player player;
     private float baseDamage = 50f;
 
     public FireballAbility() {
@@ -10,7 +9,7 @@ public class FireballAbility : AbstractAbility {
         level3Max = 3;
     }
 
-    public override void OnProcess(AbilityHandler abilityHandler, float delta) {
+    public override void OnProcess(Player player, float delta) {
         if (Metronome.instance.IsBeat(GetFrequency(), new float[] {0.5f})) {
             // spawn fireball
         }
