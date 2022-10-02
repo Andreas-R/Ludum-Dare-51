@@ -11,7 +11,7 @@ public class FireballAbility : AbstractAbility {
     }
 
     public override void OnProcess(AbilityHandler abilityHandler, float delta) {
-        if (Metronome.instance.IsFrame(GetFrequency(), new float[] {0.5f})) {
+        if (Metronome.instance.IsBeat(GetFrequency(), new float[] {0.5f})) {
             // spawn fireball
         }
     }
@@ -30,10 +30,10 @@ public class FireballAbility : AbstractAbility {
                 return new int[] {1};
             }
             case 1: {
-                return new int[] {1, 6};
+                return new int[] {1, 5};
             }
             case 2: {
-                return new int[] {1, 3, 5, 7, 9};
+                return new int[] {1, 3, 5, 7};
             }
             case 3: {
                 return new int[] {-1};

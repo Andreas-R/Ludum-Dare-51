@@ -4,9 +4,13 @@ public class Metronome : Node {
     public static Metronome instance;
 
     public static int CYCLE_TIME = 10;
+    public static int BEATS_PER_CYCLE = 8;
 
-    public float elapsedTime;
+    private float elapsedTime;
     private float lastTime;
+    
+    public float currentBeat;
+    public float lastBeat;
 
     public override void _Ready() {
         instance = this;
@@ -21,15 +25,19 @@ public class Metronome : Node {
     public override void _Process(float delta) {
         lastTime = elapsedTime;
         elapsedTime += delta;
+
         if (elapsedTime >= CYCLE_TIME) {
             elapsedTime -= CYCLE_TIME;
         }
+
+        lastBeat = TimeToBeat(lastTime);
+        currentBeat = TimeToBeat(elapsedTime);
     }
 
-    public bool IsFrame(int[] cycleSeconds, float[] timesInSecond) {
-        for (int i = 0; i < cycleSeconds.Length; i++) {
-            for (int j = 0; j < timesInSecond.Length; j++) {
-                if (this.IsFrame(cycleSeconds[i], timesInSecond[j])) {
+    public bool IsBeat(int[] beats, float[] timesInBeat) {
+        for (int i = 0; i < beats.Length; i++) {
+            for (int j = 0; j < timesInBeat.Length; j++) {
+                if (this.IsBeat(beats[i], timesInBeat[j])) {
                     return true;
                 }
             }
@@ -37,42 +45,46 @@ public class Metronome : Node {
         return false;
     }
 
-    public bool IsFrame(int cycleSecond, float timeInSecond, float delay = 0f) {
-        timeInSecond -= delay;
+    public bool IsBeat(int beat, float timeInBeat, float delayInSecond = 0f) {
+        timeInBeat -= TimeToBeat(delayInSecond);
 
-        if (timeInSecond < 0f) {
-            int negativeSconds = Mathf.FloorToInt(timeInSecond);
-            timeInSecond -= negativeSconds;
-            cycleSecond += negativeSconds;
+        if (timeInBeat < 0f) {
+            int negativeBeats = Mathf.FloorToInt(timeInBeat);
+            timeInBeat -= negativeBeats;
+            beat += negativeBeats;
             
-            while (cycleSecond < 0) {
-                cycleSecond += CYCLE_TIME;
+            while (beat < 0) {
+                beat += CYCLE_TIME;
             }
         }
 
-        if (cycleSecond != -1) {
-            if (Mathf.FloorToInt(elapsedTime) != cycleSecond && Mathf.FloorToInt(lastTime) != cycleSecond) {
+        if (beat != -1) {
+            if (Mathf.FloorToInt(currentBeat) != beat && Mathf.FloorToInt(lastBeat) != beat) {
                 return false;
             }
         }
 
-        if (cycleSecond == -1) {
-            float elapsedTime_timeInSecond = elapsedTime - Mathf.Floor(elapsedTime);
-            float lastTime_timeInSecond = lastTime - Mathf.Floor(lastTime);
+        if (beat == -1) {
+            float currentBeat_timeInSecond = currentBeat - Mathf.Floor(currentBeat);
+            float lastBeat_timeInSecond = lastBeat - Mathf.Floor(lastBeat);
 
-            if (elapsedTime_timeInSecond >= lastTime_timeInSecond) {
-                return timeInSecond > lastTime_timeInSecond && timeInSecond <= elapsedTime_timeInSecond;
+            if (currentBeat_timeInSecond >= lastBeat_timeInSecond) {
+                return timeInBeat > lastBeat_timeInSecond && timeInBeat <= currentBeat_timeInSecond;
             } else {
-                return timeInSecond > lastTime_timeInSecond || timeInSecond <= elapsedTime_timeInSecond;
+                return timeInBeat > lastBeat_timeInSecond || timeInBeat <= currentBeat_timeInSecond;
             }
         } else {
-            float cycleTime = cycleSecond + timeInSecond;
+            float cycleTime = beat + timeInBeat;
 
-            if (elapsedTime >= lastTime) {
-                return cycleTime > lastTime && cycleTime <= elapsedTime;
+            if (currentBeat >= lastBeat) {
+                return cycleTime > lastBeat && cycleTime <= currentBeat;
             } else {
-                return cycleTime > lastTime || cycleTime <= elapsedTime;
+                return cycleTime > lastBeat || cycleTime <= currentBeat;
             }
         }
+    }
+
+    public float TimeToBeat(float time) {
+        return time * ((float) BEATS_PER_CYCLE / (float) CYCLE_TIME);
     }
 }

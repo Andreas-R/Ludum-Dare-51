@@ -22,7 +22,7 @@ public class RoomHandler : Node2D {
     }
 
     public override void _Process(float delta) {
-        if (Metronome.instance.IsFrame(-1, 0)) {
+        if (Metronome.instance.IsBeat(-1, 0)) {
              roomSprite.Scale = scale * 1.001f;
             int nextIndex = spriteIndex + 1;
             if (nextIndex < spriteCount) {
@@ -83,7 +83,7 @@ public class RoomHandler : Node2D {
         float lifeMultiplier = 1f + (roomCounter * 0.2f);
 
         for (int i = 0; i < numberOfEnemies; i += 1) {
-            
+
         }
     }
 }

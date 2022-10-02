@@ -18,7 +18,7 @@ public class PlayerFollowingEnemy : AbstractEnemy {
         if (!this.isMoving) {
             bodyState.LinearVelocity = Vector2.Zero;
 
-            if (Metronome.instance.IsFrame(-1, 0f)) {
+            if (Metronome.instance.IsBeat(-1, 0f)) {
                 this.InitMove(bodyState);
             }
         }

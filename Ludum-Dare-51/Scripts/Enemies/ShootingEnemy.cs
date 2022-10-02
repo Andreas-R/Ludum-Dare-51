@@ -15,7 +15,7 @@ public class ShootingEnemy : AbstractEnemy {
 
     public override void _Process(float delta) {
         if (IsHit()) return;
-        bool isFrame = Metronome.instance.IsFrame(-1, 0f);
+        bool isFrame = Metronome.instance.IsBeat(-1, 0f);
         Vector2 playerPosition = this.player.GetCenter();
         if (
            isFrame &&

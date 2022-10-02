@@ -28,7 +28,7 @@ public class Sword : Node2D {
     }
 
     public override void _Process(float delta) {
-        if (Metronome.instance.IsFrame(-1, 1f - this.attackTimer.WaitTime * 0.5f)) {
+        if (Metronome.instance.IsBeat(-1, 1f - Metronome.instance.TimeToBeat(this.attackTimer.WaitTime * 0.5f))) {
             this.InitAttack();
         }
 

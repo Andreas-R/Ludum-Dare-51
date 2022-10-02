@@ -8,7 +8,7 @@ public class LevelManager : Node {
     }
 
     public override void _Process(float delta) {
-        if (Metronome.instance.IsFrame(0, 0)) {
+        if (Metronome.instance.IsBeat(0, 0)) {
             this.roomHandler.ChangeToRandomRoom();
         }
     }
