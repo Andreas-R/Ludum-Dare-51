@@ -3,5 +3,5 @@
 [ext_resource path="res://Scripts/Metronome.cs" type="Script" id=1]
 
 [node name="Metronome" type="Node"]
-process_priority = -1
+process_priority = 1
 script = ExtResource( 1 )
