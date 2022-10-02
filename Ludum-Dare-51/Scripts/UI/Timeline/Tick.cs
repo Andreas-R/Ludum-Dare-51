@@ -2,9 +2,6 @@ using Godot;
 using System;
 
 public class Tick : ColorRect {
-    private float timelineLength = 1600f;
-    private int numberOfSecondsOnTimeline = 4;
-
     private float thicknessX;
     private float thicknessY;
     private float elapsedTime;
@@ -25,8 +22,8 @@ public class Tick : ColorRect {
     }
 
     private void PlaceTick() {
-        float t = elapsedTime / numberOfSecondsOnTimeline;
-        float xPos = ((-timelineLength) * t + (timelineLength) * (1f - t)) * 0.5f;
+        float t = elapsedTime / Timeline.numberOfSecondsOnTimeline;
+        float xPos = ((-Timeline.timelineLength) * t + (Timeline.timelineLength) * (1f - t)) * 0.5f;
 
         this.MarginRight = xPos + thicknessX;
         this.MarginLeft = xPos - thicknessX;
