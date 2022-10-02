@@ -6,9 +6,13 @@ public class RoomData : Resource {
 
   [Export]
   public Texture[] roomImage;
+
   [Export]
   public float spawnWeight;
 
   [Export]
   public int minSpawnRoomCount;
+
+  [Export]
+  public PackedScene[] spawnAbleEnemies;
 }

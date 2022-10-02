@@ -1,8 +1,9 @@
-[gd_resource type="Resource" load_steps=4 format=2]
+[gd_resource type="Resource" load_steps=5 format=2]
 
 [ext_resource path="res://Scripts/Level/RoomData.cs" type="Script" id=1]
 [ext_resource path="res://Textures/jungle_room2.png" type="Texture" id=2]
 [ext_resource path="res://Textures/jungle_room1.png" type="Texture" id=3]
+[ext_resource path="res://Prefabs/Enemies/Slime.tscn" type="PackedScene" id=4]
 
 [resource]
 script = ExtResource( 1 )
@@ -10,3 +11,4 @@ id = "Room_002"
 roomImage = [ ExtResource( 3 ), ExtResource( 2 ) ]
 spawnWeight = 10.0
 minSpawnRoomCount = 0
+spawnAbleEnemies = [ ExtResource( 4 ) ]

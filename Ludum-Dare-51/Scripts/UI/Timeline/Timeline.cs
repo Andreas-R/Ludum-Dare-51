@@ -1,6 +1,9 @@
 using Godot;
 
 public class Timeline : Control {
+    public static float timelineLength = 1600f;
+    public static int numberOfSecondsOnTimeline = 8;
+
     private static PackedScene largeTickPrefab = ResourceLoader.Load("res://Prefabs/UI/LargeTick.tscn") as PackedScene;
     private static PackedScene smallTickPrefab = ResourceLoader.Load("res://Prefabs/UI/SmallTick.tscn") as PackedScene;
 
