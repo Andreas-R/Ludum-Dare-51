@@ -15,4 +15,7 @@ public class RoomData : Resource {
 
   [Export]
   public PackedScene[] spawnAbleEnemies;
+
+  [Export]
+  public AudioStreamSample bgMusicSample;
 }

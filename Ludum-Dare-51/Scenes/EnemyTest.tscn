@@ -8,7 +8,7 @@
 [ext_resource path="res://Prefabs/UI/HUD.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Prefabs/Enemies/Skeleton.tscn" type="PackedScene" id=7]
 
-[node name="Main" type="YSort"]
+[node name="Main2" type="YSort"]
 
 [node name="Metronome" type="Node" parent="."]
 script = ExtResource( 5 )

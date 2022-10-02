@@ -14,9 +14,11 @@ public class RoomHandler : Node2D {
     private int spriteIndex = 0;
     private int spriteCount = 0;
     private RoomData currentRoom;
+    private BgMusicHandler bgMusicHandler;
     private static Vector2 scale = new Vector2(5f, 5f);
     public override void _Ready() {
         roomSprite = GetNode<Sprite>("RoomSprite");
+        bgMusicHandler = GetParent().GetNode<BgMusicHandler>("BgMusicHandler");
         
         rng.Randomize();
     }
@@ -76,6 +78,7 @@ public class RoomHandler : Node2D {
         currentRoom = room;
         spriteCount = room.roomImage.Length;
         roomSprite.Texture = room.roomImage[0];
+        bgMusicHandler.ChangeMainBackgroundMusic(room.bgMusicSample);
     }
 
     private void SpawnEnemies(RoomData room) {

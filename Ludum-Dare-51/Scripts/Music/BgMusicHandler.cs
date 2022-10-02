@@ -1,41 +1,55 @@
 using Godot;
 using System;
 
-public class BgMusicHandler : Node2D
+public class BgMusicHandler : Node
 {
     private double audioServerDelay;
-    private float fadeInDuration = 0.3f;
+    private float fadeInDuration = 0.5f;
 
     private float bgOff = -80f;
     private float bgOn = 0f;
 
     private Tween musicFadeInTween;
 
-    private AudioStreamPlayer bgPlayer;
+    private AudioStreamPlayer currentMainBgPlayer;
+    private AudioStreamPlayer nextMainBgPlayer;
+    private AudioStreamPlayer recordScratchPlayer;
+    private bool isCurrentBgPlaying;
 
     public override void _Ready() {
         audioServerDelay = AudioServer.GetTimeToNextMix() + AudioServer.GetOutputLatency();
         musicFadeInTween = GetNode<Tween>("MusicFadeInTween");
-        bgPlayer = GetNode<AudioStreamPlayer>("BgPlayer");
-        playMainAudio();
+        recordScratchPlayer = GetNode<AudioStreamPlayer>("RecordScratchPlayer");
+        currentMainBgPlayer = GetNode<AudioStreamPlayer>("BgPlayer");
+        nextMainBgPlayer = GetNode<AudioStreamPlayer>("NextBgPlayer");
+        isCurrentBgPlaying = true;
     }
 
-    public void playMainAudio() {
-        playAudio(bgPlayer, Metronome.instance.elapsedTime + (float) audioServerDelay);
+    public void ChangeMainBackgroundMusic(AudioStreamSample sample) {
+        var fadeOutPlayer = isCurrentBgPlaying ? currentMainBgPlayer : nextMainBgPlayer;
+        var fadeInPlayer = isCurrentBgPlaying ? nextMainBgPlayer : currentMainBgPlayer;
+
+        recordScratchPlayer.Play();
+        fadeInPlayer.Stream = sample;
+       
+
+        PlayAudio(fadeInPlayer, Metronome.instance.elapsedTime + (float) audioServerDelay);
+        isCurrentBgPlaying = !isCurrentBgPlaying;
     }
 
-    public void playAudio(AudioStreamPlayer player) {
+    public void PlayAudio(AudioStreamPlayer player) {
         // sync millisecond, but not seconds
-        double nextSecond = Math.Ceiling(bgPlayer.GetPlaybackPosition());
-        double diff = nextSecond - bgPlayer.GetPlaybackPosition();
+        var currentPlayer = isCurrentBgPlaying ? currentMainBgPlayer : nextMainBgPlayer;
+        double nextSecond = Math.Ceiling(currentPlayer.GetPlaybackPosition());
+        double diff = nextSecond - currentPlayer.GetPlaybackPosition();
 
-        playAudio(player, (float) (1 - diff));
+        PlayAudio(player, (float) (1 - diff));
     }
 
-    public void playAudio(AudioStreamPlayer player, float fromPosition) {
+    public void PlayAudio(AudioStreamPlayer player, float fromPosition) {
         player.VolumeDb = bgOff;
         musicFadeInTween.InterpolateProperty(player, "volume_db", bgOff, bgOn, fadeInDuration,
-            Tween.TransitionType.Linear, Tween.EaseType.In);     
+            Tween.TransitionType.Linear, Tween.EaseType.In);
         player.Play(fromPosition);
         musicFadeInTween.Start();
     }
