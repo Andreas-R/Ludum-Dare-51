@@ -27,6 +27,7 @@ scale = Vector2( 5, 5 )
 z_index = -100
 
 [node name="Chest" type="Sprite" parent="."]
+visible = false
 scale = Vector2( 5, 5 )
 texture = ExtResource( 3 )
 offset = Vector2( 0, -9 )
@@ -42,6 +43,7 @@ texture = ExtResource( 4 )
 z_index = 50
 
 [node name="UpgradeMenu" type="TextureRect" parent="Chest/MenuParent"]
+visible = false
 margin_left = -26.0
 margin_top = -47.0
 margin_right = 26.0
