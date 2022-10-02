@@ -6,7 +6,7 @@ public class Metronome : Node {
     public static int CYCLE_TIME = 10;
     public static int BEATS_PER_CYCLE = 8;
 
-    private float elapsedTime;
+    public float elapsedTime;
     private float lastTime;
     
     public float currentBeat;
