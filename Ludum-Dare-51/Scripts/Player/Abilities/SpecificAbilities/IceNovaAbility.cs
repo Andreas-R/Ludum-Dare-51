@@ -9,20 +9,20 @@ public class IceNovaAbility : AbstractAbility {
 
     public override void OnProcess(Player player, float delta) {
         if (Metronome.instance.IsBeat(this.GetBeatFrequency(), this.GetSubBeatFrequency())) {
-            
+            IceNova iceNova = player.GetNode<IceNova>("IceNova");
+            iceNova.damage = iceNova.baseDamage * this.GetDamageMultiplicator();
+            float scale = this.GetScale();
+            iceNova.Scale = new Vector2(scale, scale);
+            iceNova.OnAttack();
         }
     }
 
     private float GetDamageMultiplicator() {
-        return this.level1 + 1;
+        return 1f + this.level1 * 0.5f;
     }
 
     private float GetScale() {
-        return 1 + this.level1 * 0.25f;
-    }
-
-    private int GetNumberOfFireBalls() {
-        return this.level2 + 3;
+        return 1 + this.level2 * 0.2f;
     }
 
     public override int[] GetBeatFrequency() {

@@ -39,7 +39,7 @@ public class FireballAbility : AbstractAbility {
     }
 
     private float GetDamageMultiplicator() {
-        return this.level1 + 1;
+        return 1f + this.level1 * 0.5f;
     }
 
     private float GetScale() {

@@ -46,10 +46,10 @@ public class Metronome : Node {
         isPlaying = true;
     }
 
-    public bool IsBeat(int[] beats, float[] timesInBeat) {
+    public bool IsBeat(int[] beats, float[] timesInBeat, float delayInSecond = 0f) {
         for (int i = 0; i < beats.Length; i++) {
             for (int j = 0; j < timesInBeat.Length; j++) {
-                if (this.IsBeat(beats[i], timesInBeat[j])) {
+                if (this.IsBeat(beats[i], timesInBeat[j], delayInSecond)) {
                     return true;
                 }
             }
@@ -81,11 +81,28 @@ public class Metronome : Node {
         if (timeInBeat < 0f) {
             int negativeBeats = Mathf.FloorToInt(timeInBeat);
             timeInBeat -= negativeBeats;
-            beat += negativeBeats;
-            
-            while (beat < 0) {
-                beat += CYCLE_TIME;
+
+            if (beat != -1) {
+                beat += negativeBeats;
+                
+                while (beat < 0) {
+                    beat += BEATS_PER_CYCLE;
+                }
             }
+        }
+        if (timeInBeat > 1f) {
+            int positiveBeats = Mathf.FloorToInt(timeInBeat);
+            timeInBeat -= positiveBeats;
+
+            if (beat != -1) {
+                beat += positiveBeats;
+                
+                while (beat > BEATS_PER_CYCLE) {
+                    beat -= BEATS_PER_CYCLE;
+                }
+            }
+
+            GD.Print(beat + " - " + timeInBeat);
         }
 
         if (beat != -1) {
@@ -116,5 +133,9 @@ public class Metronome : Node {
 
     public float TimeToBeat(float time) {
         return time * ((float) BEATS_PER_CYCLE / (float) CYCLE_TIME);
+    }
+
+    public float BeatToTime(float beat) {
+        return beat * ((float) CYCLE_TIME / (float) BEATS_PER_CYCLE);
     }
 }
