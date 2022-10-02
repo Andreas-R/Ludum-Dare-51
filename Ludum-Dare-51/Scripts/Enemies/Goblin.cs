@@ -31,7 +31,6 @@ public class Goblin : AbstractEnemy
                 CapsuleShape2D colliderShape = (CapsuleShape2D)(collider.Shape);
                 Vector2 rayCastTarget = collider.GlobalPosition + moveDir.Normalized() * (colliderShape.Radius + 5f);
                 if(spaceState.IntersectRay(collider.GlobalPosition, rayCastTarget, new Godot.Collections.Array { this }, 2).Count>0){
-                    sprite.FlipV = true;
                     bool yBlocked = false;
                     bool xBlocked = false;
                     if(spaceState.IntersectRay(collider.GlobalPosition, new Vector2(0, rayCastTarget.y), new Godot.Collections.Array { this }, 2).Count>0){
@@ -49,9 +48,6 @@ public class Goblin : AbstractEnemy
                     else if(yBlocked){
                         moveDir = new Vector2(moveDir.x, 0).Normalized() * this.moveSpeed;
                     }
-                }
-                else{
-                    sprite.FlipV = false;
                 }
                 bodyState.LinearVelocity = moveDir;
                 HandleSpriteFlip(moveDir);
