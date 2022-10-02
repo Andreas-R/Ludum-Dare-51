@@ -6,7 +6,7 @@ public class AbilityHandler : Node {
     private static int MAX_EQUIPPED_ABILITIES = 3;
 
     private Player player;
-    private Dictionary<AbilityType, AbstractAbility> abilities = new Dictionary<AbilityType, AbstractAbility>();
+    public Dictionary<AbilityType, AbstractAbility> abilities = new Dictionary<AbilityType, AbstractAbility>();
 
     public override void _Ready() {
         this.player = GetParent<Player>();

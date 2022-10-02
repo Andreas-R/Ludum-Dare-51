@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Scripts/UI/Timeline/Timeline.cs" type="Script" id=1]
+[ext_resource path="res://Textures/fireball.png" type="Texture" id=2]
 
 [node name="HUD" type="Control"]
 margin_left = -800.0
@@ -14,6 +15,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -150.0
 script = ExtResource( 1 )
+fireBallTickImage = ExtResource( 2 )
 
 [node name="HorizontalLine" type="ColorRect" parent="Timeline"]
 anchor_top = 0.5

@@ -1,6 +1,6 @@
 using Godot;
 
-public class Tick : ColorRect {
+public class ImageTick : TextureRect {
     private float thicknessX;
     private float thicknessY;
     private float elapsedBeats;
@@ -39,9 +39,9 @@ public class Tick : ColorRect {
         float alpha = 1f - (Mathf.Abs(t - 0.5f) * 2f);
         alpha = Mathf.SmoothStep(0f, 1f, alpha);
 
-        Color color = this.Color;
-        color.a = alpha;
-        this.Color = color;
+        Color modulate = this.Modulate;
+        modulate.a = alpha;
+        this.Modulate = modulate;
 
         if (t > 1f) {
             QueueFree();

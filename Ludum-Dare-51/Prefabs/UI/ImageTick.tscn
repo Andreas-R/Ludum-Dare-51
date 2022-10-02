@@ -1,9 +1,9 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://Scripts/UI/Timeline/Tick.cs" type="Script" id=1]
+[ext_resource path="res://Scripts/UI/Timeline/ImageTick.cs" type="Script" id=1]
 [ext_resource path="res://Textures/fireball.png" type="Texture" id=2]
 
-[node name="LargeTick" type="TextureRect"]
+[node name="ImageTick" type="TextureRect"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
