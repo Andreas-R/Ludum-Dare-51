@@ -10,3 +10,4 @@ id = "Room_002"
 roomImage = [ ExtResource( 3 ), ExtResource( 2 ) ]
 spawnWeight = 10.0
 minSpawnRoomCount = 0
+spawnAbleEnemies = null

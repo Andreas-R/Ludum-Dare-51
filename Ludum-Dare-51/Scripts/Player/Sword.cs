@@ -6,8 +6,9 @@ public class Sword : Node2D {
 
     private Timer attackTimer;
     private Sprite swordSprite;
+    private AnimatedSprite slash;
     private CollisionShape2D swordCollider;
-    private AudioStreamPlayer2D audioPlayer;
+    private AudioStreamPlayer audioPlayer;
     private Player player;
 
     private bool isAttacking = false;
@@ -15,15 +16,15 @@ public class Sword : Node2D {
     private float attackArchAnglRadians;
     private float lastSwingDirection = 1f;
 
-
     public override void _Ready() {
         this.attackTimer = GetNode<Timer>("AttackTimer");
         this.swordSprite = GetNode<Sprite>("Sword/Sprite");
+        this.slash = GetNode<AnimatedSprite>("Sword/Slash");
         this.swordCollider = GetNode<CollisionShape2D>("Sword/Collider");
-        this.audioPlayer = GetNode<AudioStreamPlayer2D>("AudioPlayer");
+        this.audioPlayer = GetNode<AudioStreamPlayer>("AudioPlayer");
         this.player = GetParent<Player>();
 
-        this.attackArchAnglRadians = Mathf.Deg2Rad(attackArchAngle);
+        this.attackArchAnglRadians = Mathf.Deg2Rad(this.attackArchAngle);
     }
 
     public override void _Process(float delta) {
@@ -37,17 +38,26 @@ public class Sword : Node2D {
     }
 
     private void InitAttack() {
-        Vector2 attackDir = player.lastNonZeroMoveDir.Normalized();
-        this.startRotation = -attackDir.AngleTo(Vector2.Up) + attackArchAnglRadians * 0.5f * lastSwingDirection;
-        this.Rotation = startRotation;
+        Vector2 attackDir = (GetGlobalMousePosition() - this.player.GetCenter()).Normalized();
+        this.startRotation = -attackDir.AngleTo(Vector2.Up) + this.attackArchAnglRadians * 0.5f * this.lastSwingDirection;
+        this.Rotation = this.startRotation;
 
         this.isAttacking = true;
         this.swordSprite.Visible = true;
         this.swordCollider.Disabled = false;
 
-        audioPlayer.Play();
+        this.audioPlayer.Play();
 
         this.attackTimer.Start();
+
+        this.slash.Frame = 0;
+        this.slash.Playing = true;
+        if (this.lastSwingDirection > 0) {
+            this.slash.FlipV = true;
+        } else {
+            this.slash.FlipV = false;
+        }
+        this.slash.Play();
     }
 
     private void StopAttack() {

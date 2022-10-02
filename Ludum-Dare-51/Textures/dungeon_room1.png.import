@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Player-test.png-acc5a61c6cfb0c66b4c521f813206e52.stex"
+path="res://.import/dungeon_room1.png-7a347bdee0bffe5177f816c82516a205.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/Player-test.png"
-dest_files=[ "res://.import/Player-test.png-acc5a61c6cfb0c66b4c521f813206e52.stex" ]
+source_file="res://Textures/dungeon_room1.png"
+dest_files=[ "res://.import/dungeon_room1.png-7a347bdee0bffe5177f816c82516a205.stex" ]
 
 [params]
 

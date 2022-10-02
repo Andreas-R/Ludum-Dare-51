@@ -10,8 +10,8 @@ public class Metronome : Node {
 
     public override void _Ready() {
         instance = this;
-        elapsedTime = 0;
-        lastTime = 0;
+        elapsedTime = -1f;
+        lastTime = 0f;
     }
 
     public override void _ExitTree() {

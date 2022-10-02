@@ -1,47 +1,39 @@
 using Godot;
-using System;
 
-public class PlayerFollowingEnemy : AbstractEnemy
-{
+public class PlayerFollowingEnemy : AbstractEnemy {
+    [Export]
+    public float moveSpeed;
 
-    private bool _isMoving;
-    private Timer _moveTimer;
+    private bool isMoving;
+    private Timer moveTimer;
 
-    public override void OnReady()
-    {
-        base.OnReady();
-        _moveTimer = GetNode<Timer>("MoveTimer"); 
+    public override void _Ready() {
+        base._Ready();
+        this.moveTimer = GetNode<Timer>("MoveTimer"); 
     }
 
-    protected override void Move(Physics2DDirectBodyState bodyState){
-        if(!_isMoving){
+    public override void _IntegrateForces(Physics2DDirectBodyState bodyState) {
+        if (IsHit()) return;
+
+        if (!this.isMoving) {
             bodyState.LinearVelocity = Vector2.Zero;
-            if(Metronome.instance.IsFrame(-1, 0f)){
-                InitMove(bodyState);
+
+            if (Metronome.instance.IsFrame(-1, 0f)) {
+                this.InitMove(bodyState);
             }
         }
     }
 
-    private void InitMove(Physics2DDirectBodyState bodyState){
-        _isMoving = true;
-        //TODO: Start Move Animation
-        _moveTimer.Start();
-        Vector2 moveDir = (_playerNode.Position - Position).Normalized();
-        moveDir = moveDir * moveSpeed;
-        bodyState.LinearVelocity = moveDir;
+    private void InitMove(Physics2DDirectBodyState bodyState) {
+        this.isMoving = true;
+        StartMoveAnimation();
+        this.moveTimer.Start();
+        Vector2 moveDir = (player.GlobalPosition - this.GlobalPosition).Normalized();
+        bodyState.LinearVelocity = moveDir * this.moveSpeed;
         HandleSpriteFlip(moveDir);
     }
 
-    private void StopMove(){
-        _isMoving = false;
-    }
-
-    public override void CollisionEnter(Node body)
-    {
-        base.CollisionEnter(body);
-        if(body.Equals(_playerNode)){
-            GD.Print("Hit");
-            //TODO: DO damage to player
-        }
+    public void StopMove() {
+        this.isMoving = false;
     }
 }

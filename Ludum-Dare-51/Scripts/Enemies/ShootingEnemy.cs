@@ -1,47 +1,55 @@
 using Godot;
 using System;
 
-public class ShootingEnemy : AbstractEnemy
-{
+public class ShootingEnemy : AbstractEnemy {
+    private static PackedScene arrowPrefab = ResourceLoader.Load("res://Prefabs/Enemies/Arrow.tscn") as PackedScene;
+
+    [Export]
+    public float moveSpeed;
     [Export]
     public float range;
     [Export]
     // How far will the enemy move over the range (to stay in range longer when player moves)
     // value in range 0-1
     public float rangeOverFollow;
-    private static PackedScene _arrowPrefab;
-    [Export]
-    public String arrowPrefabPath;
-    //private Timer _reloadTimer;
 
-    public override void OnReady()
-    {
-        _arrowPrefab = ResourceLoader.Load<PackedScene>(arrowPrefabPath);
-        //_reloadTimer = GetNode<Timer>("ReloadTimer");
+    public override void _Process(float delta) {
+        if (IsHit()) return;
+        bool isFrame = Metronome.instance.IsFrame(-1, 0f);
+        Vector2 playerPosition = this.player.GetCenter();
+        if (
+           isFrame &&
+            (playerPosition - this.GlobalPosition).LengthSquared() <= Mathf.Pow(this.range, 2)
+        ) {
+            Aim(playerPosition);
+            StartAttackAnimation();
+            Arrow arrow = ShootingEnemy.arrowPrefab.Instance() as Arrow;
+            arrow.direction = (playerPosition - this.GlobalPosition).Normalized();
+            arrow.GlobalPosition = this.GlobalPosition + arrow.direction * 40f;
+            arrow.Rotation = this.GlobalPosition.AngleToPoint(playerPosition);
+            GetTree().Root.GetNode<Node>("Main").AddChild(arrow);
+        } 
+        if (isFrame) {
+            StartMoveAnimation();
+        }
     }
 
-    protected override void Move(Physics2DDirectBodyState bodyState){
-        Vector2 moveDir = (_playerNode.Position - Position);
-        if(moveDir.Length() > range * (1-rangeOverFollow)){
-            moveDir = moveDir.Normalized() * moveSpeed;
+    public override void _IntegrateForces(Physics2DDirectBodyState bodyState) {
+        if (IsHit()) return;
+
+        Vector2 moveDir = (this.player.GlobalPosition - this.GlobalPosition);
+
+        if (moveDir.LengthSquared() > Mathf.Pow(this.range * (1f - this.rangeOverFollow), 2)) {
+            moveDir = moveDir.Normalized() * this.moveSpeed;
             bodyState.LinearVelocity = moveDir;
-        }
-        else{
+        } else {
             bodyState.LinearVelocity = Vector2.Zero;
         }
+
         HandleSpriteFlip(moveDir);
     }
 
-    public override void _Process(float delta){
-        if(Metronome.instance.IsFrame(-1, 0f) && (_playerNode.Position - Position).Length() <= range){
-            //spawn arrow
-            //TODO: Play animation
-            Arrow arrow = _arrowPrefab.Instance() as Arrow;
-            arrow.target = _playerNode.Position;
-            arrow.Position = Position + (_playerNode.Position - Position).Normalized() * 40f;
-            arrow.Rotation = Position.AngleToPoint(_playerNode.Position);
-            GetTree().Root.GetNode<Node>("Main").AddChild(arrow);
-            //_reloadTimer.Start();
-        }
+    public void OnShootFinished() {
+         Aim(this.GlobalPosition + (IsFlipped() ? Vector2.Right : Vector2.Left));
     }
 }

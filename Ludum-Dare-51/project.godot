@@ -99,9 +99,12 @@ dash={
 [layer_names]
 
 2d_physics/layer_1="Player"
-2d_physics/layer_2="Sword"
-2d_physics/layer_3="Wall"
-2d_physics/layer_4="Enemy"
+2d_physics/layer_2="Wall"
+2d_physics/layer_3="Enemy"
+2d_physics/layer_4="Projectile"
+2d_physics/layer_9="PlayerDamageReceiver"
+2d_physics/layer_10="EnemyDamageReceiver"
+2d_physics/layer_11="EnemyProjectileDamageReceiver"
 
 [mono]
 

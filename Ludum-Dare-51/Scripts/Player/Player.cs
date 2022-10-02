@@ -5,18 +5,35 @@ public class Player : RigidBody2D {
     public float runSpeed = 100f;
 
     private PlayerState state;
+    private Node2D center;
     private AnimatedSprite playerSprite;
+    private Sprite swordSprite;
+    private LifePointManager lifePointManager;
+    private Timer invulnerableTimer;
+    private CollisionShape2D damageReceiverCollider;
+    private Node2D swordPivot;
+
     private float movementDeadzone = 0.2f;
-    public Vector2 lastNonZeroMoveDir = Vector2.Left;
+
+    private Color hitColor = new Color(1f, 0.5f, 0.5f);
+    private Color defaultColor = new Color(1f, 1f, 1f);
     
     public override void _Ready() {
+        this.center = GetNode<Node2D>("Center");
+        this.swordPivot = GetNode<Node2D>("SwordPivot");
         this.playerSprite = GetNode<AnimatedSprite>("PlayerSprite");
+        this.swordSprite = GetNode<Sprite>("SwordPivot/Sword/Sprite");
+        this.lifePointManager = GetNode<LifePointManager>("LifePointManager");
+        this.invulnerableTimer = GetNode<Timer>("InvulnerableTimer");
+        this.damageReceiverCollider = GetNode<CollisionShape2D>("DamageReceiver/Collider");
 
         this.state = PlayerState.RUNNING;
     }
 
     public override void _Process(float delta) {
-        
+        if (Metronome.instance.IsFrame(-1, 0)) {
+            StartMoveAnimation();
+        }
     }
 
     public override void _IntegrateForces(Physics2DDirectBodyState bodyState) {
@@ -27,7 +44,7 @@ public class Player : RigidBody2D {
         switch(this.state) {
             case PlayerState.RUNNING: {
                 this.HandleMovement(bodyState, movementInput);
-                this.HandleSpriteFlip(movementInput);
+                this.HandleSpriteFlip();
                 break;
             }
             case PlayerState.ATTACKING: {
@@ -86,10 +103,6 @@ public class Player : RigidBody2D {
             moveDir = moveDir.Normalized();
         }
 
-        if (moveDir != Vector2.Zero) {
-            this.lastNonZeroMoveDir = moveDir;
-        }
-
         return moveDir;
     }
 
@@ -98,12 +111,53 @@ public class Player : RigidBody2D {
         bodyState.LinearVelocity = newVelocity;
     }
 
-    private void HandleSpriteFlip(Vector2 movementInput) {
-        if (movementInput.x > movementDeadzone) {
+    private void HandleSpriteFlip() {
+        Vector2 attackDir = (GetGlobalMousePosition() - GetCenter()).Normalized();
+        if (attackDir.x > movementDeadzone) {
+            if (this.playerSprite.FlipH != true) {
+                this.swordPivot.Position = new Vector2( this.swordPivot.Position.x * -1,  this.swordPivot.Position.y);
+            }
             this.playerSprite.FlipH = true;
+            this.swordSprite.FlipV = true;
         }
-        if (movementInput.x < -movementDeadzone) {
+        if (attackDir.x < -movementDeadzone) {
+            if (this.playerSprite.FlipH != false) {
+                this.swordPivot.Position = new Vector2( this.swordPivot.Position.x * -1,  this.swordPivot.Position.y);
+            }
             this.playerSprite.FlipH = false;
+            this.swordSprite.FlipV = false;
         }
+    }
+    
+    private void StartMoveAnimation() {
+        playerSprite.Frame = 0;
+        playerSprite.Playing = true;
+        playerSprite.Play();
+    }
+
+    public Vector2 GetCenter() {
+        return this.center.GlobalPosition;
+    }
+
+    private bool IsInvulnerable() {
+        return !invulnerableTimer.IsStopped();
+    }
+
+    private void OnVulnerableEnd() {
+        this.lifePointManager.isInvulnerable = false;
+        this.damageReceiverCollider.Disabled = false;
+        playerSprite.Modulate = defaultColor;
+    }
+
+    public void OnHit(Vector2 direction, float knockbackForce) {
+        this.lifePointManager.isInvulnerable = true;
+        this.damageReceiverCollider.Disabled = true;
+        playerSprite.Modulate = hitColor;
+        invulnerableTimer.Start();
+    }
+
+    public void OnDeath() {
+        ChangeState(PlayerState.DEAD);
+        playerSprite.FlipV = true;
     }
 }

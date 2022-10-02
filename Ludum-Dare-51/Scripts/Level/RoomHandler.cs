@@ -14,15 +14,16 @@ public class RoomHandler : Node2D {
     private int spriteIndex = 0;
     private int spriteCount = 0;
     private RoomData currentRoom;
+    private static Vector2 scale = new Vector2(5f, 5f);
     public override void _Ready() {
         roomSprite = GetNode<Sprite>("RoomSprite");
         
         rng.Randomize();
-        ChangeToRandomRoom();
     }
 
     public override void _Process(float delta) {
         if (Metronome.instance.IsFrame(-1, 0)) {
+             roomSprite.Scale = scale * 1.001f;
             int nextIndex = spriteIndex + 1;
             if (nextIndex < spriteCount) {
                 roomSprite.Texture = currentRoom.roomImage[nextIndex];
@@ -30,6 +31,11 @@ public class RoomHandler : Node2D {
             } else {
                 spriteIndex = 0;
                 roomSprite.Texture = currentRoom.roomImage[0];
+            }
+        } else {
+            roomSprite.Scale -= (scale * 0.001f) / (delta * 1000);
+            if (roomSprite.Scale.x < scale.x) {
+                 roomSprite.Scale = scale;
             }
         }
     }
@@ -70,5 +76,14 @@ public class RoomHandler : Node2D {
         currentRoom = room;
         spriteCount = room.roomImage.Length;
         roomSprite.Texture = room.roomImage[0];
+    }
+
+    private void SpawnEnemies(RoomData room) {
+        int numberOfEnemies = 3 + roomCounter;
+        float lifeMultiplier = 1f + (roomCounter * 0.2f);
+
+        for (int i = 0; i < numberOfEnemies; i += 1) {
+            
+        }
     }
 }

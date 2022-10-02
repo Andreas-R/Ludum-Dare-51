@@ -1,0 +1,165 @@
+[gd_scene load_steps=25 format=2]
+
+[ext_resource path="res://Scripts/Player/Player.cs" type="Script" id=1]
+[ext_resource path="res://Physics/PlayerPhysics.tres" type="PhysicsMaterial" id=2]
+[ext_resource path="res://Textures/rex.png" type="Texture" id=3]
+[ext_resource path="res://Textures/sword.png" type="Texture" id=4]
+[ext_resource path="res://Scripts/Player/Sword.cs" type="Script" id=5]
+[ext_resource path="res://Audio/wosh_2.wav" type="AudioStream" id=6]
+[ext_resource path="res://Scripts/Player/Abilities/AbilityHandler.cs" type="Script" id=7]
+[ext_resource path="res://Prefabs/Shadow.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Scripts/Damage/LifePointManager.cs" type="Script" id=9]
+[ext_resource path="res://Scripts/Damage/DamageReceiver.cs" type="Script" id=10]
+[ext_resource path="res://Scripts/Damage/SwordDamageDealer.cs" type="Script" id=11]
+[ext_resource path="res://Textures/slash.png" type="Texture" id=12]
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 3 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 3 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="SpriteFrames" id=5]
+animations = [ {
+"frames": [ SubResource( 3 ), SubResource( 4 ), SubResource( 2 ), SubResource( 4 ), SubResource( 2 ) ],
+"loop": false,
+"name": "running",
+"speed": 5.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=7]
+radius = 20.0
+height = 36.0
+
+[sub_resource type="CapsuleShape2D" id=8]
+radius = 22.0
+height = 36.0
+
+[sub_resource type="CapsuleShape2D" id=9]
+radius = 2.0
+height = 8.8
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 12 )
+region = Rect2( 0, 0, 21, 41 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 12 )
+region = Rect2( 21, 0, 21, 41 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 12 )
+region = Rect2( 42, 0, 21, 41 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 12 )
+region = Rect2( 63, 0, 21, 41 )
+
+[sub_resource type="SpriteFrames" id=14]
+animations = [ {
+"frames": [ null, SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), null ],
+"loop": false,
+"name": "default",
+"speed": 12.0
+} ]
+
+[node name="Player" type="RigidBody2D"]
+collision_mask = 6
+mode = 2
+mass = 100.0
+physics_material_override = ExtResource( 2 )
+gravity_scale = 0.0
+can_sleep = false
+script = ExtResource( 1 )
+runSpeed = 250.0
+
+[node name="PlayerSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 0, -3.8147e-06 )
+scale = Vector2( 5, 5 )
+frames = SubResource( 5 )
+animation = "running"
+frame = 4
+playing = true
+offset = Vector2( 0, -7 )
+
+[node name="Shadow" parent="." instance=ExtResource( 8 )]
+position = Vector2( 0, -4.76837e-07 )
+scale = Vector2( 5, 5 )
+z_index = -1
+
+[node name="Center" type="Node2D" parent="."]
+position = Vector2( 0, -38 )
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -38 )
+shape = SubResource( 7 )
+
+[node name="DamageReceiver" type="Area2D" parent="."]
+collision_layer = 256
+collision_mask = 0
+script = ExtResource( 10 )
+
+[node name="Collider" type="CollisionShape2D" parent="DamageReceiver"]
+position = Vector2( 0, -38 )
+shape = SubResource( 8 )
+
+[node name="SwordPivot" type="Node2D" parent="."]
+position = Vector2( -7.5, -40 )
+script = ExtResource( 5 )
+
+[node name="Sword" type="Area2D" parent="SwordPivot"]
+position = Vector2( 0, -60.5 )
+scale = Vector2( 5, 5 )
+z_index = 1
+collision_layer = 0
+collision_mask = 1536
+script = ExtResource( 11 )
+damage = 40.0
+
+[node name="Sprite" type="Sprite" parent="SwordPivot/Sword"]
+position = Vector2( 0, 2.6 )
+rotation = 1.5708
+texture = ExtResource( 4 )
+
+[node name="Collider" type="CollisionShape2D" parent="SwordPivot/Sword"]
+shape = SubResource( 9 )
+disabled = true
+
+[node name="Slash" type="AnimatedSprite" parent="SwordPivot/Sword"]
+rotation = 1.5708
+frames = SubResource( 14 )
+frame = 5
+playing = true
+
+[node name="AttackTimer" type="Timer" parent="SwordPivot"]
+wait_time = 0.5
+one_shot = true
+
+[node name="AudioPlayer" type="AudioStreamPlayer" parent="SwordPivot"]
+stream = ExtResource( 6 )
+volume_db = -20.0
+pitch_scale = 1.5
+
+[node name="LifePointManager" type="Node" parent="."]
+script = ExtResource( 9 )
+maxHealth = 500.0
+
+[node name="AbilityHandler" type="Node" parent="."]
+script = ExtResource( 7 )
+
+[node name="InvulnerableTimer" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
+
+[connection signal="OnDamage" from="DamageReceiver" to="LifePointManager" method="Damage"]
+[connection signal="area_entered" from="SwordPivot/Sword" to="SwordPivot/Sword" method="OnArea2DEnter"]
+[connection signal="timeout" from="SwordPivot/AttackTimer" to="SwordPivot" method="StopAttack"]
+[connection signal="OnDeath" from="LifePointManager" to="." method="OnDeath"]
+[connection signal="OnHit" from="LifePointManager" to="." method="OnHit"]
+[connection signal="timeout" from="InvulnerableTimer" to="." method="OnVulnerableEnd"]

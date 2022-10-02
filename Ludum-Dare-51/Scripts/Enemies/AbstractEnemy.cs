@@ -1,72 +1,80 @@
 using Godot;
-using System;
 
-public class AbstractEnemy : RigidBody2D
-{
-    [Export]
-    public float maxHealth;
-    [Export]
-    public float moveSpeed;
-    [Export]
-    public float damage;
-    [Export]
-    public NodePath playerNodePath;
-    protected RigidBody2D _playerNode;
+public class AbstractEnemy : RigidBody2D {
+    protected AnimatedSprite sprite;
+    protected AnimatedSprite weaponSprite = null;
+    protected Timer hitTimer;
+    protected Player player;
+    
+    private Color hitColor = new Color(1f, 0.5f, 0.5f);
+    private Color defaultColor = new Color(1f, 1f, 1f);
 
-    public float _currentHealth;
-
-    private AnimatedSprite _sprite;
-
-    // Called when the node enters the scene tree for the first time.
-    public override void _Ready()
-    {
-        _playerNode = GetNode<RigidBody2D>(playerNodePath);
-        _currentHealth = maxHealth;
-        _sprite = GetNode<AnimatedSprite>("Sprite");
-        OnReady();
-    }
-
-    public virtual void OnReady(){}
-
-    public override void _IntegrateForces(Physics2DDirectBodyState bodyState) {
-        Move(bodyState);
-    }
-
-    public void BeAttacked(float damage){
-        GD.Print("ouch");
-        OnHit();
-        GD.Print(_currentHealth);
-        _currentHealth -= damage;
-        if(_currentHealth <= 0){
-            Die();
+    public override void _Ready() {
+        this.sprite = GetNode<AnimatedSprite>("Sprite");
+        if (HasNode("Weapon")) {
+            this.weaponSprite = GetNode<AnimatedSprite>("Weapon");
         }
-        
+        this.hitTimer = GetNode<Timer>("HitTimer");
+        this.player = GetTree().Root.GetNode<Player>("Main/Player");
     }
 
-    public virtual void CollisionEnter(Node body){
+    public void StartMoveAnimation() {
+        this.sprite.Frame = 0;
+        this.sprite.Playing = true;
+        this.sprite.Play();
     }
 
-    public void Die(){
-        OnDeath();
-        GD.Print("Oh no. I am dead");
-        QueueFree();
+    public void StartAttackAnimation() {
+        this.weaponSprite.Frame = 0;
+        this.weaponSprite.Playing = true;
+        this.weaponSprite.Play();
+    }
+
+    public void Aim(Vector2 targetPosition) {
+        Vector2 direction = Position - targetPosition;
+        float angle = Vector2.Left.AngleTo(direction);
+        if (this.weaponSprite.FlipH == false) angle += Mathf.Pi;
+        this.weaponSprite.Rotation = angle; 
     }
 
     protected void HandleSpriteFlip(Vector2 movementInput) {
         if (movementInput.x > 0) {
-            _sprite.FlipH = true;
+            this.sprite.FlipH = true;
+            if (this.weaponSprite != null && this.weaponSprite.FlipH != true) {
+                this.weaponSprite.FlipH = true;
+                this.weaponSprite.Position = new Vector2( this.weaponSprite.Position.x * -1,  this.weaponSprite.Position.y);
+            }
         }
         if (movementInput.x < 0) {
-            _sprite.FlipH = false;
+            this.sprite.FlipH = false;
+            if (this.weaponSprite != null && this.weaponSprite.FlipH != false) {
+                this.weaponSprite.FlipH = false;
+                this.weaponSprite.Position = new Vector2( this.weaponSprite.Position.x * -1,  this.weaponSprite.Position.y);
+            }
         }
     }
 
-    protected virtual void Move(Physics2DDirectBodyState bodyState){
+
+    public bool IsFlipped() {
+        return this.sprite.FlipH;
     }
 
-    protected virtual void OnHit(){
+    public bool IsHit() {
+        return !this.hitTimer.IsStopped();
     }
 
-    protected virtual void OnDeath(){
+    public virtual void OnHit(Vector2 direction, float knockbackForce) {
+        LinearVelocity = direction * knockbackForce;
+        sprite.Modulate = hitColor;
+        this.hitTimer.Start();
+    }
+
+    public void OnHitEnd() {
+        LinearVelocity = Vector2.Zero;
+        sprite.Modulate = defaultColor;
+    }
+
+    public virtual void OnDeath() {
+        this.QueueFree();
     }
 }
