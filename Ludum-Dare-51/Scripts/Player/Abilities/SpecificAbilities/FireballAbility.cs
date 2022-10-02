@@ -1,32 +1,59 @@
 using Godot;
 
 public class FireballAbility : AbstractAbility {
-    private float baseDamage = 50f;
+    private static PackedScene fireballPrefab = ResourceLoader.Load("res://Prefabs/Player/Abilities/Fireball.tscn") as PackedScene;
+
+    private float spreadAngle = 12f;
+    private float spreadAngleRad;
 
     public FireballAbility() {
         level1Max = 4;
         level2Max = 4;
         level3Max = 3;
+
+        this.spreadAngleRad = Mathf.Deg2Rad(spreadAngle);
     }
 
     public override void OnProcess(Player player, float delta) {
-        if (Metronome.instance.IsBeat(GetFrequency(), new float[] {0.5f})) {
-            // spawn fireball
+        if (Metronome.instance.IsBeat(this.GetBeatFrequency(), this.GetSubBeatFrequency())) {
+            float numberOfFireballs = GetNumberOfFireBalls();
+            
+            for (int i = 0; i < numberOfFireballs; i += 1) {
+                Fireball fireball = FireballAbility.fireballPrefab.Instance() as Fireball;
+                float scale = GetScale();
+                fireball.Scale = new Vector2(scale, scale);
+                fireball.direction = (player.GetGlobalMousePosition() - player.GetCenter()).Normalized();
+                fireball.Rotation = player.GetCenter().AngleToPoint(player.GetGlobalMousePosition());
+                if (numberOfFireballs > 1) {
+                    float rotationOffset = (-spreadAngleRad * (numberOfFireballs - 1)) * 0.5f + i * spreadAngleRad;
+                    fireball.direction = fireball.direction.Rotated(rotationOffset);
+                    fireball.Rotation += rotationOffset;
+                }
+                fireball.GlobalPosition = player.GetCenter() + fireball.direction * 20f;
+                GD.Print(fireball.Rotation);
+                fireball.GetNode<DamageDealer>("DamageDealer").damage *= GetDamageMultiplicator();
+                
+                player.GetTree().Root.GetNode<Node>("Main").AddChild(fireball);
+            }
         }
     }
 
-    private float GetDamages() {
-        return baseDamage * (level1 + 1);
+    private float GetDamageMultiplicator() {
+        return 1f + this.level1 * 0.5f;
+    }
+
+    private float GetScale() {
+        return 1 + this.level1 * 0.25f;
     }
 
     private int GetNumberOfFireBalls() {
-        return level2 + 1;
+        return this.level2 + 3;
     }
 
-    private int[] GetFrequency() {
-        switch (level3) {
+    public override int[] GetBeatFrequency() {
+        switch (this.level3) {
             case 0: {
-                return new int[] {1};
+                return new int[] {5};
             }
             case 1: {
                 return new int[] {1, 5};
@@ -38,8 +65,12 @@ public class FireballAbility : AbstractAbility {
                 return new int[] {-1};
             }
             default: {
-                return new int[] {1};
+                return new int[] {5};
             }
         }
+    }
+
+    public override float[] GetSubBeatFrequency() {
+        return new float[] {0f};
     }
 }

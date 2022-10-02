@@ -145,13 +145,13 @@ public class Player : RigidBody2D {
 
     private void OnVulnerableEnd() {
         this.lifePointManager.isInvulnerable = false;
-        this.damageReceiverCollider.Disabled = false;
+        this.damageReceiverCollider.SetDeferred("disabled", false);
         playerSprite.Modulate = defaultColor;
     }
 
     public void OnHit(Vector2 direction, float knockbackForce) {
         this.lifePointManager.isInvulnerable = true;
-        this.damageReceiverCollider.Disabled = true;
+        this.damageReceiverCollider.SetDeferred("disabled", true);
         playerSprite.Modulate = hitColor;
         invulnerableTimer.Start();
     }

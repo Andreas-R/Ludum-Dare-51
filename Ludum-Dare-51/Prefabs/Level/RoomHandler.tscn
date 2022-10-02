@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Resources/Room_001.tres" type="Resource" id=1]
 [ext_resource path="res://Scripts/Level/RoomHandler.cs" type="Script" id=2]
@@ -8,7 +8,8 @@
 [ext_resource path="res://Physics/WallPhysics.tres" type="PhysicsMaterial" id=6]
 [ext_resource path="res://Textures/upgrade-menu.png" type="Texture" id=7]
 [ext_resource path="res://Scripts/UI/Abilities/UpgradeMenu.cs" type="Script" id=8]
-[ext_resource path="res://Resources/Room_003.tres" type="Resource" id=9]
+[ext_resource path="res://Scripts/Level/Chest.cs" type="Script" id=9]
+[ext_resource path="res://Resources/Room_003.tres" type="Resource" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 200, 400 )
@@ -19,7 +20,7 @@ extents = Vector2( 1000, 200 )
 [node name="RoomHandler" type="Node2D"]
 position = Vector2( 0, -50 )
 script = ExtResource( 2 )
-rooms = [ ExtResource( 1 ), ExtResource( 5 ), ExtResource( 9 ) ]
+rooms = [ ExtResource( 1 ), ExtResource( 5 ), ExtResource( 10 ) ]
 
 [node name="RoomSprite" type="Sprite" parent="."]
 scale = Vector2( 5, 5 )
@@ -31,9 +32,10 @@ scale = Vector2( 5, 5 )
 texture = ExtResource( 3 )
 offset = Vector2( 0, -9 )
 hframes = 2
-frame = 1
+script = ExtResource( 9 )
 
-[node name="Tooltip" type="Sprite" parent="Chest"]
+[node name="ToolTip" type="Sprite" parent="Chest"]
+visible = false
 position = Vector2( 0, -22 )
 texture = ExtResource( 4 )
 
@@ -41,6 +43,7 @@ texture = ExtResource( 4 )
 z_index = 50
 
 [node name="UpgradeMenu" type="TextureRect" parent="Chest/MenuParent"]
+visible = false
 margin_left = -26.0
 margin_top = -47.0
 margin_right = 26.0
@@ -48,23 +51,33 @@ margin_bottom = -17.0
 texture = ExtResource( 7 )
 script = ExtResource( 8 )
 
-[node name="Upgrade1" type="TextureRect" parent="Chest/MenuParent/UpgradeMenu"]
+[node name="Upgrade1" type="TextureButton" parent="Chest/MenuParent/UpgradeMenu"]
 margin_left = 1.0
 margin_top = 1.0
 margin_right = 17.0
 margin_bottom = 25.0
+focus_mode = 0
+action_mode = 0
+enabled_focus_mode = 0
 
-[node name="Upgrade2" type="TextureRect" parent="Chest/MenuParent/UpgradeMenu"]
+[node name="Upgrade2" type="TextureButton" parent="Chest/MenuParent/UpgradeMenu"]
 margin_left = 18.0
 margin_top = 1.0
 margin_right = 34.0
 margin_bottom = 25.0
 
-[node name="Upgrade3" type="TextureRect" parent="Chest/MenuParent/UpgradeMenu"]
+[node name="Upgrade3" type="TextureButton" parent="Chest/MenuParent/UpgradeMenu"]
 margin_left = 35.0
 margin_top = 1.0
 margin_right = 51.0
 margin_bottom = 25.0
+
+[node name="RemainingTime" type="ColorRect" parent="Chest/MenuParent/UpgradeMenu"]
+margin_left = 1.0
+margin_top = 26.0
+margin_right = 51.0
+margin_bottom = 29.0
+color = Color( 0.196078, 0.760784, 0, 1 )
 
 [node name="Wall" type="StaticBody2D" parent="."]
 position = Vector2( -800, 0 )
@@ -101,3 +114,7 @@ physics_material_override = ExtResource( 6 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wall4"]
 shape = SubResource( 2 )
+
+[connection signal="pressed" from="Chest/MenuParent/UpgradeMenu/Upgrade1" to="Chest/MenuParent/UpgradeMenu" method="Upgrade1Selected"]
+[connection signal="pressed" from="Chest/MenuParent/UpgradeMenu/Upgrade2" to="Chest/MenuParent/UpgradeMenu" method="Upgrade2Selected"]
+[connection signal="pressed" from="Chest/MenuParent/UpgradeMenu/Upgrade3" to="Chest/MenuParent/UpgradeMenu" method="Upgrade3Selected"]

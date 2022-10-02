@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://Scripts/Player/Player.cs" type="Script" id=1]
 [ext_resource path="res://Physics/PlayerPhysics.tres" type="PhysicsMaterial" id=2]
@@ -12,6 +12,8 @@
 [ext_resource path="res://Scripts/Damage/DamageReceiver.cs" type="Script" id=10]
 [ext_resource path="res://Scripts/Damage/SwordDamageDealer.cs" type="Script" id=11]
 [ext_resource path="res://Textures/slash.png" type="Texture" id=12]
+[ext_resource path="res://Scripts/Player/Abilities/SpecificAbilities/IceNova.cs" type="Script" id=13]
+[ext_resource path="res://Textures/ice-nova-ground.png" type="Texture" id=14]
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 3 )
@@ -68,6 +70,21 @@ animations = [ {
 "name": "default",
 "speed": 12.0
 } ]
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 14 )
+region = Rect2( 0, 0, 64, 47 )
+
+[sub_resource type="SpriteFrames" id=16]
+animations = [ {
+"frames": [ SubResource( 15 ) ],
+"loop": false,
+"name": "nova",
+"speed": 5.0
+} ]
+
+[sub_resource type="CircleShape2D" id=17]
+radius = 111.116
 
 [node name="Player" type="RigidBody2D"]
 collision_mask = 6
@@ -147,6 +164,29 @@ stream = ExtResource( 6 )
 volume_db = -20.0
 pitch_scale = 1.5
 
+[node name="IceNova" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 512
+script = ExtResource( 13 )
+baseDamage = 50.0
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="IceNova"]
+visible = false
+scale = Vector2( 5, 5 )
+z_index = -10
+frames = SubResource( 16 )
+animation = "nova"
+
+[node name="Collider" type="CollisionShape2D" parent="IceNova"]
+position = Vector2( 2, 0 )
+scale = Vector2( 1.35, 1 )
+shape = SubResource( 17 )
+disabled = true
+
+[node name="AttackTimer" type="Timer" parent="IceNova"]
+wait_time = 0.25
+one_shot = true
+
 [node name="LifePointManager" type="Node" parent="."]
 script = ExtResource( 9 )
 maxHealth = 500.0
@@ -161,6 +201,8 @@ one_shot = true
 [connection signal="OnDamage" from="DamageReceiver" to="LifePointManager" method="Damage"]
 [connection signal="area_entered" from="SwordPivot/Sword" to="SwordPivot/Sword" method="OnArea2DEnter"]
 [connection signal="timeout" from="SwordPivot/AttackTimer" to="SwordPivot" method="StopAttack"]
+[connection signal="area_entered" from="IceNova" to="IceNova" method="OnArea2DEnter"]
+[connection signal="timeout" from="IceNova/AttackTimer" to="IceNova" method="OnAttackEnd"]
 [connection signal="OnDeath" from="LifePointManager" to="." method="OnDeath"]
 [connection signal="OnHit" from="LifePointManager" to="." method="OnHit"]
 [connection signal="timeout" from="InvulnerableTimer" to="." method="OnVulnerableEnd"]

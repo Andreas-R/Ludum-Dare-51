@@ -13,7 +13,7 @@ public class Sword : Node2D {
 
     private bool isAttacking = false;
     private float startRotation;
-    private float attackArchAnglRadians;
+    private float attackArchAngleRadians;
     private float lastSwingDirection = 1f;
     private BgMusicHandler bgMusicHandler;
 
@@ -26,7 +26,7 @@ public class Sword : Node2D {
         this.player = GetParent<Player>();
         this.bgMusicHandler = GetTree().Root.GetNode<BgMusicHandler>("Main/BgMusicHandler");
 
-        this.attackArchAnglRadians = Mathf.Deg2Rad(this.attackArchAngle);
+        this.attackArchAngleRadians = Mathf.Deg2Rad(this.attackArchAngle);
     }
 
     public override void _Process(float delta) {
@@ -45,12 +45,12 @@ public class Sword : Node2D {
 
     private void InitAttack() {
         Vector2 attackDir = (GetGlobalMousePosition() - this.player.GetCenter()).Normalized();
-        this.startRotation = -attackDir.AngleTo(Vector2.Up) + this.attackArchAnglRadians * 0.5f * this.lastSwingDirection;
+        this.startRotation = -attackDir.AngleTo(Vector2.Up) + this.attackArchAngleRadians * 0.5f * this.lastSwingDirection;
         this.Rotation = this.startRotation;
 
         this.isAttacking = true;
         this.swordSprite.Visible = true;
-        this.swordCollider.Disabled = false;
+        this.swordCollider.SetDeferred("disabled", false);
 
         this.attackTimer.Start();
 
@@ -67,7 +67,7 @@ public class Sword : Node2D {
     private void StopAttack() {
         this.isAttacking = false;
         this.swordSprite.Visible = false;
-        this.swordCollider.Disabled = true;
+        this.swordCollider.SetDeferred("disabled", true);
         this.lastSwingDirection *= -1f;
     }
 
@@ -75,6 +75,6 @@ public class Sword : Node2D {
         float t = 1f - (attackTimer.TimeLeft / attackTimer.WaitTime);
         t = Mathf.Clamp(t * 1.8f - 0.4f, 0f, 1f);
         t = Mathf.SmoothStep(0f, 1f, t);
-        this.Rotation = startRotation - attackArchAnglRadians * t * lastSwingDirection;
+        this.Rotation = startRotation - attackArchAngleRadians * t * lastSwingDirection;
     }
 }
