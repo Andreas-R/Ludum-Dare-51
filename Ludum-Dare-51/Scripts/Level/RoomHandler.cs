@@ -24,9 +24,18 @@ public class RoomHandler : Node2D {
     private BgMusicHandler bgMusicHandler;
     private static Vector2 scale = new Vector2(5f, 5f);
 
+    private Dictionary<string, List<PackedScene>> roomEnemies = new Dictionary<string, List<PackedScene>>();
+
     public override void _Ready() {
         roomSprite = GetNode<Sprite>("RoomSprite");
         bgMusicHandler = GetParent().GetNode<BgMusicHandler>("BgMusicHandler");
+
+        foreach (RoomData room in rooms) {
+            roomEnemies[room.id] = new List<PackedScene>();
+            foreach (string prefabPath in room.spawnableEnemyPrefabPaths) {
+                roomEnemies[room.id].Add(ResourceLoader.Load(prefabPath) as PackedScene);
+            }
+        }
         
         rng.Randomize();
     }
@@ -96,7 +105,7 @@ public class RoomHandler : Node2D {
         float lifeMultiplier = 1f + (roomCounter * 0.2f);
 
         for (int i = 0; i < numberOfEnemies; i += 1) {
-            PackedScene enemyPrefab = room.spawnableEnemies[rng.RandiRange(0, room.spawnableEnemies.Length - 1)] as PackedScene;
+            PackedScene enemyPrefab = roomEnemies[room.id][rng.RandiRange(0, roomEnemies[room.id].Count - 1)];
             AbstractEnemy enemy = enemyPrefab.Instance() as AbstractEnemy;
             enemy.GlobalPosition = this.GetRandomSpawnPosition();
             GetTree().Root.GetNode<Node>("Main").AddChild(enemy);
