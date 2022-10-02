@@ -5,18 +5,19 @@ public class Player : RigidBody2D {
     public float runSpeed = 100f;
 
     private PlayerState state;
+    private Node2D center;
     private AnimatedSprite playerSprite;
     private LifePointManager lifePointManager;
     private Timer invulnerableTimer;
     private CollisionShape2D damageReceiverCollider;
 
     private float movementDeadzone = 0.2f;
-    public Vector2 lastNonZeroMoveDir = Vector2.Left;
 
     private Color hitColor = new Color(1f, 0.5f, 0.5f);
     private Color defaultColor = new Color(1f, 1f, 1f);
     
     public override void _Ready() {
+        this.center = GetNode<Node2D>("Center");
         this.playerSprite = GetNode<AnimatedSprite>("PlayerSprite");
         this.lifePointManager = GetNode<LifePointManager>("LifePointManager");
         this.invulnerableTimer = GetNode<Timer>("InvulnerableTimer");
@@ -98,10 +99,6 @@ public class Player : RigidBody2D {
             moveDir = moveDir.Normalized();
         }
 
-        if (moveDir != Vector2.Zero) {
-            this.lastNonZeroMoveDir = moveDir;
-        }
-
         return moveDir;
     }
 
@@ -123,6 +120,10 @@ public class Player : RigidBody2D {
         playerSprite.Frame = 0;
         playerSprite.Playing = true;
         playerSprite.Play();
+    }
+
+    public Vector2 GetCenter() {
+        return this.center.Position;
     }
 
     private bool IsInvulnerable() {

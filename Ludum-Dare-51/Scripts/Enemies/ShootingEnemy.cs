@@ -16,12 +16,12 @@ public class ShootingEnemy : AbstractEnemy {
     public override void _Process(float delta) {
         if (
             Metronome.instance.IsFrame(-1, 0f) &&
-            (this.player.Position - this.Position).LengthSquared() <= Mathf.Pow(this.range, 2)
+            (this.player.GetCenter() - this.Position).LengthSquared() <= Mathf.Pow(this.range, 2)
         ) {
             Arrow arrow = ShootingEnemy.arrowPrefab.Instance() as Arrow;
-            arrow.direction = (this.player.Position - this.Position).Normalized();
+            arrow.direction = (this.player.GetCenter() - this.Position).Normalized();
             arrow.Position = this.Position + arrow.direction * 40f;
-            arrow.Rotation = this.Position.AngleToPoint(this.player.Position);
+            arrow.Rotation = this.Position.AngleToPoint(this.player.GetCenter());
             GetTree().Root.GetNode<Node>("Main").AddChild(arrow);
         }
     }
