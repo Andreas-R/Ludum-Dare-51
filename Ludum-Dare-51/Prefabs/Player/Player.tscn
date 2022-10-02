@@ -110,11 +110,11 @@ position = Vector2( 0, -38 )
 shape = SubResource( 8 )
 
 [node name="SwordPivot" type="Node2D" parent="."]
-position = Vector2( -5, -40 )
+position = Vector2( -7.5, -40 )
 script = ExtResource( 5 )
 
 [node name="Sword" type="Area2D" parent="SwordPivot"]
-position = Vector2( 0, -60 )
+position = Vector2( 0, -60.5 )
 scale = Vector2( 5, 5 )
 z_index = 1
 collision_layer = 0

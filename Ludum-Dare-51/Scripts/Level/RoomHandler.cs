@@ -19,7 +19,6 @@ public class RoomHandler : Node2D {
         roomSprite = GetNode<Sprite>("RoomSprite");
         
         rng.Randomize();
-        ChangeToRandomRoom();
     }
 
     public override void _Process(float delta) {
@@ -77,5 +76,14 @@ public class RoomHandler : Node2D {
         currentRoom = room;
         spriteCount = room.roomImage.Length;
         roomSprite.Texture = room.roomImage[0];
+    }
+
+    private void SpawnEnemies(RoomData room) {
+        int numberOfEnemies = 3 + roomCounter;
+        float lifeMultiplier = 1f + (roomCounter * 0.2f);
+
+        for (int i = 0; i < numberOfEnemies; i += 1) {
+            
+        }
     }
 }

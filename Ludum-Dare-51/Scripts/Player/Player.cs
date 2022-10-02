@@ -7,6 +7,7 @@ public class Player : RigidBody2D {
     private PlayerState state;
     private Node2D center;
     private AnimatedSprite playerSprite;
+    private Sprite swordSprite;
     private LifePointManager lifePointManager;
     private Timer invulnerableTimer;
     private CollisionShape2D damageReceiverCollider;
@@ -21,6 +22,7 @@ public class Player : RigidBody2D {
         this.center = GetNode<Node2D>("Center");
         this.swordPivot = GetNode<Node2D>("SwordPivot");
         this.playerSprite = GetNode<AnimatedSprite>("PlayerSprite");
+        this.swordSprite = GetNode<Sprite>("SwordPivot/Sword/Sprite");
         this.lifePointManager = GetNode<LifePointManager>("LifePointManager");
         this.invulnerableTimer = GetNode<Timer>("InvulnerableTimer");
         this.damageReceiverCollider = GetNode<CollisionShape2D>("DamageReceiver/Collider");
@@ -110,18 +112,20 @@ public class Player : RigidBody2D {
     }
 
     private void HandleSpriteFlip() {
-         Vector2 attackDir = (GetGlobalMousePosition() - GetCenter()).Normalized();
+        Vector2 attackDir = (GetGlobalMousePosition() - GetCenter()).Normalized();
         if (attackDir.x > movementDeadzone) {
             if (this.playerSprite.FlipH != true) {
                 this.swordPivot.Position = new Vector2( this.swordPivot.Position.x * -1,  this.swordPivot.Position.y);
             }
             this.playerSprite.FlipH = true;
+            this.swordSprite.FlipV = true;
         }
         if (attackDir.x < -movementDeadzone) {
             if (this.playerSprite.FlipH != false) {
                 this.swordPivot.Position = new Vector2( this.swordPivot.Position.x * -1,  this.swordPivot.Position.y);
             }
             this.playerSprite.FlipH = false;
+            this.swordSprite.FlipV = false;
         }
     }
     
