@@ -6,8 +6,8 @@ public class AbstractEnemy : RigidBody2D {
     protected Timer hitTimer;
     protected Player player;
     
-    private Color hitColor = new Color(1f, 0.5f, 0.5f);
-    private Color defaultColor = new Color(1f, 1f, 1f);
+    protected Color hitColor = new Color(1f, 0.5f, 0.5f);
+    protected Color defaultColor = new Color(1f, 1f, 1f);
 
     public override void _Ready() {
         this.sprite = GetNode<AnimatedSprite>("Sprite");

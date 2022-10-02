@@ -11,8 +11,8 @@ public class BgMusicHandler : Node
 
     private Tween musicFadeInTween;
 
-    private AudioStreamPlayer currentMainBgPlayer;
-    private AudioStreamPlayer nextMainBgPlayer;
+    public AudioStreamPlayer currentMainBgPlayer;
+    public AudioStreamPlayer nextMainBgPlayer;
     private AudioStreamPlayer recordScratchPlayer;
     private bool isCurrentBgPlaying;
 
@@ -31,9 +31,7 @@ public class BgMusicHandler : Node
 
         recordScratchPlayer.Play();
         fadeInPlayer.Stream = sample;
-       
-
-        PlayAudio(fadeInPlayer, Metronome.instance.elapsedTime + (float) audioServerDelay);
+        PlayAudio(fadeInPlayer, Math.Max(0, (float)(Metronome.instance.elapsedTime + audioServerDelay)));
         isCurrentBgPlaying = !isCurrentBgPlaying;
     }
 
@@ -47,7 +45,7 @@ public class BgMusicHandler : Node
     }
 
     public void PlayAudio(AudioStreamPlayer player, float fromPosition) {
-        player.VolumeDb = bgOff;
+        player.VolumeDb = bgOn;
         musicFadeInTween.InterpolateProperty(player, "volume_db", bgOff, bgOn, fadeInDuration,
             Tween.TransitionType.Linear, Tween.EaseType.In);
         player.Play(fromPosition);

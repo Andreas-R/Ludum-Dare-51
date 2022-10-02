@@ -15,6 +15,7 @@ public class Sword : Node2D {
     private float startRotation;
     private float attackArchAnglRadians;
     private float lastSwingDirection = 1f;
+    private BgMusicHandler bgMusicHandler;
 
     public override void _Ready() {
         this.attackTimer = GetNode<Timer>("AttackTimer");
@@ -23,11 +24,16 @@ public class Sword : Node2D {
         this.swordCollider = GetNode<CollisionShape2D>("Sword/Collider");
         this.audioPlayer = GetNode<AudioStreamPlayer>("AudioPlayer");
         this.player = GetParent<Player>();
+        this.bgMusicHandler = GetTree().Root.GetNode<BgMusicHandler>("Main/BgMusicHandler");
 
         this.attackArchAnglRadians = Mathf.Deg2Rad(this.attackArchAngle);
     }
 
     public override void _Process(float delta) {
+        if (Metronome.instance.IsBeatWithAudioDelay(-1, 1f)) {
+           this.audioPlayer.Play();
+        }
+
         if (Metronome.instance.IsBeat(-1, 1f - Metronome.instance.TimeToBeat(this.attackTimer.WaitTime * 0.5f))) {
             this.InitAttack();
         }
@@ -45,8 +51,6 @@ public class Sword : Node2D {
         this.isAttacking = true;
         this.swordSprite.Visible = true;
         this.swordCollider.Disabled = false;
-
-        this.audioPlayer.Play();
 
         this.attackTimer.Start();
 
