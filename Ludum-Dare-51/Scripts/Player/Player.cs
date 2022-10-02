@@ -123,7 +123,7 @@ public class Player : RigidBody2D {
     }
 
     public Vector2 GetCenter() {
-        return this.center.Position;
+        return this.center.GlobalPosition;
     }
 
     private bool IsInvulnerable() {

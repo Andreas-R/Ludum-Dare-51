@@ -7,7 +7,7 @@ public class Arrow : RigidBody2D {
     public Vector2 direction;
 
     public override void _Process(float delta) {
-        this.Position += this.direction * this.speed * delta;
+        this.GlobalPosition += this.direction * this.speed * delta;
     }
 
     public void OnBodyEntered(Node body) {

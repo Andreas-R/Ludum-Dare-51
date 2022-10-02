@@ -5,6 +5,6 @@ public class DamageReceiver : Area2D {
     public delegate void OnDamage(float damage, Vector2 direction, float knockbackForce);
 
     public void Damage(float damage, Vector2 direction, float knockbackForce) {
-        EmitSignal(nameof(OnDamage), damage, Vector2.Zero, 0f);
+        EmitSignal(nameof(OnDamage), damage, direction, knockbackForce);
     }
 }

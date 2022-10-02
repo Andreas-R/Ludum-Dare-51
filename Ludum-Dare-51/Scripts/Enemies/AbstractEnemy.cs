@@ -14,10 +14,6 @@ public class AbstractEnemy : RigidBody2D {
         this.player = GetTree().Root.GetNode<Player>("Main/Player");
     }
 
-    public override void _IntegrateForces(Physics2DDirectBodyState bodyState) {
-        this.Move(bodyState);
-    }
-
     public void StartMoveAnimation() {
         this.sprite.Frame = 0;
         this.sprite.Playing = true;
@@ -33,14 +29,18 @@ public class AbstractEnemy : RigidBody2D {
         }
     }
 
-    protected virtual void Move(Physics2DDirectBodyState bodyState) {}
+    public bool IsHit() {
+        return !this.hitTimer.IsStopped();
+    }
 
     public virtual void OnHit(Vector2 direction, float knockbackForce) {
+        LinearVelocity = direction * knockbackForce;
         sprite.Modulate = hitColor;
         this.hitTimer.Start();
     }
 
     public void OnHitEnd() {
+        LinearVelocity = Vector2.Zero;
         sprite.Modulate = defaultColor;
     }
 

@@ -12,8 +12,10 @@ public class PlayerFollowingEnemy : AbstractEnemy {
         this.moveTimer = GetNode<Timer>("MoveTimer"); 
     }
 
-    protected override void Move(Physics2DDirectBodyState bodyState){
-        if (!this.isMoving){
+    public override void _IntegrateForces(Physics2DDirectBodyState bodyState) {
+        if (IsHit()) return;
+
+        if (!this.isMoving) {
             bodyState.LinearVelocity = Vector2.Zero;
 
             if (Metronome.instance.IsFrame(-1, 0f)) {
@@ -26,9 +28,8 @@ public class PlayerFollowingEnemy : AbstractEnemy {
         this.isMoving = true;
         StartMoveAnimation();
         this.moveTimer.Start();
-        Vector2 moveDir = (player.Position - this.Position).Normalized();
-        moveDir = moveDir * this.moveSpeed;
-        bodyState.LinearVelocity = moveDir;
+        Vector2 moveDir = (player.GlobalPosition - this.GlobalPosition).Normalized();
+        bodyState.LinearVelocity = moveDir * this.moveSpeed;
         HandleSpriteFlip(moveDir);
     }
 
