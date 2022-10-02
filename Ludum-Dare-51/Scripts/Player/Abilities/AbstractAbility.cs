@@ -12,4 +12,8 @@ public abstract class AbstractAbility {
     public int GetTotalLevel() {
         return level1 + level2 + level3;
     }
+
+    public abstract int[] GetBeatFrequency();
+
+    public abstract float[] GetSubBeatFrequency();
 }

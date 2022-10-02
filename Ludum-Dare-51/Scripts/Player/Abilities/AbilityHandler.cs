@@ -6,7 +6,7 @@ public class AbilityHandler : Node {
     private static int MAX_EQUIPPED_ABILITIES = 3;
 
     private Player player;
-    private Dictionary<AbilityType, AbstractAbility> abilities = new Dictionary<AbilityType, AbstractAbility>();
+    public Dictionary<AbilityType, AbstractAbility> abilities = new Dictionary<AbilityType, AbstractAbility>();
 
     public override void _Ready() {
         this.player = GetParent<Player>();
@@ -45,13 +45,17 @@ public class AbilityHandler : Node {
     public bool AddAbility(AbilityType abilityType, int upgradeType) {
         if (this.abilities.ContainsKey(abilityType)) {
             if (this.abilities[abilityType].GetTotalLevel() >= ABILITY_MAX_LEVEL) {
-                return false;
+                //return false; // TODO? - limit ability level
             }
             return IncreaseAbilityLevel(abilityType, upgradeType);
         } else if (upgradeType == 0 && this.abilities.Count < MAX_EQUIPPED_ABILITIES) {
             switch (abilityType) {
                 case AbilityType.FIREBALL: {
                     this.abilities[abilityType] = new FireballAbility();
+                    return true;
+                }
+                case AbilityType.ICE_NOVA: {
+                    this.abilities[abilityType] = new IceNovaAbility();
                     return true;
                 }
                 default: {

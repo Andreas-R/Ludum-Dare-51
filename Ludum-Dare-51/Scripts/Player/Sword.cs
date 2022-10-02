@@ -50,7 +50,7 @@ public class Sword : Node2D {
 
         this.isAttacking = true;
         this.swordSprite.Visible = true;
-        this.swordCollider.Disabled = false;
+        this.swordCollider.SetDeferred("disabled", false);
 
         this.attackTimer.Start();
 
@@ -67,7 +67,7 @@ public class Sword : Node2D {
     private void StopAttack() {
         this.isAttacking = false;
         this.swordSprite.Visible = false;
-        this.swordCollider.Disabled = true;
+        this.swordCollider.SetDeferred("disabled", true);
         this.lastSwingDirection *= -1f;
     }
 

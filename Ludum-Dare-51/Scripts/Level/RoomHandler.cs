@@ -13,22 +13,26 @@ public class RoomHandler : Node2D {
     public Vector2 roomEnd = new Vector2(600, 400);
     [Export]
     public float spawnWallMargin = 50f;
+    [Export]
+    public int chestSpawnFrequency = 4;
 
     private Sprite roomSprite;
+    private Chest chest;
+    private BgMusicHandler bgMusicHandler;
 
     private int roomCounter = 0;
     private int lastRoomIndex = -1;
     private int spriteIndex = 0;
     private int spriteCount = 0;
     private RoomData currentRoom;
-    private BgMusicHandler bgMusicHandler;
     private static Vector2 scale = new Vector2(5f, 5f);
 
     private Dictionary<string, List<PackedScene>> roomEnemies = new Dictionary<string, List<PackedScene>>();
 
     public override void _Ready() {
         roomSprite = GetNode<Sprite>("RoomSprite");
-        bgMusicHandler = GetParent().GetNode<BgMusicHandler>("BgMusicHandler");
+        chest = GetNode<Chest>("Chest");
+        bgMusicHandler = GetTree().Root.GetNode<BgMusicHandler>("Main/BgMusicHandler");
 
         foreach (RoomData room in rooms) {
             roomEnemies[room.id] = new List<PackedScene>();
@@ -97,7 +101,13 @@ public class RoomHandler : Node2D {
         roomSprite.Texture = room.roomImage[0];
         bgMusicHandler.ChangeMainBackgroundMusic(room.bgMusicSample);
 
-        this.SpawnEnemies(room);
+        if (chest.Visible) chest.Despawn();
+
+        if (roomCounter % chestSpawnFrequency == chestSpawnFrequency - 1) {
+            chest.Spawn();
+        } else {
+            this.SpawnEnemies(room);
+        }
     }
 
     private void SpawnEnemies(RoomData room) {

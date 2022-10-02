@@ -15,15 +15,18 @@ public class AbilityUpgradeHandler : Node {
 
     [Export]
     public Texture[] fireBallUpgradeMenuImages;
+    [Export]
+    public Texture[] iceNovaUpgradeMenuImages;
 
-    private AbilityHandler playerAbilityHandler;
-    private Dictionary<AbilityType, Texture[]> abilityMenuImages = new Dictionary<AbilityType, Texture[]>();
+    public AbilityHandler playerAbilityHandler;
+    public Dictionary<AbilityType, Texture[]> abilityMenuImages = new Dictionary<AbilityType, Texture[]>();
 
     public override void _Ready() {
         this.playerAbilityHandler = GetTree().Root.GetNode<AbilityHandler>("Main/Player/AbilityHandler");
 
         // add all ability images here
         this.abilityMenuImages.Add(AbilityType.FIREBALL, fireBallUpgradeMenuImages);
+        this.abilityMenuImages.Add(AbilityType.ICE_NOVA, iceNovaUpgradeMenuImages);
     }
 
     public List<AbilityUpgrade> GetPossibleUpgrades() {

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/room-002.png-973be718760e5f7e2d375fbee748f5bf.stex"
+path="res://.import/fireball-upgrade-hover-2.png-5f4b17ae7e12bcc8c1ec66b50b80c023.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/room-002.png"
-dest_files=[ "res://.import/room-002.png-973be718760e5f7e2d375fbee748f5bf.stex" ]
+source_file="res://Textures/fireball-upgrade-hover-2.png"
+dest_files=[ "res://.import/fireball-upgrade-hover-2.png-5f4b17ae7e12bcc8c1ec66b50b80c023.stex" ]
 
 [params]
 

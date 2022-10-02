@@ -1,6 +1,16 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Scripts/Level/AbilityUpgradeHandler.cs" type="Script" id=1]
+[ext_resource path="res://Textures/fireball-ability.png" type="Texture" id=2]
+[ext_resource path="res://Textures/fireball-upgrade-1.png" type="Texture" id=3]
+[ext_resource path="res://Textures/fireball-upgrade-2.png" type="Texture" id=4]
+[ext_resource path="res://Textures/fireball-upgrade-3.png" type="Texture" id=5]
+[ext_resource path="res://Textures/ice-nova-upgrade-3.png" type="Texture" id=6]
+[ext_resource path="res://Textures/ice-nova-ability.png" type="Texture" id=7]
+[ext_resource path="res://Textures/ice-nova-upgrade-1.png" type="Texture" id=8]
+[ext_resource path="res://Textures/ice-nova-upgrade-2.png" type="Texture" id=9]
 
 [node name="AbilityUpgradeHandler" type="Node"]
 script = ExtResource( 1 )
+fireBallUpgradeMenuImages = [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ) ]
+iceNovaUpgradeMenuImages = [ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 6 ) ]
