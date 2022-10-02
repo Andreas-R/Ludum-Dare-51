@@ -35,7 +35,7 @@ public class LazorTurretEnemy : AbstractEnemy {
         this.LinearDamp = this.velocityDamping;
         this.lazorBeam = LazorTurretEnemy.beamPrefab.Instance() as LazorBeam;
         this.lazorBeam.Scale = new Vector2(1600.0f, 5.0f);
-        this.lazorBeam.Position = new Vector2(800.0f + 40.0f, 0.0f);
+        this.lazorBeam.Position = new Vector2(800.0f + 80.0f, 0.0f);
         this.lazorBeam.ZIndex = 2;
         this.collisionShape = lazorBeam.GetNode<CollisionShape2D>("DamageDealer/Collider");
         this.collisionShape.SetDeferred("disabled", true);
@@ -90,5 +90,25 @@ public class LazorTurretEnemy : AbstractEnemy {
             this.sprite.Frame = 0;
         }
         this.Rotation = this.currentRotation;
+
+        Vector2 turretDirection = Vector2.Right.Rotated(this.Rotation);
+        Vector2 from = this.GlobalPosition + turretDirection * 40.0f;
+        Vector2 to = from + turretDirection * 1600.0f;
+        Physics2DDirectSpaceState spaceState = GetWorld2d().DirectSpaceState;
+        var result = spaceState.IntersectRay(
+            from,
+            to,
+            null,
+            2,
+            true,
+            true
+        );
+        if (result.Contains("position")) {
+            Vector2 wallPosition = (Vector2)result["position"];
+            float lazorLength = (wallPosition - from).Length();
+            this.lazorBeam.Scale = new Vector2(lazorLength, 5.0f);
+            this.lazorBeam.Position = new Vector2(lazorLength / 2.0f + 40.0f, 0.0f);
+
+        }
     }
 }
