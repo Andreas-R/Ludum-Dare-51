@@ -3,7 +3,7 @@ using Godot;
 public class FireballAbility : AbstractAbility {
     private static PackedScene fireballPrefab = ResourceLoader.Load("res://Prefabs/Player/Abilities/Fireball.tscn") as PackedScene;
 
-    private float spreadAngle = 60f;
+    private float spreadAngle = 12f;
     private float spreadAngleRad;
 
     public FireballAbility() {
@@ -11,15 +11,11 @@ public class FireballAbility : AbstractAbility {
         level2Max = 4;
         level3Max = 3;
 
-        level1 = level1Max;
-        level2 = level2Max;
-        level3 = level3Max;
-
         this.spreadAngleRad = Mathf.Deg2Rad(spreadAngle);
     }
 
     public override void OnProcess(Player player, float delta) {
-        if (Metronome.instance.IsBeat(GetFrequency(), new float[] {0.5f})) {
+        if (Metronome.instance.IsBeat(GetFrequency(), new float[] {0f})) {
             float numberOfFireballs = GetNumberOfFireBalls();
             
             for (int i = 0; i < numberOfFireballs; i += 1) {
@@ -27,7 +23,7 @@ public class FireballAbility : AbstractAbility {
                 fireball.direction = (player.GetGlobalMousePosition() - player.GetCenter()).Normalized();
                 fireball.Rotation = player.GetCenter().AngleToPoint(player.GetGlobalMousePosition());
                 if (numberOfFireballs > 1) {
-                    float rotationOffset = (-spreadAngleRad * 0.5f) + i * (spreadAngleRad / (numberOfFireballs - 1));
+                    float rotationOffset = (-spreadAngleRad * (numberOfFireballs - 1)) * 0.5f + i * spreadAngleRad;
                     fireball.direction = fireball.direction.Rotated(rotationOffset);
                     fireball.Rotation += rotationOffset;
                 }
@@ -45,13 +41,13 @@ public class FireballAbility : AbstractAbility {
     }
 
     private int GetNumberOfFireBalls() {
-        return this.level2 + 1;
+        return this.level2 + 3;
     }
 
     private int[] GetFrequency() {
         switch (this.level3) {
             case 0: {
-                return new int[] {1};
+                return new int[] {3};
             }
             case 1: {
                 return new int[] {1, 5};

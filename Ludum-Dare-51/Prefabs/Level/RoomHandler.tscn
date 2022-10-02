@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Resources/Room_001.tres" type="Resource" id=1]
 [ext_resource path="res://Scripts/Level/RoomHandler.cs" type="Script" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Textures/upgrade-menu.png" type="Texture" id=7]
 [ext_resource path="res://Scripts/UI/Abilities/UpgradeMenu.cs" type="Script" id=8]
 [ext_resource path="res://Scripts/Level/Chest.cs" type="Script" id=9]
+[ext_resource path="res://Resources/Room_003.tres" type="Resource" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 200, 400 )
@@ -19,7 +20,7 @@ extents = Vector2( 1000, 200 )
 [node name="RoomHandler" type="Node2D"]
 position = Vector2( 0, -50 )
 script = ExtResource( 2 )
-rooms = [ ExtResource( 1 ), ExtResource( 5 ) ]
+rooms = [ ExtResource( 1 ), ExtResource( 5 ), ExtResource( 10 ) ]
 
 [node name="RoomSprite" type="Sprite" parent="."]
 scale = Vector2( 5, 5 )
@@ -38,7 +39,6 @@ position = Vector2( 0, -22 )
 texture = ExtResource( 4 )
 
 [node name="MenuParent" type="Node2D" parent="Chest"]
-scale = Vector2( 1, 1 )
 z_index = 50
 
 [node name="UpgradeMenu" type="TextureRect" parent="Chest/MenuParent"]

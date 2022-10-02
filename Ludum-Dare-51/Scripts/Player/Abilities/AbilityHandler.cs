@@ -45,7 +45,7 @@ public class AbilityHandler : Node {
     public bool AddAbility(AbilityType abilityType, int upgradeType) {
         if (this.abilities.ContainsKey(abilityType)) {
             if (this.abilities[abilityType].GetTotalLevel() >= ABILITY_MAX_LEVEL) {
-                return false;
+                //return false; // TODO? - limit ability level
             }
             return IncreaseAbilityLevel(abilityType, upgradeType);
         } else if (upgradeType == 0 && this.abilities.Count < MAX_EQUIPPED_ABILITIES) {
