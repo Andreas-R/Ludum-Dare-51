@@ -18,7 +18,7 @@ public class Penguin : AbstractEnemy {
         if (!this.isMoving) {
             bodyState.LinearVelocity = Vector2.Zero;
 
-            if (Metronome.instance.IsBeat(-1, 0f)) {
+            if (Metronome.instance.IsBeat(GetBeatFrequency(), GetSubBeatFrequency())) {
                 this.InitMove(bodyState);
             }
         }
@@ -39,5 +39,17 @@ public class Penguin : AbstractEnemy {
 
     public void StopMove() {
         this.isMoving = false;
+    }
+
+    private int[] GetBeatFrequency() {
+        if  (spawnIndex % 2 == 0) {
+            return new int[] {0, 2, 4, 6};
+        } else {
+            return new int[] {1, 3, 5, 7};
+        }
+    }
+
+    private float[] GetSubBeatFrequency() {
+        return new float[] {0f};
     }
 }

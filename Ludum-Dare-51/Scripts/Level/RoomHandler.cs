@@ -42,6 +42,7 @@ public class RoomHandler : Node2D {
     private bool spawnBoss = false;
 
     private Dictionary<string, List<PackedScene>> roomEnemies = new Dictionary<string, List<PackedScene>>();
+    private Dictionary<int, int> enemyIndexCounters = new Dictionary<int, int>();
 
     public override void _Ready() {
         instance = this;
@@ -198,6 +199,8 @@ public class RoomHandler : Node2D {
             }
         }
 
+        enemyIndexCounters.Clear();
+
         switch(room.id){
             case "TreasureRoom":
                 SpawnEnemy(room, false);
@@ -219,9 +222,20 @@ public class RoomHandler : Node2D {
     }
 
     private void SpawnEnemy(RoomData room, bool isBoss){
-        PackedScene enemyPrefab = roomEnemies[room.id][rng.RandiRange(0, roomEnemies[room.id].Count - 1)];
+        int enemyTypeIndex = rng.RandiRange(0, roomEnemies[room.id].Count - 1);
+
+        if (!enemyIndexCounters.ContainsKey(enemyTypeIndex)) {
+            enemyIndexCounters[enemyTypeIndex] = 0;
+        } else {
+            enemyIndexCounters[enemyTypeIndex] += 1;
+        }
+
+        PackedScene enemyPrefab = roomEnemies[room.id][enemyTypeIndex];
         AbstractEnemy enemy = enemyPrefab.Instance() as AbstractEnemy;
+
         enemy.isBoss = isBoss;
+        enemy.spawnIndex = enemyIndexCounters[enemyTypeIndex];
+
         float lifeMultiplier = 1f + (roomCounter * 0.05f);
 
         if (isBoss) {
