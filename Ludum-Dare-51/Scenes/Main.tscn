@@ -40,12 +40,15 @@ current = true
 treasureRoom = null
 
 [node name="Chest1" parent="." instance=ExtResource( 9 )]
+visible = false
 position = Vector2( 0, 50 )
 
 [node name="Chest2" parent="." instance=ExtResource( 9 )]
+visible = false
 position = Vector2( 350, -100 )
 
 [node name="Chest3" parent="." instance=ExtResource( 9 )]
+visible = false
 position = Vector2( -350, -100 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
