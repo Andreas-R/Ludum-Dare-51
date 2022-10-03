@@ -10,6 +10,7 @@ public class ChainLightningAbility : AbstractAbility {
     private float maxDistance = 300f;
     private float maxDistanceSquared;
 
+
     public ChainLightningAbility() {
         level1Max = 4;
         level2Max = 4;
@@ -36,6 +37,20 @@ public class ChainLightningAbility : AbstractAbility {
 
             // first chain is between player and first enemy
             Chain(player, player, 0, numberOfChains);
+        }
+        if (Metronome.instance.IsBeatWithAudioDelay(this.GetBeatFrequency(), this.GetSubBeatFrequency())){
+            enemies.Clear();
+            selectedTargets.Clear();
+            Node2D main = player.GetTree().Root.GetNode<Node2D>("Main");
+            foreach (Node node in main.GetChildren()) {
+                AbstractEnemy enemy = node as AbstractEnemy;
+                if (enemy != null) {
+                    enemies.Add(enemy);
+                }
+            }
+            if(GetNearestEnemy(player.GlobalPosition)!=null){
+                SoundManager.instance.PlaySfx(SoundManager.Sfx.chainLightning);
+            }
         }
     }
 

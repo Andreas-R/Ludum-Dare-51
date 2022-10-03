@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scripts/Music/SoundManager.cs" type="Script" id=1]
 [ext_resource path="res://Audio/Sfx/blob.ogg" type="AudioStream" id=2]
 [ext_resource path="res://Audio/Sfx/penguinSfx.ogg" type="AudioStream" id=3]
+[ext_resource path="res://Audio/Sfx/chainLightning.ogg" type="AudioStream" id=4]
 
 [node name="SoundManager" type="Node"]
 script = ExtResource( 1 )
@@ -13,4 +14,9 @@ bus = "Sfx"
 
 [node name="Blob" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 2 )
+bus = "Sfx"
+
+[node name="ChainLightning" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+volume_db = 2.0
 bus = "Sfx"

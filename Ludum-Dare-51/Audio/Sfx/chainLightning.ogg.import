@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/chainLightning.ogg-d91da543d307defaf8b1b7bc07bf81d2.oggstr"
+
+[deps]
+
+source_file="res://Audio/Sfx/chainLightning.ogg"
+dest_files=[ "res://.import/chainLightning.ogg-d91da543d307defaf8b1b7bc07bf81d2.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0
