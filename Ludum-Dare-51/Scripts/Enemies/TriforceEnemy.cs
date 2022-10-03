@@ -1,7 +1,6 @@
 using Godot;
 
 public class TriforceEnemy : AbstractEnemy {
-    [Export]
     public static float triangleHeightFactor = 0.5f * Mathf.Sqrt(3);
 
     [Export]
