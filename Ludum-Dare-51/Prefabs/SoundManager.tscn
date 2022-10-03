@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Scripts/Music/SoundManager.cs" type="Script" id=1]
 [ext_resource path="res://Audio/Sfx/blob.ogg" type="AudioStream" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Audio/Sfx/laserSfx.ogg" type="AudioStream" id=6]
 [ext_resource path="res://Audio/Sfx/iceNova.ogg" type="AudioStream" id=7]
 [ext_resource path="res://Audio/Sfx/fireball.ogg" type="AudioStream" id=8]
+[ext_resource path="res://Audio/Sfx/bowShot.ogg" type="AudioStream" id=9]
 
 [node name="SoundManager" type="Node"]
 script = ExtResource( 1 )
@@ -41,3 +42,7 @@ bus = "Sfx"
 stream = ExtResource( 8 )
 volume_db = -12.0
 bus = "Sfx"
+
+[node name="BowShot" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 9 )
+volume_db = -5.0
