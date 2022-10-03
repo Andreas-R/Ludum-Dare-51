@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://Scripts/UI/Timeline/Timeline.cs" type="Script" id=1]
 [ext_resource path="res://Textures/fireball.png" type="Texture" id=2]
@@ -19,6 +19,8 @@
 [ext_resource path="res://Textures/ui-pause-button-pressed.png" type="Texture" id=17]
 [ext_resource path="res://Textures/ui-pause-button.png" type="Texture" id=18]
 [ext_resource path="res://Scripts/UI/HUD.cs" type="Script" id=19]
+[ext_resource path="res://Prefabs/UI/5AbilityDisplay.tscn" type="PackedScene" id=20]
+[ext_resource path="res://Textures/move-speed-icon.png" type="Texture" id=21]
 
 [sub_resource type="StyleBoxTexture" id=1]
 
@@ -346,6 +348,18 @@ custom_fonts/font = ExtResource( 11 )
 text = "001"
 align = 2
 
+[node name="MoveSpeedAbilityDisplay" parent="LifeAndAbilitiesPanel" instance=ExtResource( 20 )]
+margin_top = 23.0
+margin_bottom = 25.0
+totalMaxLevels = 5
+
+[node name="Icon" parent="LifeAndAbilitiesPanel/MoveSpeedAbilityDisplay" index="0"]
+margin_left = -14.0
+margin_top = -3.0
+margin_right = -5.0
+margin_bottom = 5.0
+texture = ExtResource( 21 )
+
 [node name="FireballAbilityDisplay" parent="LifeAndAbilitiesPanel" instance=ExtResource( 10 )]
 
 [node name="IceNovaAbilityDisplay" parent="LifeAndAbilitiesPanel" instance=ExtResource( 10 )]
@@ -491,6 +505,7 @@ stretch_mode = 6
 [connection signal="pressed" from="PauseButton" to="." method="OnPause"]
 [connection signal="animation_finished" from="BlackScreen/AnimationPlayer" to="." method="OnAnimationFinished"]
 
+[editable path="LifeAndAbilitiesPanel/MoveSpeedAbilityDisplay"]
 [editable path="LifeAndAbilitiesPanel/FireballAbilityDisplay"]
 [editable path="LifeAndAbilitiesPanel/IceNovaAbilityDisplay"]
 [editable path="LifeAndAbilitiesPanel/ChainLightningAbilityDisplay"]

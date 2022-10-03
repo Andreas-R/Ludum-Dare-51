@@ -43,7 +43,7 @@ public class Metronome : Node {
     }
 
     public void Start() {
-        // isPlaying = true;
+        isPlaying = true;
     }
 
     public bool IsBeat(int[] beats, float[] timesInBeat, float delayInSecond = 0f) {

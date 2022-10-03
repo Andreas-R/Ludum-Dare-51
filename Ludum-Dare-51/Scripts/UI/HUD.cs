@@ -1,16 +1,14 @@
 using Godot;
 
 public class HUD : Control {
+    private Metronome metronome;
     private AnimationPlayer introAnimationPlayer;
     private bool turnedOn = false;
     private bool gameRunning = false;
 
     public override void _Ready() {
+        metronome = GetTree().Root.GetNode<Metronome>("Main/Metronome");
         introAnimationPlayer = GetNode<AnimationPlayer>("BlackScreen/AnimationPlayer");
-    }
-
-    public override void _Process(float delta) {
-        
     }
 
     public void OnPower() {
@@ -35,6 +33,6 @@ public class HUD : Control {
     }
 
     public void OnIntroFinished() {
-
+        metronome.Start();
     }
 }

@@ -3,6 +3,8 @@ using Godot;
 public class AbilityDisplay : Control {
     [Export]
     public AbilityType abilityType;
+    [Export]
+    public int totalMaxLevels = 10;
 
     private AbilityHandler playerAbilityHandler;
     private TextureRect icon;
@@ -16,9 +18,9 @@ public class AbilityDisplay : Control {
 
         this.icon = GetNode<TextureRect>("Icon");
 
-        this.leds = new ColorRect[10];
+        this.leds = new ColorRect[totalMaxLevels];
 
-        for (int i = 0; i < 10; i += 1) {
+        for (int i = 0; i < totalMaxLevels; i += 1) {
             this.leds[i] = GetNode<ColorRect>("LED" + (i + 1));
         }
     }
@@ -28,7 +30,7 @@ public class AbilityDisplay : Control {
 
         int totalAbilityLevel = this.playerAbilityHandler.GetAbilityLevel(abilityType);
 
-        for (int i = 0; i < 10; i += 1) {
+        for (int i = 0; i < totalMaxLevels; i += 1) {
             this.leds[i].Visible = totalAbilityLevel > i;
         }
     }
