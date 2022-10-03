@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ice-nova-ground.png-48e5d1d241c2f2956f8ef08a4da57eba.stex"
+path="res://.import/ice-nova-icon.png-6f0453c405c651fee4edea473ac31d6b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/ice-nova-ground.png"
-dest_files=[ "res://.import/ice-nova-ground.png-48e5d1d241c2f2956f8ef08a4da57eba.stex" ]
+source_file="res://Textures/ice-nova-icon.png"
+dest_files=[ "res://.import/ice-nova-icon.png-6f0453c405c651fee4edea473ac31d6b.stex" ]
 
 [params]
 

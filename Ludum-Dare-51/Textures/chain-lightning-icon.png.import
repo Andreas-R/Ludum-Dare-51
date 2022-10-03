@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ice-nova.png-de4b540bd6f0a0eacbbca48d6bbefb78.stex"
+path="res://.import/chain-lightning-icon.png-a0c3a8a0b201e7d3cb4e68e7d08d711b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/ice-nova.png"
-dest_files=[ "res://.import/ice-nova.png-de4b540bd6f0a0eacbbca48d6bbefb78.stex" ]
+source_file="res://Textures/chain-lightning-icon.png"
+dest_files=[ "res://.import/chain-lightning-icon.png-a0c3a8a0b201e7d3cb4e68e7d08d711b.stex" ]
 
 [params]
 

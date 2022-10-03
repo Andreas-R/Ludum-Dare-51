@@ -144,7 +144,7 @@ public class RoomHandler : Node2D {
     private void SpawnEnemy(RoomData room){
         PackedScene enemyPrefab = roomEnemies[room.id][rng.RandiRange(0, roomEnemies[room.id].Count - 1)];
         AbstractEnemy enemy = enemyPrefab.Instance() as AbstractEnemy;
-        float lifeMultiplier = 1f + (roomCounter * 0.1f);
+        float lifeMultiplier = 1f + (roomCounter * 0.05f);
         enemy.GetNode<LifePointManager>("LifePointManager").maxHealth *= lifeMultiplier;
         enemy.GlobalPosition = this.GetRandomSpawnPosition();
         GetTree().Root.GetNode<Node>("Main").AddChild(enemy);
