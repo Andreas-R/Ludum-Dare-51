@@ -6,7 +6,7 @@ public class Timeline : Control {
     private static PackedScene smallTickPrefab = ResourceLoader.Load("res://Prefabs/UI/SmallTick.tscn") as PackedScene;
     private static PackedScene imageTickPrefab = ResourceLoader.Load("res://Prefabs/UI/ImageTick.tscn") as PackedScene;
 
-    public static float timelineLength = 1600f;
+    public static float timelineLength = 1430f;
     public static int numberOfBeatsOnTimeline = 8;
 
     [Export]

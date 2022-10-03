@@ -20,8 +20,13 @@
 [node name="AbilityUpgradeHandler" parent="." instance=ExtResource( 3 )]
 
 [node name="HUD" parent="." instance=ExtResource( 6 )]
+margin_left = -1000.0
+margin_top = -610.0
+margin_right = 760.0
+margin_bottom = 670.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( -120, 30 )
 current = true
 
 [node name="RoomHandler" parent="." instance=ExtResource( 1 )]
