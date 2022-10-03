@@ -22,7 +22,7 @@ public class IceNovaAbility : AbstractAbility {
     }
 
     private float GetScale() {
-        return 1.5f + this.level2 * 0.3f;
+        return 1.5f + this.level2 * 0.5f;
     }
 
     public override int[] GetBeatFrequency() {

@@ -20,7 +20,7 @@ public class IceNova : DamageDealer {
     }
 
     public override void HandleDamage(DamageReceiver receiver, float damage) {
-        receiver.Damage(damage, (receiver.GlobalPosition - this.player.GetCenter()).Normalized(), 200f);
+        receiver.Damage(damage, (receiver.GlobalPosition - this.player.GetCenter()).Normalized(), 500f);
     }
 
     public void OnAttack() {

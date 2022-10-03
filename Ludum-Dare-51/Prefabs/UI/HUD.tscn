@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Scripts/UI/Timeline/Timeline.cs" type="Script" id=1]
 [ext_resource path="res://Textures/fireball.png" type="Texture" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://Textures/ui-life-and-abilities.png" type="Texture" id=8]
 [ext_resource path="res://Scripts/UI/LifeAndAbilitiesPanel.cs" type="Script" id=9]
 [ext_resource path="res://Prefabs/UI/AbilityDisplay.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Fonts/DraconianPixelsMinimal/DraconianPixelsMinimal.tres" type="DynamicFont" id=11]
 
 [sub_resource type="StyleBoxTexture" id=1]
 
@@ -26,9 +27,9 @@ rect_scale = Vector2( 5, 5 )
 texture = ExtResource( 5 )
 
 [node name="AudioSlider" type="VSlider" parent="TextureRect"]
-margin_left = 21.0
+margin_left = 19.9999
 margin_top = 95.0
-margin_right = 37.0
+margin_right = 35.9999
 margin_bottom = 186.0
 custom_icons/grabber_disabled = ExtResource( 6 )
 custom_icons/grabber_highlight = ExtResource( 6 )
@@ -54,6 +55,25 @@ margin_top = 5.0
 margin_right = 36.0
 margin_bottom = 9.0
 color = Color( 0.65098, 0.8, 0.203922, 1 )
+
+[node name="Room" type="Label" parent="TextureRect/LifeAndAbilitiesPanel"]
+margin_left = 5.0
+margin_top = 11.0
+margin_right = 25.0
+margin_bottom = 16.0
+rect_scale = Vector2( 0.8, 0.8 )
+custom_fonts/font = ExtResource( 11 )
+text = "Room:"
+
+[node name="Number" type="Label" parent="TextureRect/LifeAndAbilitiesPanel"]
+margin_left = 21.0
+margin_top = 11.0
+margin_right = 41.0
+margin_bottom = 16.0
+rect_scale = Vector2( 0.8, 0.8 )
+custom_fonts/font = ExtResource( 11 )
+text = "001"
+align = 2
 
 [node name="FireballAbilityDisplay" parent="TextureRect/LifeAndAbilitiesPanel" instance=ExtResource( 10 )]
 

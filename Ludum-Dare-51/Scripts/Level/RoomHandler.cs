@@ -25,7 +25,7 @@ public class RoomHandler : Node2D {
     private Chest chest;
     private BgMusicHandler bgMusicHandler;
 
-    private int roomCounter = 0;
+    public int roomCounter = 0;
     private int lastRoomIndex = -1;
     private int spriteIndex = 0;
     private int spriteCount = 0;
