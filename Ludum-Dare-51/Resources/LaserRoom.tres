@@ -11,8 +11,8 @@
 script = ExtResource( 1 )
 id = "LaserRoom"
 roomImage = [ ExtResource( 6 ), ExtResource( 2 ) ]
-spawnWeight = 5.0
-minSpawnRoomCount = 10
+spawnWeight = 50.0
+minSpawnRoomCount = 0
 spawnableEnemyPrefabPaths = PoolStringArray( "res://Prefabs/Enemies/LazorTurret.tscn", "res://Prefabs/Enemies/Robot.tscn" )
 numberOfEnemiesSpawnFactor = 0.33
 canContainBosses = true
