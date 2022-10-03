@@ -23,6 +23,7 @@ public class AbstractEnemy : RigidBody2D {
         this.sprite = GetNode<AnimatedSprite>("Sprite");
         if (HasNode("Weapon")) {
             this.weaponSprite = GetNode<AnimatedSprite>("Weapon");
+            this.weaponSprite.Position *= (isBoss ? AbstractEnemy.bossSizeScale : 1f);
         }
         this.hitTimer = GetNode<Timer>("HitTimer");
         this.player = GetTree().Root.GetNode<Player>("Main/Player");
