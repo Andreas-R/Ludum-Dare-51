@@ -15,6 +15,7 @@ public class Goblin : AbstractEnemy
     private CollisionShape2D collider;
     private AnimatedSprite animatedSprite;
     static RandomNumberGenerator randomGenerator = new RandomNumberGenerator();
+
     public override void _Ready()
     {
         base._Ready();
