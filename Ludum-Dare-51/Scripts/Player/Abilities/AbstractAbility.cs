@@ -13,6 +13,8 @@ public abstract class AbstractAbility {
         return level1 + level2 + level3;
     }
 
+    public virtual void OnUpgrade(int upgradeType){}
+
     public abstract int[] GetBeatFrequency();
 
     public abstract float[] GetSubBeatFrequency();

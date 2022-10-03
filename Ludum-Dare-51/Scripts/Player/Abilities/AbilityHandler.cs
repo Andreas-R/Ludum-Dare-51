@@ -7,6 +7,7 @@ public class AbilityHandler : Node {
 
     public override void _Ready() {
         this.player = GetParent<Player>();
+        AddAbility(AbilityType.MOVE_SPEED, 0);
     }
 
     public override void _Process(float delta) {
@@ -56,6 +57,10 @@ public class AbilityHandler : Node {
                     this.abilities[abilityType] = new ChainLightningAbility();
                     return true;
                 }
+                case AbilityType.MOVE_SPEED: {
+                    this.abilities[abilityType] = new moveSpeedAbility();
+                    return true;
+                }
                 default: {
                     return false;
                 }
@@ -70,6 +75,7 @@ public class AbilityHandler : Node {
             case 1: {
                 if (this.abilities[abilityType].level1 < this.abilities[abilityType].level1Max) {
                     this.abilities[abilityType].level1 += 1;
+                    this.abilities[abilityType].OnUpgrade(1);
                     return true;
                 }
                 break;
@@ -77,6 +83,7 @@ public class AbilityHandler : Node {
             case 2: {
                 if (this.abilities[abilityType].level2 < this.abilities[abilityType].level2Max) {
                     this.abilities[abilityType].level2 += 1;
+                    this.abilities[abilityType].OnUpgrade(2);
                     return true;
                 }
                 break;
@@ -84,6 +91,7 @@ public class AbilityHandler : Node {
             case 3: {
                 if (this.abilities[abilityType].level3 < this.abilities[abilityType].level3Max) {
                     this.abilities[abilityType].level3 += 1;
+                    this.abilities[abilityType].OnUpgrade(3);
                     return true;
                 }
                 break;

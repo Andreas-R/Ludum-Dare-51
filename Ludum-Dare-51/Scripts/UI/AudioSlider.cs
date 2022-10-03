@@ -11,7 +11,6 @@ public class AudioSlider : VSlider {
     }
 
     private void SetVolume(float linearValue) {
-        GD.Print(Mathf.Log(linearValue) * 12f);
         AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex("Master"), Mathf.Log(linearValue) * 10f);
     }
 }

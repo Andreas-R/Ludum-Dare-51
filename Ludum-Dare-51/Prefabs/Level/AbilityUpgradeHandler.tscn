@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://Scripts/Level/AbilityUpgradeHandler.cs" type="Script" id=1]
 [ext_resource path="res://Textures/fireball-ability.png" type="Texture" id=2]
@@ -25,6 +25,8 @@
 [ext_resource path="res://Textures/chain-lightning-upgrade-hover-3.png" type="Texture" id=23]
 [ext_resource path="res://Textures/chain-lightning-ability-hover.png" type="Texture" id=24]
 [ext_resource path="res://Textures/chain-lightning-upgrade-hover-2.png" type="Texture" id=25]
+[ext_resource path="res://Textures/move-speed-upgrade-hover.png" type="Texture" id=26]
+[ext_resource path="res://Textures/move-speed-upgrade.png" type="Texture" id=27]
 
 [node name="AbilityUpgradeHandler" type="Node"]
 script = ExtResource( 1 )
@@ -34,3 +36,5 @@ iceNovaUpgradeMenuImages = [ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 
 iceNovaUpgradeMenuHoveredImages = [ ExtResource( 17 ), ExtResource( 18 ), ExtResource( 16 ), ExtResource( 15 ) ]
 chainLightningUpgradeMenuImages = [ ExtResource( 10 ), ExtResource( 19 ), ExtResource( 21 ), ExtResource( 20 ) ]
 chainLightningUpgradeMenuHoveredImages = [ ExtResource( 24 ), ExtResource( 22 ), ExtResource( 25 ), ExtResource( 23 ) ]
+moveSpeedUpgradeMenuImages = [ ExtResource( 27 ), ExtResource( 27 ), ExtResource( 27 ), ExtResource( 27 ) ]
+moveSpeedUpgradeMenuHoverImages = [ ExtResource( 26 ), ExtResource( 26 ), ExtResource( 26 ), ExtResource( 26 ) ]

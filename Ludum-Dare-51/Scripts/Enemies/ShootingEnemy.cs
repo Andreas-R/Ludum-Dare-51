@@ -32,7 +32,7 @@ public class ShootingEnemy : AbstractEnemy {
             Arrow arrow = ShootingEnemy.arrowPrefab.Instance() as Arrow;
             arrow.direction = (playerPosition - this.GlobalPosition).Normalized();
             arrow.GlobalPosition = this.GlobalPosition + arrow.direction * 40f;
-            arrow.GlobalRotation = this.GlobalPosition.AngleToPoint(playerPosition);
+            arrow.Rotation = this.GlobalPosition.AngleToPoint(playerPosition);
             if (isBoss) {
                 arrow.Scale = new Vector2(arrow.Scale.x * AbstractEnemy.bossSizeScale, arrow.Scale.y * AbstractEnemy.bossSizeScale);
             }
