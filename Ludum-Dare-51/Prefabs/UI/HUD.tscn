@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://Scripts/UI/Timeline/Timeline.cs" type="Script" id=1]
 [ext_resource path="res://Textures/fireball.png" type="Texture" id=2]
@@ -25,6 +25,37 @@
 [ext_resource path="res://Textures/sword-icon.png" type="Texture" id=23]
 
 [sub_resource type="StyleBoxTexture" id=1]
+
+[sub_resource type="Animation" id=7]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "pulse"
+length = 2.4
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4, 0.8, 1.2, 1.6, 2, 2.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1.7, 1.7, 1.7, 1 ), Color( 1, 1, 1, 1 ), Color( 1.7, 1.7, 1.7, 1 ), Color( 1, 1, 1, 1 ), Color( 1.7, 1.7, 1.7, 1 ), Color( 1, 1, 1, 1 ) ]
+}
 
 [sub_resource type="Animation" id=3]
 length = 0.001
@@ -563,6 +594,10 @@ rect_scale = Vector2( 5, 5 )
 texture_normal = ExtResource( 16 )
 texture_pressed = ExtResource( 15 )
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PowerButton"]
+anims/RESET = SubResource( 7 )
+anims/pulse = SubResource( 8 )
+
 [node name="PauseButton" type="TextureButton" parent="."]
 margin_left = 140.0
 margin_top = 1125.0
@@ -669,11 +704,16 @@ text = "YOU DIED"
 align = 1
 valign = 1
 
+[node name="PowerButtonTipTimer" type="Timer" parent="."]
+wait_time = 6.0
+autostart = true
+
 [connection signal="value_changed" from="AudioSlider" to="AudioSlider" method="OnChange"]
 [connection signal="pressed" from="PowerButton" to="." method="OnPower"]
 [connection signal="pressed" from="PauseButton" to="." method="OnPause"]
 [connection signal="animation_finished" from="BlackScreen/AnimationPlayer" to="." method="OnAnimationFinished"]
 [connection signal="animation_finished" from="GameOverScreen/AnimationPlayer" to="." method="OnAnimationFinished"]
+[connection signal="timeout" from="PowerButtonTipTimer" to="." method="OnPowerButtonTip"]
 
 [editable path="LifeAndAbilitiesPanel/MoveSpeedAbilityDisplay"]
 [editable path="LifeAndAbilitiesPanel/SwordDisplay"]

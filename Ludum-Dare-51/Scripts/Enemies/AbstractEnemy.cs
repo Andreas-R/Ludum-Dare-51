@@ -95,7 +95,6 @@ public class AbstractEnemy : RigidBody2D {
     }
 
     public virtual void OnDeath() {
-        enemyManager.OnEnemyDeath(this);
         DeathEffect deathEffect = deathEffectPrefab.Instance() as DeathEffect;
         deathEffect.Position = Position;
         deathEffect.Playing = true;
@@ -105,5 +104,9 @@ public class AbstractEnemy : RigidBody2D {
 
     public virtual void OnEscape(){
         sprite.Play("escape");
+    }
+
+    public override void _ExitTree() {
+        enemyManager.OnEnemyDeath(this);
     }
 }
