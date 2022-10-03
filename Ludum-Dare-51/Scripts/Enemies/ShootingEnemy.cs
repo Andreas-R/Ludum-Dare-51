@@ -21,12 +21,9 @@ public class ShootingEnemy : AbstractEnemy {
 
     public override void _Process(float delta) {
         if (IsHit()) return;
-        bool isFrame = Metronome.instance.IsBeat(-1, 0f);
-        Vector2 playerPosition = this.player.GetCenter();
-        if (
-           isFrame &&
-            (playerPosition - this.GlobalPosition).LengthSquared() <= Mathf.Pow(this.range, 2)
-        ) {
+
+        if (Metronome.instance.IsBeat(GetBeatFrequency(), GetSubBeatFrequency())) {
+            Vector2 playerPosition = this.player.GetCenter();
             Aim(playerPosition);
             StartAttackAnimation();
             Arrow arrow = ShootingEnemy.arrowPrefab.Instance() as Arrow;
@@ -37,8 +34,9 @@ public class ShootingEnemy : AbstractEnemy {
                 arrow.Scale = new Vector2(arrow.Scale.x * AbstractEnemy.bossSizeScale, arrow.Scale.y * AbstractEnemy.bossSizeScale);
             }
             GetTree().Root.GetNode<Node>("Main").AddChild(arrow);
-        } 
-        if (isFrame) {
+        }
+
+        if (Metronome.instance.IsBeat(-1, 0f)) {
             StartMoveAnimation();
         }
     }
@@ -60,5 +58,28 @@ public class ShootingEnemy : AbstractEnemy {
 
     public void OnShootFinished() {
          Aim(this.GlobalPosition + (IsFlipped() ? Vector2.Right : Vector2.Left));
+    }
+
+
+    private int[] GetBeatFrequency() {
+        switch(spawnIndex % 4) {
+            case 0: {
+                return new int[] {0, 4};
+            }
+            case 1: {
+                return new int[] {1, 5};
+            }
+            case 2: {
+                return new int[] {2, 6};
+            }
+            case 3: {
+                return new int[] {3, 7};
+            }
+        }
+        return new int[] {};
+    }
+
+    private float[] GetSubBeatFrequency() {
+        return new float[] {0f, 0.25f};
     }
 }

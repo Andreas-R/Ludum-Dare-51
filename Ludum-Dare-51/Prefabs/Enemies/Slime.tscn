@@ -93,7 +93,7 @@ script = ExtResource( 4 )
 maxHealth = 100.0
 
 [node name="MoveTimer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.35
 one_shot = true
 
 [node name="HitTimer" type="Timer" parent="."]

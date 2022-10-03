@@ -7,6 +7,7 @@ public class AbstractEnemy : RigidBody2D {
     [Export]
     public float difficultyFactor = 1f;
     
+    public int spawnIndex = 0;
     public bool isBoss = false;
 
     protected AnimatedSprite sprite;
