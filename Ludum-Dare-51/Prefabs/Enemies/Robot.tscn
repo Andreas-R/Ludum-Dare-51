@@ -1,0 +1,111 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://Physics/EnemyPhysics.tres" type="PhysicsMaterial" id=1]
+[ext_resource path="res://Prefabs/Shadow.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Textures/robot.png" type="Texture" id=3]
+[ext_resource path="res://Scripts/Enemies/TriforceEnemy.cs" type="Script" id=4]
+[ext_resource path="res://Scripts/Damage/DamageDealer.cs" type="Script" id=5]
+[ext_resource path="res://Scripts/Damage/LifePointManager.cs" type="Script" id=6]
+[ext_resource path="res://Scripts/Damage/DamageReceiver.cs" type="Script" id=7]
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 8, 8 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 3 )
+region = Rect2( 8, 0, 8, 8 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 3 )
+region = Rect2( 16, 0, 8, 8 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 3 )
+region = Rect2( 24, 0, 8, 8 )
+
+[sub_resource type="SpriteFrames" id=4]
+animations = [ {
+"frames": [ SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ) ],
+"loop": true,
+"name": "default",
+"speed": 4.8
+} ]
+
+[sub_resource type="CapsuleShape2D" id=10]
+radius = 14.0
+height = 0.0
+
+[sub_resource type="CapsuleShape2D" id=8]
+radius = 16.0
+height = 0.0
+
+[sub_resource type="CapsuleShape2D" id=9]
+radius = 16.0
+height = 0.0
+
+[node name="Robot" type="RigidBody2D"]
+collision_layer = 4
+collision_mask = 7
+mode = 2
+physics_material_override = ExtResource( 1 )
+gravity_scale = 0.0
+contacts_reported = 1
+contact_monitor = true
+can_sleep = false
+script = ExtResource( 4 )
+
+[node name="Sprite" type="AnimatedSprite" parent="."]
+position = Vector2( 0, 5.68434e-14 )
+scale = Vector2( 5, 5 )
+frames = SubResource( 4 )
+frame = 3
+playing = true
+offset = Vector2( 0, -3 )
+
+[node name="Shadow" parent="." instance=ExtResource( 2 )]
+position = Vector2( 0, 9.53674e-07 )
+scale = Vector2( 5, 5 )
+z_index = -1
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -13 )
+shape = SubResource( 10 )
+
+[node name="DamageReceiver" type="Area2D" parent="."]
+collision_layer = 512
+collision_mask = 0
+script = ExtResource( 7 )
+
+[node name="Collider" type="CollisionShape2D" parent="DamageReceiver"]
+position = Vector2( 0, -13 )
+shape = SubResource( 8 )
+
+[node name="DamageDealer" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 256
+script = ExtResource( 5 )
+damage = 10.0
+
+[node name="Collider" type="CollisionShape2D" parent="DamageDealer"]
+position = Vector2( 0, -13 )
+shape = SubResource( 9 )
+
+[node name="LifePointManager" type="Node" parent="."]
+script = ExtResource( 6 )
+maxHealth = 100.0
+
+[node name="MoveTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="HitTimer" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
+
+[connection signal="OnDamage" from="DamageReceiver" to="LifePointManager" method="Damage"]
+[connection signal="area_entered" from="DamageDealer" to="DamageDealer" method="OnArea2DEnter"]
+[connection signal="OnDeath" from="LifePointManager" to="." method="OnDeath"]
+[connection signal="OnHit" from="LifePointManager" to="." method="OnHit"]
+[connection signal="timeout" from="MoveTimer" to="." method="StopMove"]
+[connection signal="timeout" from="HitTimer" to="." method="OnHitEnd"]
