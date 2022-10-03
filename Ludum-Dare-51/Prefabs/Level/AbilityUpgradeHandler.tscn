@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://Scripts/Level/AbilityUpgradeHandler.cs" type="Script" id=1]
 [ext_resource path="res://Textures/fireball-ability.png" type="Texture" id=2]
@@ -27,9 +27,14 @@
 [ext_resource path="res://Textures/chain-lightning-upgrade-hover-2.png" type="Texture" id=25]
 [ext_resource path="res://Textures/move-speed-upgrade-hover.png" type="Texture" id=26]
 [ext_resource path="res://Textures/move-speed-upgrade.png" type="Texture" id=27]
+[ext_resource path="res://Textures/sword-upgrade-1.png" type="Texture" id=28]
+[ext_resource path="res://Textures/sword-upgrade-3.png" type="Texture" id=29]
+[ext_resource path="res://Textures/sword-upgrade-2.png" type="Texture" id=30]
 
 [node name="AbilityUpgradeHandler" type="Node"]
 script = ExtResource( 1 )
+swordUpgradeMenuImages = [ ExtResource( 28 ), ExtResource( 28 ), ExtResource( 30 ), ExtResource( 29 ) ]
+swordUpgradeMenuHoveredImages = [ ExtResource( 28 ), ExtResource( 28 ), ExtResource( 30 ), ExtResource( 29 ) ]
 fireBallUpgradeMenuImages = [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ) ]
 fireBallUpgradeMenuHoveredImages = [ ExtResource( 12 ), ExtResource( 11 ), ExtResource( 14 ), ExtResource( 13 ) ]
 iceNovaUpgradeMenuImages = [ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 6 ) ]
