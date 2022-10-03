@@ -142,25 +142,32 @@ public class RoomHandler : Node2D {
             List<AbilityUpgradeHandler.AbilityUpgrade> possibleUpgrades = this.abilityUpgradeHandler.GetPossibleUpgrades();
             Utils.Shuffle<AbilityUpgradeHandler.AbilityUpgrade>(possibleUpgrades);
 
-            if (possibleUpgrades.Count > 0) {
-                currentRoom = treasureRoom;
-                spriteCount = currentRoom.roomImage.Length;
-                roomSprite.Texture = currentRoom.roomImage[0];
-            
-                if (TripleChestSpawnNextRoom) {
+            currentRoom = treasureRoom;
+            spriteCount = currentRoom.roomImage.Length;
+            roomSprite.Texture = currentRoom.roomImage[0];
+        
+            if (TripleChestSpawnNextRoom) {
+                if (possibleUpgrades.Count > 0) {
                     chest1.Spawn(possibleUpgrades.GetRange(0, Math.Min(2, possibleUpgrades.Count)));
-                    if (possibleUpgrades.Count > 2) chest2.Spawn(possibleUpgrades.GetRange(2, Math.Min(4, possibleUpgrades.Count) - 2));
-                    if (possibleUpgrades.Count > 4) chest3.Spawn(possibleUpgrades.GetRange(4, Math.Min(6, possibleUpgrades.Count) - 4));
-                    TripleChestSpawnNextRoom = false;
                 } else {
-                    chest1.Spawn(possibleUpgrades.GetRange(0, Math.Min(2, possibleUpgrades.Count)));
+                    chest1.Spawn(new List<AbilityUpgradeHandler.AbilityUpgrade>());
                 }
+
+                if (possibleUpgrades.Count > 2) {
+                    chest2.Spawn(possibleUpgrades.GetRange(2, Math.Min(4, possibleUpgrades.Count) - 2));
+                }
+
+                if (possibleUpgrades.Count > 4) {
+                    chest3.Spawn(possibleUpgrades.GetRange(4, Math.Min(6, possibleUpgrades.Count) - 4));
+                }
+
+                TripleChestSpawnNextRoom = false;
             } else {
-                // fallback to random room
-                currentRoom = room;
-                spriteCount = currentRoom.roomImage.Length;
-                roomSprite.Texture = currentRoom.roomImage[0];
-                this.SpawnEnemies(currentRoom);
+                if (possibleUpgrades.Count > 0) {
+                    chest1.Spawn(possibleUpgrades.GetRange(0, Math.Min(2, possibleUpgrades.Count)));
+                } else {
+                    chest1.Spawn(new List<AbilityUpgradeHandler.AbilityUpgrade>());
+                }
             }
         }
         // other rooms
