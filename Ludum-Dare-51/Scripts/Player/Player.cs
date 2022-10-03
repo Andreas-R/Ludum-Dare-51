@@ -1,8 +1,11 @@
 using Godot;
 
 public class Player : RigidBody2D {
+
+    public static Player instance;
     [Export]
     public float runSpeed = 100f;
+    public float moveSpeedMultiplier = 1f;
 
     private PlayerState state;
     private Node2D center;
@@ -19,6 +22,7 @@ public class Player : RigidBody2D {
     private Color defaultColor = new Color(1f, 1f, 1f);
     
     public override void _Ready() {
+        instance = this;
         this.center = GetNode<Node2D>("Center");
         this.swordPivot = GetNode<Node2D>("SwordPivot");
         this.playerSprite = GetNode<AnimatedSprite>("PlayerSprite");
@@ -107,7 +111,7 @@ public class Player : RigidBody2D {
     }
 
     private void HandleMovement(Physics2DDirectBodyState bodyState, Vector2 movementInput) {
-        Vector2 newVelocity = movementInput * runSpeed;
+        Vector2 newVelocity = movementInput * runSpeed * moveSpeedMultiplier;
         bodyState.LinearVelocity = newVelocity;
     }
 

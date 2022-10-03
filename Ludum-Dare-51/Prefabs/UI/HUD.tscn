@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Scripts/UI/Timeline/Timeline.cs" type="Script" id=1]
 [ext_resource path="res://Textures/fireball.png" type="Texture" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://Prefabs/UI/AbilityDisplay.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Fonts/DraconianPixelsMinimal/DraconianPixelsMinimal.tres" type="DynamicFont" id=11]
 [ext_resource path="res://Textures/ui-screen-timeline-overlay.png" type="Texture" id=12]
+[ext_resource path="res://Prefabs/UI/5AbilityDisplay.tscn" type="PackedScene" id=13]
 
 [sub_resource type="StyleBoxTexture" id=1]
 
@@ -76,6 +77,10 @@ rect_scale = Vector2( 0.8, 0.8 )
 custom_fonts/font = ExtResource( 11 )
 text = "001"
 align = 2
+
+[node name="MoveSpeedAbilityDisplay" parent="Screen/LifeAndAbilitiesPanel" instance=ExtResource( 13 )]
+margin_top = 21.0
+margin_bottom = 23.0
 
 [node name="FireballAbilityDisplay" parent="Screen/LifeAndAbilitiesPanel" instance=ExtResource( 10 )]
 
@@ -144,6 +149,7 @@ texture = ExtResource( 12 )
 
 [connection signal="value_changed" from="Screen/AudioSlider" to="Screen/AudioSlider" method="OnChange"]
 
+[editable path="Screen/LifeAndAbilitiesPanel/MoveSpeedAbilityDisplay"]
 [editable path="Screen/LifeAndAbilitiesPanel/FireballAbilityDisplay"]
 [editable path="Screen/LifeAndAbilitiesPanel/IceNovaAbilityDisplay"]
 [editable path="Screen/LifeAndAbilitiesPanel/ChainLightningAbilityDisplay"]

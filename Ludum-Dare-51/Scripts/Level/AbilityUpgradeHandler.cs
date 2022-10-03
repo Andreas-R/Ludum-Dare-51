@@ -25,6 +25,10 @@ public class AbilityUpgradeHandler : Node {
     public Texture[] chainLightningUpgradeMenuImages;
     [Export]
     public Texture[] chainLightningUpgradeMenuHoveredImages;
+    [Export]
+    public Texture[] moveSpeedUpgradeMenuImages;
+    [Export]
+    public Texture[] moveSpeedUpgradeMenuHoverImages;
 
     public AbilityHandler playerAbilityHandler;
     public Dictionary<AbilityType, Texture[]> abilityMenuImages = new Dictionary<AbilityType, Texture[]>();
@@ -37,10 +41,12 @@ public class AbilityUpgradeHandler : Node {
         this.abilityMenuImages.Add(AbilityType.FIREBALL, fireBallUpgradeMenuImages);
         this.abilityMenuImages.Add(AbilityType.ICE_NOVA, iceNovaUpgradeMenuImages);
         this.abilityMenuImages.Add(AbilityType.CHAIN_LIGHTNING, chainLightningUpgradeMenuImages);
+        this.abilityMenuImages.Add(AbilityType.MOVE_SPEED, moveSpeedUpgradeMenuImages);
 
         this.abilityMenuHoveredImages.Add(AbilityType.FIREBALL, fireBallUpgradeMenuHoveredImages);
         this.abilityMenuHoveredImages.Add(AbilityType.ICE_NOVA, iceNovaUpgradeMenuHoveredImages);
         this.abilityMenuHoveredImages.Add(AbilityType.CHAIN_LIGHTNING, chainLightningUpgradeMenuHoveredImages);
+        this.abilityMenuHoveredImages.Add(AbilityType.MOVE_SPEED, moveSpeedUpgradeMenuHoverImages);
     }
 
     public List<AbilityUpgrade> GetPossibleUpgrades() {
