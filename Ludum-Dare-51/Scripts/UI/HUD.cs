@@ -5,6 +5,7 @@ public class HUD : Control {
     private AnimationPlayer introAnimationPlayer;
     private AnimationPlayer outroAnimationPlayer;
     private AnimationPlayer powerButtonAnimationPlayer;
+    private AudioStreamPlayer buttonAudioStreamPlayer;
     private ColorRect pauseScreen;
     private TextureButton powerButton;
     private bool turnedOn = false;
@@ -16,6 +17,7 @@ public class HUD : Control {
         introAnimationPlayer = GetNode<AnimationPlayer>("BlackScreen/AnimationPlayer");
         outroAnimationPlayer = GetNode<AnimationPlayer>("GameOverScreen/AnimationPlayer");
         powerButtonAnimationPlayer = GetNode<AnimationPlayer>("PowerButton/AnimationPlayer");
+        buttonAudioStreamPlayer = GetNode<AudioStreamPlayer>("ButtonAudioStreamPlayer");
         pauseScreen = GetNode<ColorRect>("PauseScreen");
         powerButton = GetNode<TextureButton>("PowerButton");
         GetTree().Paused = true;
@@ -28,6 +30,7 @@ public class HUD : Control {
     }
 
     public void OnPower() {
+        buttonAudioStreamPlayer.Play();
         pressedPowerButtonAtLeastOnce = true;
 
         if (!turnedOn) {
@@ -42,6 +45,7 @@ public class HUD : Control {
     }
 
     public void OnPause() {
+        buttonAudioStreamPlayer.Play();
         if (gameRunning) {
             GetTree().Paused = !GetTree().Paused;
         }
