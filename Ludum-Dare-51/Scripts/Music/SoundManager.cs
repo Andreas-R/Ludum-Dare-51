@@ -10,17 +10,24 @@ public class SoundManager : Node
     private AudioStreamPlayer laserSfxPlayer;
     private AudioStreamPlayer robotSfxPlayer;
 
+    private AudioStreamPlayer chainLightningSfxPlayer;
+
+    public static SoundManager instance;
+
     public enum Sfx {
         penguin,
         blob,
+        chainLightning,
         laser,
         robot
     }
     private Dictionary<Sfx, bool> sfxPlayingMap = new Dictionary<Sfx, bool>();
 
     public override void _Ready() {
+        instance = this;
         penguinSfxPlayer = GetNode<AudioStreamPlayer>("Penguin");
         blobSfxPlayer = GetNode<AudioStreamPlayer>("Blob");
+        chainLightningSfxPlayer = GetNode<AudioStreamPlayer>("ChainLightning");
         laserSfxPlayer = GetNode<AudioStreamPlayer>("Laser");
         robotSfxPlayer = GetNode<AudioStreamPlayer>("Robot");
         EmptySfxPlayingMap();
@@ -45,6 +52,8 @@ public class SoundManager : Node
                 return penguinSfxPlayer;
             case Sfx.blob:
                 return blobSfxPlayer;
+            case Sfx.chainLightning:
+                return chainLightningSfxPlayer;
             case Sfx.laser:
                 return laserSfxPlayer;
             case Sfx.robot:

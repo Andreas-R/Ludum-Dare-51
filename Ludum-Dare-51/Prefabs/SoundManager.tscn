@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scripts/Music/SoundManager.cs" type="Script" id=1]
 [ext_resource path="res://Audio/Sfx/blob.ogg" type="AudioStream" id=2]
 [ext_resource path="res://Audio/Sfx/penguinSfx.ogg" type="AudioStream" id=3]
-[ext_resource path="res://Audio/Sfx/robotSfx.ogg" type="AudioStream" id=4]
-[ext_resource path="res://Audio/Sfx/laserSfx.ogg" type="AudioStream" id=5]
+[ext_resource path="res://Audio/Sfx/chainLightning.ogg" type="AudioStream" id=4]
+[ext_resource path="res://Audio/Sfx/robotSfx.ogg" type="AudioStream" id=5]
+[ext_resource path="res://Audio/Sfx/laserSfx.ogg" type="AudioStream" id=6]
 
 [node name="SoundManager" type="Node"]
 script = ExtResource( 1 )
@@ -17,10 +18,14 @@ bus = "Sfx"
 stream = ExtResource( 2 )
 bus = "Sfx"
 
+[node name="ChainLightning" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+volume_db = 1.7
+
 [node name="Laser" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 5 )
+stream = ExtResource( 6 )
 bus = "Sfx"
 
 [node name="Robot" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 4 )
+stream = ExtResource( 5 )
 bus = "Sfx"

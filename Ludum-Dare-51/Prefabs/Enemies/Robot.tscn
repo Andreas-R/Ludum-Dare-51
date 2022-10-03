@@ -54,12 +54,13 @@ contacts_reported = 1
 contact_monitor = true
 can_sleep = false
 script = ExtResource( 4 )
+difficultyFactor = 3.0
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, 5.68434e-14 )
 scale = Vector2( 5, 5 )
 frames = SubResource( 4 )
-frame = 3
+frame = 2
 playing = true
 offset = Vector2( 0, -3 )
 
