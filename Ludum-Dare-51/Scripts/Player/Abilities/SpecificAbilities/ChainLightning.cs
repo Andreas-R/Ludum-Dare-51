@@ -48,7 +48,7 @@ public class ChainLightning : Node2D {
 
     private void PlaceChainLightning() {
         this.GlobalPosition = (this.start + this.end) * 0.5f;
-        this.lightningConnector.GlobalRotation = -(this.end - this.start).AngleTo(Vector2.Right);
+        this.lightningConnector.Rotation = -(this.end - this.start).AngleTo(Vector2.Right);
         this.lightningConnector.Scale = new Vector2((this.end - this.start).Length() / (lengthInPixels), 5f);
         this.paralyzedEffect.GlobalPosition = this.end;
     }
