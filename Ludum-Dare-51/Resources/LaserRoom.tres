@@ -2,9 +2,9 @@
 
 [ext_resource path="res://Scripts/Level/RoomData.cs" type="Script" id=1]
 [ext_resource path="res://Textures/mech_room2.png" type="Texture" id=2]
-[ext_resource path="res://Audio/glitchFast.wav" type="AudioStream" id=3]
-[ext_resource path="res://Audio/glitchMedium.wav" type="AudioStream" id=4]
-[ext_resource path="res://Audio/glitchSlow.wav" type="AudioStream" id=5]
+[ext_resource path="res://Audio/spaceMedium.ogg" type="AudioStream" id=3]
+[ext_resource path="res://Audio/spaceSlow.ogg" type="AudioStream" id=4]
+[ext_resource path="res://Audio/spaceFast.ogg" type="AudioStream" id=5]
 [ext_resource path="res://Textures/mech_room1.png" type="Texture" id=6]
 
 [resource]
@@ -16,4 +16,4 @@ minSpawnRoomCount = 10
 spawnableEnemyPrefabPaths = PoolStringArray( "res://Prefabs/Enemies/LazorTurret.tscn", "res://Prefabs/Enemies/Robot.tscn" )
 numberOfEnemiesSpawnFactor = 0.33
 canContainBosses = true
-bgMusicSamples = [ ExtResource( 5 ), ExtResource( 4 ), ExtResource( 3 ) ]
+bgMusicSamples = [ ExtResource( 4 ), ExtResource( 3 ), ExtResource( 5 ) ]

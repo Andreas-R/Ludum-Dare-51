@@ -2,9 +2,9 @@
 
 [ext_resource path="res://Scripts/Level/RoomData.cs" type="Script" id=1]
 [ext_resource path="res://Textures/ice_room1.png" type="Texture" id=2]
-[ext_resource path="res://Audio/metalFast.wav" type="AudioStream" id=3]
-[ext_resource path="res://Audio/metalMedium.wav" type="AudioStream" id=4]
-[ext_resource path="res://Audio/metalSlow.wav" type="AudioStream" id=5]
+[ext_resource path="res://Audio/iceFast.ogg" type="AudioStream" id=3]
+[ext_resource path="res://Audio/iceSlow.ogg" type="AudioStream" id=4]
+[ext_resource path="res://Audio/iceMedium.ogg" type="AudioStream" id=5]
 [ext_resource path="res://Textures/ice_room2.png" type="Texture" id=6]
 
 [resource]
@@ -16,4 +16,4 @@ minSpawnRoomCount = 0
 spawnableEnemyPrefabPaths = PoolStringArray( "res://Prefabs/Enemies/Penguin.tscn" )
 numberOfEnemiesSpawnFactor = 1.0
 canContainBosses = true
-bgMusicSamples = [ ExtResource( 5 ), ExtResource( 4 ), ExtResource( 3 ) ]
+bgMusicSamples = [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 3 ) ]

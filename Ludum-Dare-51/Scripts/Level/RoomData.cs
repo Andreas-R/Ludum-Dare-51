@@ -23,5 +23,5 @@ public class RoomData : Resource {
   public bool canContainBosses = true;
 
   [Export]
-  public AudioStreamSample[] bgMusicSamples;
+  public AudioStreamOGGVorbis[] bgMusicSamples;
 }
