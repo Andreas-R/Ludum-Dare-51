@@ -16,12 +16,19 @@ public class AbilityUpgradeHandler : Node {
     [Export]
     public Texture[] fireBallUpgradeMenuImages;
     [Export]
+    public Texture[] fireBallUpgradeMenuHoveredImages;
+    [Export]
     public Texture[] iceNovaUpgradeMenuImages;
     [Export]
+    public Texture[] iceNovaUpgradeMenuHoveredImages;
+    [Export]
     public Texture[] chainLightningUpgradeMenuImages;
+    [Export]
+    public Texture[] chainLightningUpgradeMenuHoveredImages;
 
     public AbilityHandler playerAbilityHandler;
     public Dictionary<AbilityType, Texture[]> abilityMenuImages = new Dictionary<AbilityType, Texture[]>();
+    public Dictionary<AbilityType, Texture[]> abilityMenuHoveredImages = new Dictionary<AbilityType, Texture[]>();
 
     public override void _Ready() {
         this.playerAbilityHandler = GetTree().Root.GetNode<AbilityHandler>("Main/Player/AbilityHandler");
@@ -30,6 +37,10 @@ public class AbilityUpgradeHandler : Node {
         this.abilityMenuImages.Add(AbilityType.FIREBALL, fireBallUpgradeMenuImages);
         this.abilityMenuImages.Add(AbilityType.ICE_NOVA, iceNovaUpgradeMenuImages);
         this.abilityMenuImages.Add(AbilityType.CHAIN_LIGHTNING, chainLightningUpgradeMenuImages);
+
+        this.abilityMenuHoveredImages.Add(AbilityType.FIREBALL, fireBallUpgradeMenuHoveredImages);
+        this.abilityMenuHoveredImages.Add(AbilityType.ICE_NOVA, iceNovaUpgradeMenuHoveredImages);
+        this.abilityMenuHoveredImages.Add(AbilityType.CHAIN_LIGHTNING, chainLightningUpgradeMenuHoveredImages);
     }
 
     public List<AbilityUpgrade> GetPossibleUpgrades() {

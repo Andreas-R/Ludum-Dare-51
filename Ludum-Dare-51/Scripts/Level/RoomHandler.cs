@@ -132,8 +132,7 @@ public class RoomHandler : Node2D {
                 SpawnEnemy(room);
                 break;
             default:
-                int numberOfEnemies = 3 + roomCounter;
-                float lifeMultiplier = 1f + (roomCounter * 0.2f);
+                int numberOfEnemies = Mathf.CeilToInt(Mathf.FloorToInt(3 + roomCounter * 0.5f) * room.numberOfEnemiesSpawnFactor);
 
                 for (int i = 0; i < numberOfEnemies; i += 1) {
                     SpawnEnemy(room);
@@ -145,6 +144,8 @@ public class RoomHandler : Node2D {
     private void SpawnEnemy(RoomData room){
         PackedScene enemyPrefab = roomEnemies[room.id][rng.RandiRange(0, roomEnemies[room.id].Count - 1)];
         AbstractEnemy enemy = enemyPrefab.Instance() as AbstractEnemy;
+        float lifeMultiplier = 1f + (roomCounter * 0.1f);
+        enemy.GetNode<LifePointManager>("LifePointManager").maxHealth *= lifeMultiplier;
         enemy.GlobalPosition = this.GetRandomSpawnPosition();
         GetTree().Root.GetNode<Node>("Main").AddChild(enemy);
         enemyManager.OnEnemySpawn(enemy);
