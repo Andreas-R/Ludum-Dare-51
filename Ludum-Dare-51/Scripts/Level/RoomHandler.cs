@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class RoomHandler : Node2D {
 
+    private static PackedScene spawnPrefab = ResourceLoader.Load("res://Prefabs/Spawn.tscn") as PackedScene;
     public static RoomHandler instance;
     private static RandomNumberGenerator rng = new RandomNumberGenerator();
 
@@ -213,7 +214,6 @@ public class RoomHandler : Node2D {
     private void SpawnEnemy(RoomData room, bool isBoss){
         PackedScene enemyPrefab = roomEnemies[room.id][rng.RandiRange(0, roomEnemies[room.id].Count - 1)];
         AbstractEnemy enemy = enemyPrefab.Instance() as AbstractEnemy;
-
         enemy.isBoss = isBoss;
         float lifeMultiplier = 1f + (roomCounter * 0.05f);
 
@@ -225,7 +225,10 @@ public class RoomHandler : Node2D {
         enemy.GetNode<LifePointManager>("LifePointManager").maxHealth *= lifeMultiplier;
         enemy.GlobalPosition = this.GetRandomSpawnPosition();
 
-        GetTree().Root.GetNode<Node>("Main").AddChild(enemy);
+        Spawn spawn = spawnPrefab.Instance() as Spawn;
+        spawn.GlobalPosition = enemy.GlobalPosition;
+        spawn.SetEnemy(enemy);
+        GetTree().Root.GetNode<Node>("Main").AddChild(spawn);
         enemyManager.OnEnemySpawn(enemy);
     }
 
