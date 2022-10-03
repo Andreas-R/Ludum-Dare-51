@@ -19,13 +19,13 @@ public class EnemyManager : Node
 
     public void OnEnemySpawn(AbstractEnemy enemy) {
         enemyCounter++;
-        totalEnemyDifficulty += enemy.difficultyFactor;
+        totalEnemyDifficulty += enemy.difficultyFactor * (enemy.isBoss ? AbstractEnemy.bossLifeScale : 1f);
         EmitSignal(nameof(OnEnemySpawnSignal), totalEnemyDifficulty);
     }
 
     public void OnEnemyDeath(AbstractEnemy enemy) {
         enemyCounter--;
-        totalEnemyDifficulty -= enemy.difficultyFactor;
+        totalEnemyDifficulty -= enemy.difficultyFactor * (enemy.isBoss ? AbstractEnemy.bossLifeScale : 1f);
         EmitSignal(nameof(OnEnemyDeathSignal), totalEnemyDifficulty);
     }
 }
