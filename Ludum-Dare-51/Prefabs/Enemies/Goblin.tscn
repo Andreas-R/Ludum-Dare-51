@@ -47,6 +47,7 @@ can_sleep = false
 script = ExtResource( 2 )
 moveSpeed = 250.0
 dashSpeed = 800.0
+maxPlayerDistance = 200.0
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, 5.68434e-14 )
