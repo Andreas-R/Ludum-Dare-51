@@ -7,7 +7,7 @@ public class Spawn : AnimatedSprite
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     private bool isSpawned = false;
     private AbstractEnemy enemy;
-
+    private float alpha = 1;
     public override void _Ready()
     {
         Frame = 0;
@@ -25,6 +25,8 @@ public class Spawn : AnimatedSprite
             Frame = 0;
             Play("Done");
         }
+        alpha = alpha - delta / 3f;
+        Modulate = new Color(1, 1, 1, alpha);
     }
 
     public void Kill() {

@@ -1,9 +1,9 @@
 using Godot;
 
 public class AbstractEnemy : RigidBody2D {
+    private static PackedScene deathEffectPrefab = ResourceLoader.Load("res://Prefabs/DeathEffect.tscn") as PackedScene;
     public static float bossSizeScale = 2f;
     public static float bossLifeScale = 5f;
-
     [Export]
     public float difficultyFactor = 1f;
     
@@ -96,10 +96,14 @@ public class AbstractEnemy : RigidBody2D {
 
     public virtual void OnDeath() {
         enemyManager.OnEnemyDeath(this);
+        DeathEffect deathEffect = deathEffectPrefab.Instance() as DeathEffect;
+        deathEffect.Position = Position;
+        deathEffect.Playing = true;
+        player.GetTree().Root.GetNode<Node>("Main").AddChild(deathEffect);
         this.QueueFree();
     }
 
     public virtual void OnEscape(){
-        QueueFree();
+        sprite.Play("escape");
     }
 }
