@@ -9,7 +9,7 @@ public class FireballAbility : AbstractAbility {
     public FireballAbility() {
         level1Max = 4;
         level2Max = 4;
-        level3Max = 3;
+        level3Max = 2;
 
         this.spreadAngleRad = Mathf.Deg2Rad(spreadAngle);
     }
@@ -38,33 +38,30 @@ public class FireballAbility : AbstractAbility {
     }
 
     private float GetDamageMultiplicator() {
-        return 1f + this.level1 * 0.5f;
+        return Mathf.Pow(1.5f, level1);
     }
 
     private float GetScale() {
-        return 1 + this.level1 * 0.25f;
+        return 1 + this.level1 * 0.3f;
     }
 
     private int GetNumberOfFireBalls() {
-        return this.level2 + 3;
+        return 3 + this.level2;
     }
 
     public override int[] GetBeatFrequency() {
         switch (this.level3) {
             case 0: {
-                return new int[] {5};
-            }
-            case 1: {
                 return new int[] {1, 5};
             }
-            case 2: {
+            case 1: {
                 return new int[] {1, 3, 5, 7};
             }
-            case 3: {
+            case 2: {
                 return new int[] {-1};
             }
             default: {
-                return new int[] {5};
+                return new int[] {1, 5};
             }
         }
     }

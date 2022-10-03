@@ -1,0 +1,18 @@
+[gd_resource type="Resource" load_steps=7 format=2]
+
+[ext_resource path="res://Scripts/Level/RoomData.cs" type="Script" id=1]
+[ext_resource path="res://Textures/dungeon_room2.png" type="Texture" id=2]
+[ext_resource path="res://Audio/dungeonMedium.wav" type="AudioStream" id=3]
+[ext_resource path="res://Audio/dungeonFast.wav" type="AudioStream" id=4]
+[ext_resource path="res://Textures/dungeon_room1.png" type="Texture" id=5]
+[ext_resource path="res://Audio/dungeonSlow.wav" type="AudioStream" id=6]
+
+[resource]
+script = ExtResource( 1 )
+id = "DungeonRoom"
+roomImage = [ ExtResource( 5 ), ExtResource( 2 ) ]
+spawnWeight = 10.0
+minSpawnRoomCount = 0
+spawnableEnemyPrefabPaths = PoolStringArray( "res://Prefabs/Enemies/Skeleton.tscn" )
+numberOfEnemiesSpawnFactor = 1.0
+bgMusicSamples = [ ExtResource( 6 ), ExtResource( 3 ), ExtResource( 4 ) ]

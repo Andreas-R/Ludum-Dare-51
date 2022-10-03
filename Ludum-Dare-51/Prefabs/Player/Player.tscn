@@ -45,7 +45,7 @@ height = 36.0
 
 [sub_resource type="CapsuleShape2D" id=9]
 radius = 2.0
-height = 8.8
+height = 9.8
 
 [sub_resource type="AtlasTexture" id=10]
 atlas = ExtResource( 12 )
@@ -100,7 +100,7 @@ animations = [ {
 } ]
 
 [sub_resource type="CircleShape2D" id=17]
-radius = 111.116
+radius = 89.0056
 
 [node name="Player" type="RigidBody2D"]
 collision_mask = 6
@@ -156,7 +156,6 @@ script = ExtResource( 11 )
 damage = 75.0
 
 [node name="Sprite" type="Sprite" parent="SwordPivot/Sword"]
-visible = false
 position = Vector2( 0, 2.6 )
 rotation = 1.5708
 texture = ExtResource( 4 )
@@ -195,7 +194,6 @@ animation = "nova"
 
 [node name="Collider" type="CollisionShape2D" parent="IceNova"]
 position = Vector2( 2, 0 )
-scale = Vector2( 1.35, 1 )
 shape = SubResource( 17 )
 disabled = true
 

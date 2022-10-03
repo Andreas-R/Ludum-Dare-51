@@ -13,11 +13,7 @@ public class ChainLightningAbility : AbstractAbility {
     public ChainLightningAbility() {
         level1Max = 4;
         level2Max = 4;
-        level3Max = 3;
-
-        level1 = 4;
-        level2 = 4;
-        level3 = 3;
+        level3Max = 2;
 
         maxDistanceSquared = maxDistance * maxDistance;
     }
@@ -90,7 +86,7 @@ public class ChainLightningAbility : AbstractAbility {
     }
 
     private float GetDamageMultiplicator() {
-        return 1f + this.level1 * 0.5f;
+        return Mathf.Pow(1.5f, level1);
     }
 
     private int[] GetNumberOfChains() {
@@ -119,19 +115,16 @@ public class ChainLightningAbility : AbstractAbility {
     public override int[] GetBeatFrequency() {
         switch (this.level3) {
             case 0: {
-                return new int[] {0};
-            }
-            case 1: {
-                return new int[] {0};
-            }
-            case 2: {
                 return new int[] {0, 4};
             }
-            case 3: {
+            case 1: {
+                return new int[] {0, 4};
+            }
+            case 2: {
                 return new int[] {0, 2, 4, 6};
             }
             default: {
-                return new int[] {0};
+                return new int[] {0, 4};
             }
         }
     }
@@ -145,9 +138,6 @@ public class ChainLightningAbility : AbstractAbility {
                 return new float[] {0.25f, 0.75f};
             }
             case 2: {
-                return new float[] {0.25f, 0.75f};
-            }
-            case 3: {
                 return new float[] {0.25f, 0.75f};
             }
             default: {

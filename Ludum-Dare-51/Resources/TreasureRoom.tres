@@ -9,7 +9,8 @@
 script = ExtResource( 1 )
 id = "TreasureRoom"
 roomImage = [ ExtResource( 2 ), ExtResource( 3 ) ]
-spawnWeight = 10.0
-minSpawnRoomCount = 1
+spawnWeight = 3.0
+minSpawnRoomCount = 15
 spawnableEnemyPrefabPaths = PoolStringArray( "res://Prefabs/Enemies/Goblin.tscn" )
+numberOfEnemiesSpawnFactor = 1.0
 bgMusicSamples = [ ExtResource( 4 ) ]
