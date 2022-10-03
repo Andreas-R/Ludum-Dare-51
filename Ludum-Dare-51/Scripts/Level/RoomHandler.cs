@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 
 public class RoomHandler : Node2D {
+
+    public static RoomHandler instance;
     private static RandomNumberGenerator rng = new RandomNumberGenerator();
 
     [Export]
@@ -15,6 +17,9 @@ public class RoomHandler : Node2D {
     public float spawnWallMargin = 50f;
     [Export]
     public int chestSpawnFrequency = 4;
+
+    public bool GuaranteedChestSpawnNextRoom{ get; set; }
+    public bool GuaranteedNoChestSpawnNextRoom{ get; set; }
 
     private Sprite roomSprite;
     private Chest chest;
@@ -30,6 +35,7 @@ public class RoomHandler : Node2D {
     private Dictionary<string, List<PackedScene>> roomEnemies = new Dictionary<string, List<PackedScene>>();
 
     public override void _Ready() {
+        instance = this;
         roomSprite = GetNode<Sprite>("RoomSprite");
         chest = GetNode<Chest>("Chest");
         bgMusicHandler = GetTree().Root.GetNode<BgMusicHandler>("Main/BgMusicHandler");
@@ -96,6 +102,13 @@ public class RoomHandler : Node2D {
     }
 
     private void ChangeToRoom(RoomData room) {
+        if(currentRoom != null && currentRoom.id == "TreasureRoom"){
+            Goblin survivingGoblin = GetNodeOrNull<Goblin>("../Goblin");
+            if(survivingGoblin != null){
+                survivingGoblin.OnEscape();
+            }
+        }
+
         currentRoom = room;
         spriteCount = room.roomImage.Length;
         roomSprite.Texture = room.roomImage[0];
@@ -103,7 +116,8 @@ public class RoomHandler : Node2D {
 
         if (chest.Visible) chest.Despawn();
 
-        if (roomCounter % chestSpawnFrequency == chestSpawnFrequency - 1) {
+        if (!GuaranteedNoChestSpawnNextRoom && (GuaranteedChestSpawnNextRoom || roomCounter % chestSpawnFrequency == chestSpawnFrequency - 1)) {
+            GuaranteedChestSpawnNextRoom = false;
             chest.Spawn();
         } else {
             this.SpawnEnemies(room);

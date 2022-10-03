@@ -77,4 +77,8 @@ public class AbstractEnemy : RigidBody2D {
     public virtual void OnDeath() {
         this.QueueFree();
     }
+
+    public virtual void OnEscape(){
+        QueueFree();
+    }
 }

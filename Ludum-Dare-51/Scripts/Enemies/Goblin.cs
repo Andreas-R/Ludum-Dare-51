@@ -21,7 +21,10 @@ public class Goblin : AbstractEnemy
 
     public override void _IntegrateForces(Physics2DDirectBodyState bodyState) {
         if(!isDashing){
-            if(Metronome.instance.IsBeat(new[]{1,3,5,7,9}, new[]{0f})){
+            /* if(Metronome.instance.IsBeat(5, 0f)){
+                Teleport(bodyState);
+            } */
+            if(Metronome.instance.IsBeat(new[]{1,3,7,9}, new[]{0f})){
                 InitDash(bodyState);
             }
             else{
@@ -68,6 +71,10 @@ public class Goblin : AbstractEnemy
         HandleSpriteFlip(moveDir);
     }
 
+    /* private void Teleport(Physics2DDirectBodyState bodyState){
+        bodyState.Transform.origin = new Vector2();
+    } */
+
     public void StopDash(){
         isDashing = false;
     }
@@ -78,6 +85,12 @@ public class Goblin : AbstractEnemy
     }
 
     public void GrantBonus(){
-        //TODO: something
+        RoomHandler.instance.GuaranteedChestSpawnNextRoom = true;
+    }
+
+    public override void OnEscape()
+    {
+        RoomHandler.instance.GuaranteedNoChestSpawnNextRoom = true;
+        base.OnEscape();
     }
 }

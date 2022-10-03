@@ -45,7 +45,7 @@ contacts_reported = 1
 contact_monitor = true
 can_sleep = false
 script = ExtResource( 2 )
-moveSpeed = 200.0
+moveSpeed = 250.0
 dashSpeed = 800.0
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
@@ -76,7 +76,7 @@ shape = SubResource( 8 )
 
 [node name="LifePointManager" type="Node" parent="."]
 script = ExtResource( 4 )
-maxHealth = 100.0
+maxHealth = 400.0
 
 [node name="MoveTimer" type="Timer" parent="."]
 wait_time = 0.5
