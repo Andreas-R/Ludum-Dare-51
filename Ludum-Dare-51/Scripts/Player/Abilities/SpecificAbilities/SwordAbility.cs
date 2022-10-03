@@ -30,20 +30,19 @@ public class SwordAbility : AbstractAbility {
             }
             case 2: {
                 //sword.Scale *= GetScaleMultiplicator();
-                GD.Print(level2);
                 sword.setSprite(sprites[level2]);
                 CapsuleShape2D swordColliderShape = (CapsuleShape2D) sword.swordCollider.Shape;
                 swordColliderShape.Height += swordLengthIncreasePerLevel;
                 sword.swordCollider.Position -= new Vector2(0, swordLengthIncreasePerLevel / 2);
-                if(level2 == 2){
-                    swordColliderShape.Radius += 1;
-                }
+                swordColliderShape.Radius += 0.75f;
                 sword.slash.Position -= new Vector2(0, swordLengthIncreasePerLevel-1.5f);
                 sword.slash.Scale += new Vector2(0.25f, 0.25f);
                 break;
             }
             case 3: {
                 sword.attackArchAngleRadians += Mathf.Pi/2;
+                CapsuleShape2D swordColliderShape = (CapsuleShape2D) sword.swordCollider.Shape;
+                swordColliderShape.Radius += 0.5f;
                 break;
             }
             default: {
@@ -53,7 +52,7 @@ public class SwordAbility : AbstractAbility {
     }
 
     private float GetDamageMultiplicator() {
-        return Mathf.Pow(1.5f, level1);
+        return Mathf.Pow(1.15f, level1);
     }
 
     private float GetScaleMultiplicator() {
