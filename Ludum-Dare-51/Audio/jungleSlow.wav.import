@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/dnbFast.wav-ac219c4053b38ca6f35c0bccf94d692c.sample"
+path="res://.import/jungleSlow.wav-c9ba541fd113607c1594e4f2a365d0ce.sample"
 
 [deps]
 
-source_file="res://Audio/dnbFast.wav"
-dest_files=[ "res://.import/dnbFast.wav-ac219c4053b38ca6f35c0bccf94d692c.sample" ]
+source_file="res://Audio/jungleSlow.wav"
+dest_files=[ "res://.import/jungleSlow.wav-c9ba541fd113607c1594e4f2a365d0ce.sample" ]
 
 [params]
 
@@ -17,7 +17,7 @@ force/max_rate=false
 force/max_rate_hz=44100
 edit/trim=false
 edit/normalize=false
-edit/loop_mode=1
+edit/loop_mode=0
 edit/loop_begin=0
 edit/loop_end=-1
 compress/mode=0

@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/defaultSlow.wav-3f3dad540517d1ebda20b4b53bfee690.sample"
+path="res://.import/jungleMedium.wav-72f9785e77044f21dfc1f4bba1c7e19b.sample"
 
 [deps]
 
-source_file="res://Audio/defaultSlow.wav"
-dest_files=[ "res://.import/defaultSlow.wav-3f3dad540517d1ebda20b4b53bfee690.sample" ]
+source_file="res://Audio/jungleMedium.wav"
+dest_files=[ "res://.import/jungleMedium.wav-72f9785e77044f21dfc1f4bba1c7e19b.sample" ]
 
 [params]
 
@@ -17,7 +17,7 @@ force/max_rate=false
 force/max_rate_hz=44100
 edit/trim=false
 edit/normalize=false
-edit/loop_mode=1
+edit/loop_mode=0
 edit/loop_begin=0
 edit/loop_end=-1
 compress/mode=0

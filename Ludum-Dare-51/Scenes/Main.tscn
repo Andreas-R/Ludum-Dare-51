@@ -42,17 +42,18 @@ position = Vector2( -120, 80 )
 current = true
 
 [node name="RoomHandler" parent="." instance=ExtResource( 1 )]
+treasureRoom = null
 
 [node name="Chest1" parent="." instance=ExtResource( 9 )]
+visible = false
 position = Vector2( 0, 50 )
 
 [node name="Chest2" parent="." instance=ExtResource( 9 )]
+visible = false
 position = Vector2( 350, -100 )
 
 [node name="Chest3" parent="." instance=ExtResource( 9 )]
+visible = false
 position = Vector2( -350, -100 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
-
-[connection signal="OnEnemyDeathSignal" from="EnemyManager" to="BgMusicHandler" method="OnDifficultyChanged"]
-[connection signal="OnEnemySpawnSignal" from="EnemyManager" to="BgMusicHandler" method="OnDifficultyChanged"]
