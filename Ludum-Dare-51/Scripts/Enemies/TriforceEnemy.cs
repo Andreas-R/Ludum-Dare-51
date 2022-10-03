@@ -93,10 +93,7 @@ public class TriforceEnemy : AbstractEnemy {
         Vector2 oldSpeed = bodyState.LinearVelocity;
 
 
-        GD.Print(targetSpeed);
         Vector2 filteredSpeed = this.velocityFilterConstant * targetSpeed + (1.0f - this.velocityFilterConstant) * oldSpeed;
-
-        GD.Print(filteredSpeed);
 
         bodyState.LinearVelocity = filteredSpeed;
     }
