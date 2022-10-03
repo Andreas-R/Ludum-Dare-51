@@ -23,9 +23,15 @@ public class AbilityDisplay : Control {
         for (int i = 0; i < totalMaxLevels; i += 1) {
             this.leds[i] = GetNode<ColorRect>("LED" + (i + 1));
         }
+
+        this.UpdateUI();
     }
 
     public override void _Process(float delta) {
+        this.UpdateUI();
+    }
+
+    private void UpdateUI() {
         this.icon.Modulate = this.playerAbilityHandler.HasAbility(abilityType) ? activeColor : inactiveColor;
 
         int totalAbilityLevel = this.playerAbilityHandler.GetAbilityLevel(abilityType);

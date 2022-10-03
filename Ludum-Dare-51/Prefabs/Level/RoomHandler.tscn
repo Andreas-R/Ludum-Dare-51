@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Resources/ForestRoom.tres" type="Resource" id=1]
 [ext_resource path="res://Scripts/Level/RoomHandler.cs" type="Script" id=2]
@@ -7,7 +7,6 @@
 [ext_resource path="res://Resources/IceRoom.tres" type="Resource" id=10]
 [ext_resource path="res://Resources/TreasureRoom.tres" type="Resource" id=11]
 [ext_resource path="res://Resources/LaserRoom.tres" type="Resource" id=12]
-[ext_resource path="res://Textures/dungeon_room1.png" type="Texture" id=13]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 200, 400 )
@@ -23,7 +22,6 @@ treasureRoom = ExtResource( 11 )
 [node name="RoomSprite" type="Sprite" parent="."]
 scale = Vector2( 5, 5 )
 z_index = -100
-texture = ExtResource( 13 )
 
 [node name="Wall" type="StaticBody2D" parent="."]
 position = Vector2( -800, 0 )

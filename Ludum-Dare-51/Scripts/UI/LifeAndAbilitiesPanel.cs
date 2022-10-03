@@ -16,9 +16,15 @@ public class LifeAndAbilitiesPanel : TextureRect {
         roomHandler = GetTree().Root.GetNode<RoomHandler>("Main/RoomHandler");
 
         lifeBarStartRectSizeX = lifebar.RectSize.x;
+        
+        this.UpdateUI();
     }
 
     public override void _Process(float delta) {
+        this.UpdateUI();
+    }
+
+    private void UpdateUI() {
         lifebar.RectSize = new Vector2(
             (playerLifePointManager.currentHealth / playerLifePointManager.maxHealth) * lifeBarStartRectSizeX,
             lifebar.RectSize.y
