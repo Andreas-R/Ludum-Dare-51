@@ -35,7 +35,7 @@ public class CrazyEnemy : AbstractEnemy {
 
     public override void _Ready() {
         base._Ready();
-        GD.Print("ready");
+
         this.moveTimer = GetNode<Timer>("MoveTimer"); 
         this.basePosition = this.GlobalPosition;
     }

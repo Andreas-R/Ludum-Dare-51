@@ -24,6 +24,7 @@ public class LazorTurretEnemy : AbstractEnemy {
     private CollisionShape2D collisionShape;
 
     private bool skippedFirstBeat = false;
+    private SoundManager soundManager;
 
     public override void _Ready() {
         base._Ready();
@@ -44,14 +45,24 @@ public class LazorTurretEnemy : AbstractEnemy {
         this.collisionShape.SetDeferred("disabled", true);
         this.AddChild(lazorBeam);
         this.lazorBeam.sprite.Modulate = new Color(1.0f, 1.0f, 1.0f, 0.2f);
+        this.soundManager = GetTree().Root.GetNode<SoundManager>("Main/SoundManager");
     }
 
     public override void _IntegrateForces(Physics2DDirectBodyState bodyState) {
         this.LinearVelocity = Vector2.Zero; // pull the handbreak
         float delta = bodyState.Step;
         float beatTime = (Metronome.instance.currentBeat + (spawnIndex % 2f)) % 2f;
-
+        if (spawnIndex % 2 == 0) {
+            if (Metronome.instance.IsBeatWithAudioDelay(new int[]{1,3,5,7}, new float[]{0})) {
+                soundManager.PlaySfx(SoundManager.Sfx.laser);
+            }
+        } else {
+            if (Metronome.instance.IsBeatWithAudioDelay(new int[]{2,4,6}, new float[]{0})) {
+                soundManager.PlaySfx(SoundManager.Sfx.laser);
+            }
+        }
         if (skippedFirstBeat) {
+          
             if (beatTime <= rotationDuration) {
                 this.collisionShape.SetDeferred("disabled", true);
                 this.lazorBeam.sprite.Frame = 0;

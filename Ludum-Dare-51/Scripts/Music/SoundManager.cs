@@ -7,6 +7,8 @@ public class SoundManager : Node
     private AudioStreamPlayer penguinSfxPlayer;
 
     private AudioStreamPlayer blobSfxPlayer;
+    private AudioStreamPlayer laserSfxPlayer;
+    private AudioStreamPlayer robotSfxPlayer;
 
     private AudioStreamPlayer chainLightningSfxPlayer;
 
@@ -15,7 +17,9 @@ public class SoundManager : Node
     public enum Sfx {
         penguin,
         blob,
-        chainLightning
+        chainLightning,
+        laser,
+        robot
     }
     private Dictionary<Sfx, bool> sfxPlayingMap = new Dictionary<Sfx, bool>();
 
@@ -24,6 +28,8 @@ public class SoundManager : Node
         penguinSfxPlayer = GetNode<AudioStreamPlayer>("Penguin");
         blobSfxPlayer = GetNode<AudioStreamPlayer>("Blob");
         chainLightningSfxPlayer = GetNode<AudioStreamPlayer>("ChainLightning");
+        laserSfxPlayer = GetNode<AudioStreamPlayer>("Laser");
+        robotSfxPlayer = GetNode<AudioStreamPlayer>("Robot");
         EmptySfxPlayingMap();
     }
 
@@ -36,7 +42,6 @@ public class SoundManager : Node
     public void PlaySfx(Sfx sfx) {
         if (sfxPlayingMap[sfx]) return;
 
-        GD.Print("BLOB");
         sfxPlayingMap[sfx] = true;
         GetAudioPlayerForSfx(sfx).Play();
     }
@@ -49,6 +54,10 @@ public class SoundManager : Node
                 return blobSfxPlayer;
             case Sfx.chainLightning:
                 return chainLightningSfxPlayer;
+            case Sfx.laser:
+                return laserSfxPlayer;
+            case Sfx.robot:
+                return robotSfxPlayer;
             default:
                 return null;
         }

@@ -6,10 +6,12 @@ public class Penguin : AbstractEnemy {
 
     private bool isMoving;
     private Timer moveTimer;
+    private SoundManager soundManager;
 
     public override void _Ready() {
         base._Ready();
         this.moveTimer = GetNode<Timer>("MoveTimer");
+        this.soundManager = GetTree().Root.GetNode<SoundManager>("Main/SoundManager");
     }
 
     public override void _IntegrateForces(Physics2DDirectBodyState bodyState) {
@@ -17,6 +19,10 @@ public class Penguin : AbstractEnemy {
 
         if (!this.isMoving) {
             bodyState.LinearVelocity = Vector2.Zero;
+
+            if (Metronome.instance.IsBeatWithAudioDelay(GetBeatFrequency(), GetSubBeatFrequency())) {
+                this.soundManager.PlaySfx(SoundManager.Sfx.penguin);
+            }
 
             if (Metronome.instance.IsBeat(GetBeatFrequency(), GetSubBeatFrequency())) {
                 this.InitMove(bodyState);
