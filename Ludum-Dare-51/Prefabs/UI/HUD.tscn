@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Scripts/UI/Timeline/Timeline.cs" type="Script" id=1]
 [ext_resource path="res://Textures/fireball.png" type="Texture" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://Scripts/UI/LifeAndAbilitiesPanel.cs" type="Script" id=9]
 [ext_resource path="res://Prefabs/UI/AbilityDisplay.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Fonts/DraconianPixelsMinimal/DraconianPixelsMinimal.tres" type="DynamicFont" id=11]
+[ext_resource path="res://Textures/ui-screen-timeline-overlay.png" type="Texture" id=12]
 
 [sub_resource type="StyleBoxTexture" id=1]
 
@@ -20,13 +21,13 @@ margin_top = -640.0
 margin_right = 880.0
 margin_bottom = 640.0
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="Screen" type="TextureRect" parent="."]
 margin_right = 40.0
 margin_bottom = 40.0
 rect_scale = Vector2( 5, 5 )
 texture = ExtResource( 5 )
 
-[node name="AudioSlider" type="VSlider" parent="TextureRect"]
+[node name="AudioSlider" type="VSlider" parent="Screen"]
 pause_mode = 2
 margin_left = 19.9999
 margin_top = 95.0
@@ -42,7 +43,7 @@ step = 0.0
 value = 1.0
 script = ExtResource( 7 )
 
-[node name="LifeAndAbilitiesPanel" type="TextureRect" parent="TextureRect"]
+[node name="LifeAndAbilitiesPanel" type="TextureRect" parent="Screen"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 48.0
@@ -50,14 +51,14 @@ margin_bottom = 74.0
 texture = ExtResource( 8 )
 script = ExtResource( 9 )
 
-[node name="Lifebar" type="ColorRect" parent="TextureRect/LifeAndAbilitiesPanel"]
+[node name="Lifebar" type="ColorRect" parent="Screen/LifeAndAbilitiesPanel"]
 margin_left = 5.0
 margin_top = 5.0
 margin_right = 36.0
 margin_bottom = 9.0
 color = Color( 0.65098, 0.8, 0.203922, 1 )
 
-[node name="Room" type="Label" parent="TextureRect/LifeAndAbilitiesPanel"]
+[node name="Room" type="Label" parent="Screen/LifeAndAbilitiesPanel"]
 margin_left = 5.0
 margin_top = 11.0
 margin_right = 25.0
@@ -66,7 +67,7 @@ rect_scale = Vector2( 0.8, 0.8 )
 custom_fonts/font = ExtResource( 11 )
 text = "Room:"
 
-[node name="Number" type="Label" parent="TextureRect/LifeAndAbilitiesPanel"]
+[node name="Number" type="Label" parent="Screen/LifeAndAbilitiesPanel"]
 margin_left = 21.0
 margin_top = 11.0
 margin_right = 41.0
@@ -76,25 +77,25 @@ custom_fonts/font = ExtResource( 11 )
 text = "001"
 align = 2
 
-[node name="FireballAbilityDisplay" parent="TextureRect/LifeAndAbilitiesPanel" instance=ExtResource( 10 )]
+[node name="FireballAbilityDisplay" parent="Screen/LifeAndAbilitiesPanel" instance=ExtResource( 10 )]
 
-[node name="IceNovaAbilityDisplay" parent="TextureRect/LifeAndAbilitiesPanel" instance=ExtResource( 10 )]
+[node name="IceNovaAbilityDisplay" parent="Screen/LifeAndAbilitiesPanel" instance=ExtResource( 10 )]
 margin_top = 42.0
 margin_bottom = 47.0
 abilityType = 1
 
-[node name="Icon" parent="TextureRect/LifeAndAbilitiesPanel/IceNovaAbilityDisplay" index="0"]
+[node name="Icon" parent="Screen/LifeAndAbilitiesPanel/IceNovaAbilityDisplay" index="0"]
 margin_left = -14.0
 margin_top = -2.0
 margin_right = -6.0
 texture = ExtResource( 3 )
 
-[node name="ChainLightningAbilityDisplay" parent="TextureRect/LifeAndAbilitiesPanel" instance=ExtResource( 10 )]
+[node name="ChainLightningAbilityDisplay" parent="Screen/LifeAndAbilitiesPanel" instance=ExtResource( 10 )]
 margin_top = 53.0
 margin_bottom = 58.0
 abilityType = 2
 
-[node name="Icon" parent="TextureRect/LifeAndAbilitiesPanel/ChainLightningAbilityDisplay" index="0"]
+[node name="Icon" parent="Screen/LifeAndAbilitiesPanel/ChainLightningAbilityDisplay" index="0"]
 margin_left = -14.0
 margin_top = -2.99999
 margin_right = -6.0
@@ -133,8 +134,16 @@ margin_right = 10.0
 margin_bottom = 52.0
 color = Color( 0.588235, 0.588235, 0.588235, 1 )
 
-[connection signal="value_changed" from="TextureRect/AudioSlider" to="TextureRect/AudioSlider" method="OnChange"]
+[node name="Timeline Overlay" type="TextureRect" parent="."]
+margin_left = 240.0
+margin_top = 1120.0
+margin_right = 544.0
+margin_bottom = 1145.0
+rect_scale = Vector2( 5, 5 )
+texture = ExtResource( 12 )
 
-[editable path="TextureRect/LifeAndAbilitiesPanel/FireballAbilityDisplay"]
-[editable path="TextureRect/LifeAndAbilitiesPanel/IceNovaAbilityDisplay"]
-[editable path="TextureRect/LifeAndAbilitiesPanel/ChainLightningAbilityDisplay"]
+[connection signal="value_changed" from="Screen/AudioSlider" to="Screen/AudioSlider" method="OnChange"]
+
+[editable path="Screen/LifeAndAbilitiesPanel/FireballAbilityDisplay"]
+[editable path="Screen/LifeAndAbilitiesPanel/IceNovaAbilityDisplay"]
+[editable path="Screen/LifeAndAbilitiesPanel/ChainLightningAbilityDisplay"]
