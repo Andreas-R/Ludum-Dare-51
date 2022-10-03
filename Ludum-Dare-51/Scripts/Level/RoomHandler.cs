@@ -70,7 +70,7 @@ public class RoomHandler : Node2D {
 
     public override void _Process(float delta) {
         if (Metronome.instance.IsBeat(-1, 0)) {
-             roomSprite.Scale = scale * 1.001f;
+            //roomSprite.Scale = scale * 1.001f;
             int nextIndex = spriteIndex + 1;
             if (nextIndex < spriteCount) {
                 roomSprite.Texture = currentRoom.roomImage[nextIndex];
@@ -80,10 +80,10 @@ public class RoomHandler : Node2D {
                 roomSprite.Texture = currentRoom.roomImage[0];
             }
         } else {
-            roomSprite.Scale -= (scale * 0.001f) / (delta * 1000);
-            if (roomSprite.Scale.x < scale.x) {
-                 roomSprite.Scale = scale;
-            }
+            // roomSprite.Scale -= (scale * 0.001f) / (delta * 1000);
+            // if (roomSprite.Scale.x < scale.x) {
+            //      roomSprite.Scale = scale;
+            // }
         }
     }
 
