@@ -13,6 +13,8 @@ public class Timeline : Control {
     public Texture fireBallTickImage;
     [Export]
     public Texture iceNovaTickImage;
+    [Export]
+    public Texture chainLightningTickImage;
 
     private AbilityHandler playerAbilityHandler;
 
@@ -29,7 +31,7 @@ public class Timeline : Control {
         }
 
         foreach (KeyValuePair<AbilityType, AbstractAbility> typeAndAbility in this.playerAbilityHandler.abilities) {
-            if (Metronome.instance.IsBeat(typeAndAbility.Value.GetBeatFrequency(), typeAndAbility.Value.GetSubBeatFrequency(), -Metronome.instance.BeatToTime(numberOfBeatsOnTimeline) * 0.5f)) {
+            if (Metronome.instance.IsBeat(typeAndAbility.Value.GetBeatFrequency(), typeAndAbility.Value.GetSubBeatFrequency(), -Metronome.instance.BeatToTime(numberOfBeatsOnTimeline * 0.5f))) {
                 switch(typeAndAbility.Key) {
                     case AbilityType.FIREBALL: {
                         this.SpawnImageTick(fireBallTickImage);
@@ -37,6 +39,10 @@ public class Timeline : Control {
                     }
                     case AbilityType.ICE_NOVA: {
                         this.SpawnImageTick(iceNovaTickImage);
+                        break;
+                    }
+                    case AbilityType.CHAIN_LIGHTNING: {
+                        this.SpawnImageTick(chainLightningTickImage);
                         break;
                     }
                 }

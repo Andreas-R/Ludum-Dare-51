@@ -58,6 +58,10 @@ public class AbilityHandler : Node {
                     this.abilities[abilityType] = new IceNovaAbility();
                     return true;
                 }
+                case AbilityType.CHAIN_LIGHTNING: {
+                    this.abilities[abilityType] = new ChainLightningAbility();
+                    return true;
+                }
                 default: {
                     return false;
                 }

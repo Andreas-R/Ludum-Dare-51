@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scripts/Level/AbilityUpgradeHandler.cs" type="Script" id=1]
 [ext_resource path="res://Textures/fireball-ability.png" type="Texture" id=2]
@@ -9,8 +9,10 @@
 [ext_resource path="res://Textures/ice-nova-ability.png" type="Texture" id=7]
 [ext_resource path="res://Textures/ice-nova-upgrade-1.png" type="Texture" id=8]
 [ext_resource path="res://Textures/ice-nova-upgrade-2.png" type="Texture" id=9]
+[ext_resource path="res://Textures/chain-lightning.png" type="Texture" id=10]
 
 [node name="AbilityUpgradeHandler" type="Node"]
 script = ExtResource( 1 )
 fireBallUpgradeMenuImages = [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ) ]
 iceNovaUpgradeMenuImages = [ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 6 ) ]
+chainLightningUpgradeMenuImages = [ ExtResource( 10 ), ExtResource( 10 ), ExtResource( 10 ), ExtResource( 10 ) ]

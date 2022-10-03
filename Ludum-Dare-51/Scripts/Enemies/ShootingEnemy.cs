@@ -25,7 +25,7 @@ public class ShootingEnemy : AbstractEnemy {
             Arrow arrow = ShootingEnemy.arrowPrefab.Instance() as Arrow;
             arrow.direction = (playerPosition - this.GlobalPosition).Normalized();
             arrow.GlobalPosition = this.GlobalPosition + arrow.direction * 40f;
-            arrow.Rotation = this.GlobalPosition.AngleToPoint(playerPosition);
+            arrow.GlobalRotation = this.GlobalPosition.AngleToPoint(playerPosition);
             GetTree().Root.GetNode<Node>("Main").AddChild(arrow);
         } 
         if (isFrame) {

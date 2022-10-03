@@ -14,13 +14,13 @@ public class RoomHandler : Node2D {
     [Export]
     public float spawnWallMargin = 50f;
     [Export]
-    public int chestSpawnFrequency = 4;
+    public int chestSpawnFrequency = 2;
 
     private Sprite roomSprite;
     private Chest chest;
     private BgMusicHandler bgMusicHandler;
 
-    private int roomCounter = 0;
+    private int roomCounter = 1;
     private int lastRoomIndex = -1;
     private int spriteIndex = 0;
     private int spriteCount = 0;
@@ -105,6 +105,7 @@ public class RoomHandler : Node2D {
 
         if (roomCounter % chestSpawnFrequency == chestSpawnFrequency - 1) {
             chest.Spawn();
+            this.SpawnEnemies(room);
         } else {
             this.SpawnEnemies(room);
         }

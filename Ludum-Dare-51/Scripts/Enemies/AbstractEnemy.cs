@@ -31,10 +31,10 @@ public class AbstractEnemy : RigidBody2D {
     }
 
     public void Aim(Vector2 targetPosition) {
-        Vector2 direction = Position - targetPosition;
+        Vector2 direction = this.GlobalPosition - targetPosition;
         float angle = Vector2.Left.AngleTo(direction);
         if (this.weaponSprite.FlipH == false) angle += Mathf.Pi;
-        this.weaponSprite.Rotation = angle; 
+        this.weaponSprite.GlobalRotation = angle; 
     }
 
     protected void HandleSpriteFlip(Vector2 movementInput) {

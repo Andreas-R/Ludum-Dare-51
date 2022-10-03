@@ -97,12 +97,10 @@ public class Metronome : Node {
             if (beat != -1) {
                 beat += positiveBeats;
                 
-                while (beat > BEATS_PER_CYCLE) {
+                while (beat >= BEATS_PER_CYCLE) {
                     beat -= BEATS_PER_CYCLE;
                 }
             }
-
-            GD.Print(beat + " - " + timeInBeat);
         }
 
         if (beat != -1) {
