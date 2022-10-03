@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scripts/Music/SoundManager.cs" type="Script" id=1]
 [ext_resource path="res://Audio/Sfx/blob.ogg" type="AudioStream" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Audio/Sfx/robotSfx.ogg" type="AudioStream" id=5]
 [ext_resource path="res://Audio/Sfx/laserSfx.ogg" type="AudioStream" id=6]
 [ext_resource path="res://Audio/Sfx/iceNova.ogg" type="AudioStream" id=7]
+[ext_resource path="res://Audio/Sfx/fireball.ogg" type="AudioStream" id=8]
 
 [node name="SoundManager" type="Node"]
 script = ExtResource( 1 )
@@ -33,4 +34,10 @@ bus = "Sfx"
 
 [node name="IceNova" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
+volume_db = 8.0
+bus = "Sfx"
+
+[node name="Fireball" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+volume_db = -10.0
 bus = "Sfx"

@@ -12,6 +12,7 @@ public class SoundManager : Node
 
     private AudioStreamPlayer chainLightningSfxPlayer;
     private AudioStreamPlayer iceNovaSfxPlayer;
+    private AudioStreamPlayer fireballSfxPlayer;
 
     public static SoundManager instance;
 
@@ -21,7 +22,8 @@ public class SoundManager : Node
         chainLightning,
         laser,
         robot,
-        iceNova
+        iceNova,
+        fireball
     }
     private Dictionary<Sfx, bool> sfxPlayingMap = new Dictionary<Sfx, bool>();
 
@@ -33,6 +35,7 @@ public class SoundManager : Node
         laserSfxPlayer = GetNode<AudioStreamPlayer>("Laser");
         robotSfxPlayer = GetNode<AudioStreamPlayer>("Robot");
         iceNovaSfxPlayer = GetNode<AudioStreamPlayer>("IceNova");
+        fireballSfxPlayer = GetNode<AudioStreamPlayer>("Fireball");
         EmptySfxPlayingMap();
     }
 
@@ -63,6 +66,8 @@ public class SoundManager : Node
                 return robotSfxPlayer;
             case Sfx.iceNova:
                 return iceNovaSfxPlayer;
+            case Sfx.fireball:
+                return fireballSfxPlayer;
             default:
                 return null;
         }

@@ -15,6 +15,9 @@ public class FireballAbility : AbstractAbility {
     }
 
     public override void OnProcess(Player player, float delta) {
+        if (Metronome.instance.IsBeatWithAudioDelay(this.GetBeatFrequency(), this.GetSubBeatFrequency())) {
+            SoundManager.instance.PlaySfx(SoundManager.Sfx.fireball);
+        }
         if (Metronome.instance.IsBeat(this.GetBeatFrequency(), this.GetSubBeatFrequency())) {
             float numberOfFireballs = GetNumberOfFireBalls();
             
