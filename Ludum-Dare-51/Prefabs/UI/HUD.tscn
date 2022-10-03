@@ -1,10 +1,13 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scripts/UI/Timeline/Timeline.cs" type="Script" id=1]
 [ext_resource path="res://Textures/fireball.png" type="Texture" id=2]
 [ext_resource path="res://Textures/ice-nova-icon.png" type="Texture" id=3]
 [ext_resource path="res://Textures/chain-lightning-icon.png" type="Texture" id=4]
 [ext_resource path="res://Textures/ui-screen.png" type="Texture" id=5]
+[ext_resource path="res://Textures/slider_knob.png" type="Texture" id=6]
+
+[sub_resource type="StyleBoxTexture" id=1]
 
 [node name="HUD" type="Control"]
 margin_left = -880.0
@@ -17,6 +20,17 @@ margin_right = 40.0
 margin_bottom = 40.0
 rect_scale = Vector2( 5, 5 )
 texture = ExtResource( 5 )
+
+[node name="VSlider" type="VSlider" parent="TextureRect"]
+margin_left = 21.0
+margin_top = 95.0
+margin_right = 37.0
+margin_bottom = 186.0
+custom_icons/grabber_disabled = ExtResource( 6 )
+custom_icons/grabber_highlight = ExtResource( 6 )
+custom_icons/grabber = ExtResource( 6 )
+custom_styles/slider = SubResource( 1 )
+value = 50.0
 
 [node name="Timeline" type="Control" parent="."]
 anchor_top = 1.0
