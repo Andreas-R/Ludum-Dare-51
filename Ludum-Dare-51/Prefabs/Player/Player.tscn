@@ -5,7 +5,7 @@
 [ext_resource path="res://Textures/rex.png" type="Texture" id=3]
 [ext_resource path="res://Textures/sword1.png" type="Texture" id=4]
 [ext_resource path="res://Scripts/Player/Sword.cs" type="Script" id=5]
-[ext_resource path="res://Audio/wosh_2.wav" type="AudioStream" id=6]
+[ext_resource path="res://Audio/Sfx/wosh_2.wav" type="AudioStream" id=6]
 [ext_resource path="res://Scripts/Player/Abilities/AbilityHandler.cs" type="Script" id=7]
 [ext_resource path="res://Prefabs/Shadow.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scripts/Damage/LifePointManager.cs" type="Script" id=9]
@@ -216,6 +216,7 @@ one_shot = true
 stream = ExtResource( 6 )
 volume_db = -20.0
 pitch_scale = 1.5
+bus = "Sfx"
 
 [node name="IceNova" type="Area2D" parent="."]
 collision_layer = 0

@@ -6,12 +6,12 @@ public class PlayerFollowingEnemy : AbstractEnemy {
 
     private bool isMoving;
     private Timer moveTimer;
-    private AudioStreamPlayer audioPlayer;
+    private SoundManager soundManager;
 
     public override void _Ready() {
         base._Ready();
         this.moveTimer = GetNode<Timer>("MoveTimer"); 
-        this.audioPlayer = GetNode<AudioStreamPlayer>("AudioPlayer");
+        this.soundManager = GetTree().Root.GetNode<SoundManager>("Main/SoundManager");
     }
 
     public override void _IntegrateForces(Physics2DDirectBodyState bodyState) {
@@ -21,7 +21,7 @@ public class PlayerFollowingEnemy : AbstractEnemy {
             bodyState.LinearVelocity = Vector2.Zero;
 
             if (Metronome.instance.IsBeatWithAudioDelay(GetBeatFrequency(), GetSubBeatFrequency())) {
-                this.audioPlayer.Play();
+                this.soundManager.PlaySfx(SoundManager.Sfx.blob);
             }
             if (Metronome.instance.IsBeat(GetBeatFrequency(), GetSubBeatFrequency())) {
                 this.InitMove(bodyState);

@@ -5,7 +5,8 @@
 [ext_resource path="res://Textures/rex.png" type="Texture" id=3]
 [ext_resource path="res://Textures/sword.png" type="Texture" id=4]
 [ext_resource path="res://Scripts/Player/Sword.cs" type="Script" id=5]
-[ext_resource path="res://Audio/wosh_2.wav" type="AudioStream" id=6]
+[ext_resource path="res://Audio/Sfx/wosh_2.wav" type="AudioStream" id=6]
+
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 3 )
