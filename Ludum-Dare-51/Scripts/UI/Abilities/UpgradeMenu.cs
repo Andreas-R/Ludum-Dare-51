@@ -39,23 +39,26 @@ public class UpgradeMenu : TextureRect {
 
         if (currentUpgrades.Count > 0) {
             upgrade1Button.TextureNormal = abilityUpgradeHandler.abilityMenuImages[this.currentUpgrades[0].type][this.currentUpgrades[0].upgradeType];
-            upgrade1Button.TextureNormal = abilityUpgradeHandler.abilityMenuHoveredImages[this.currentUpgrades[0].type][this.currentUpgrades[0].upgradeType];
+            upgrade1Button.TextureHover = abilityUpgradeHandler.abilityMenuHoveredImages[this.currentUpgrades[0].type][this.currentUpgrades[0].upgradeType];
         } else {
             upgrade1Button.TextureNormal = null;
+            upgrade1Button.TextureHover = null;
         }
 
         if (currentUpgrades.Count > 1) {
             upgrade2Button.TextureNormal = abilityUpgradeHandler.abilityMenuImages[this.currentUpgrades[1].type][this.currentUpgrades[1].upgradeType];
-            upgrade2Button.TextureNormal = abilityUpgradeHandler.abilityMenuHoveredImages[this.currentUpgrades[1].type][this.currentUpgrades[1].upgradeType];
+            upgrade2Button.TextureHover = abilityUpgradeHandler.abilityMenuHoveredImages[this.currentUpgrades[1].type][this.currentUpgrades[1].upgradeType];
         } else {
             upgrade2Button.TextureNormal = null;
+            upgrade2Button.TextureHover = null;
         }
 
         if (currentUpgrades.Count > 2) {
             upgrade3Button.TextureNormal = abilityUpgradeHandler.abilityMenuImages[this.currentUpgrades[2].type][this.currentUpgrades[2].upgradeType];
-            upgrade3Button.TextureNormal = abilityUpgradeHandler.abilityMenuHoveredImages[this.currentUpgrades[2].type][this.currentUpgrades[2].upgradeType];
+            upgrade3Button.TextureHover = abilityUpgradeHandler.abilityMenuHoveredImages[this.currentUpgrades[2].type][this.currentUpgrades[2].upgradeType];
         } else {
             upgrade3Button.TextureNormal = null;
+            upgrade3Button.TextureHover = null;
         }
     }
 

@@ -2,9 +2,6 @@ using Godot;
 using System.Collections.Generic;
 
 public class AbilityHandler : Node {
-    private static int ABILITY_MAX_LEVEL = 5;
-    private static int MAX_EQUIPPED_ABILITIES = 3;
-
     private Player player;
     public Dictionary<AbilityType, AbstractAbility> abilities = new Dictionary<AbilityType, AbstractAbility>();
 
@@ -44,11 +41,8 @@ public class AbilityHandler : Node {
 
     public bool AddAbility(AbilityType abilityType, int upgradeType) {
         if (this.abilities.ContainsKey(abilityType)) {
-            if (this.abilities[abilityType].GetTotalLevel() >= ABILITY_MAX_LEVEL) {
-                //return false; // TODO? - limit ability level
-            }
             return IncreaseAbilityLevel(abilityType, upgradeType);
-        } else if (upgradeType == 0 && this.abilities.Count < MAX_EQUIPPED_ABILITIES) {
+        } else if (upgradeType == 0) {
             switch (abilityType) {
                 case AbilityType.FIREBALL: {
                     this.abilities[abilityType] = new FireballAbility();
@@ -105,6 +99,14 @@ public class AbilityHandler : Node {
             return true;
         } else {
             return false;
+        }
+    }
+
+    public int GetAbilityLevel(AbilityType abilityType) {
+        if (this.abilities.ContainsKey(abilityType)) {
+            return this.abilities[abilityType].GetTotalLevel();
+        } else {
+            return 0;
         }
     }
 }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Scripts/UI/Timeline/Timeline.cs" type="Script" id=1]
 [ext_resource path="res://Textures/fireball.png" type="Texture" id=2]
@@ -7,6 +7,9 @@
 [ext_resource path="res://Textures/ui-screen.png" type="Texture" id=5]
 [ext_resource path="res://Textures/slider_knob.png" type="Texture" id=6]
 [ext_resource path="res://Scripts/UI/AudioSlider.cs" type="Script" id=7]
+[ext_resource path="res://Textures/ui-life-and-abilities.png" type="Texture" id=8]
+[ext_resource path="res://Scripts/UI/LifeAndAbilitiesPanel.cs" type="Script" id=9]
+[ext_resource path="res://Prefabs/UI/AbilityDisplay.tscn" type="PackedScene" id=10]
 
 [sub_resource type="StyleBoxTexture" id=1]
 
@@ -36,6 +39,46 @@ max_value = 1.0
 step = 0.0
 value = 1.0
 script = ExtResource( 7 )
+
+[node name="LifeAndAbilitiesPanel" type="TextureRect" parent="TextureRect"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 48.0
+margin_bottom = 74.0
+texture = ExtResource( 8 )
+script = ExtResource( 9 )
+
+[node name="Lifebar" type="ColorRect" parent="TextureRect/LifeAndAbilitiesPanel"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 36.0
+margin_bottom = 9.0
+color = Color( 0.65098, 0.8, 0.203922, 1 )
+
+[node name="FireballAbilityDisplay" parent="TextureRect/LifeAndAbilitiesPanel" instance=ExtResource( 10 )]
+
+[node name="IceNovaAbilityDisplay" parent="TextureRect/LifeAndAbilitiesPanel" instance=ExtResource( 10 )]
+margin_top = 42.0
+margin_bottom = 47.0
+abilityType = 1
+
+[node name="Icon" parent="TextureRect/LifeAndAbilitiesPanel/IceNovaAbilityDisplay" index="0"]
+margin_left = -14.0
+margin_top = -2.0
+margin_right = -6.0
+texture = ExtResource( 3 )
+
+[node name="ChainLightningAbilityDisplay" parent="TextureRect/LifeAndAbilitiesPanel" instance=ExtResource( 10 )]
+margin_top = 53.0
+margin_bottom = 58.0
+abilityType = 2
+
+[node name="Icon" parent="TextureRect/LifeAndAbilitiesPanel/ChainLightningAbilityDisplay" index="0"]
+margin_left = -14.0
+margin_top = -2.99999
+margin_right = -6.0
+margin_bottom = 8.00001
+texture = ExtResource( 4 )
 
 [node name="Timeline" type="Control" parent="."]
 anchor_top = 1.0
@@ -70,3 +113,7 @@ margin_bottom = 52.0
 color = Color( 0.588235, 0.588235, 0.588235, 1 )
 
 [connection signal="value_changed" from="TextureRect/AudioSlider" to="TextureRect/AudioSlider" method="OnChange"]
+
+[editable path="TextureRect/LifeAndAbilitiesPanel/FireballAbilityDisplay"]
+[editable path="TextureRect/LifeAndAbilitiesPanel/IceNovaAbilityDisplay"]
+[editable path="TextureRect/LifeAndAbilitiesPanel/ChainLightningAbilityDisplay"]

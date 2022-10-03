@@ -10,7 +10,7 @@ public class LifePointManager : Node {
     [Signal]
     public delegate void OnDeath();
 
-    private float currentHealth;
+    public float currentHealth;
     public bool isInvulnerable = false;
 
     public override void _Ready() {
