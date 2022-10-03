@@ -1,6 +1,11 @@
 using Godot;
 
 public class ImageTick : TextureRect {
+    [Export]
+    private bool pulse = true;
+    [Export]
+    private bool fade = true;
+
     private float thicknessX;
     private float thicknessY;
     private float elapsedBeats;
@@ -27,21 +32,25 @@ public class ImageTick : TextureRect {
         this.MarginRight = xPos + thicknessX;
         this.MarginLeft = xPos - thicknessX;
 
-        float s = Mathf.Abs((Metronome.instance.currentBeat % 1) - 0.5f) * 2f;
-        float u = 0.8f;
-        s = (Mathf.Max(u, s) - u) / (1f - u);
-        float v = 0.75f;
-        s = (v + (1 - v) * s);
+        if (pulse) {
+            float s = Mathf.Abs((Metronome.instance.currentBeat % 1) - 0.5f) * 2f;
+            float u = 0.8f;
+            s = (Mathf.Max(u, s) - u) / (1f - u);
+            float v = 0.75f;
+            s = (v + (1 - v) * s);
 
-        this.MarginBottom = thicknessY * s;
-        this.MarginTop = -thicknessY * s;
+            this.MarginBottom = thicknessY * s;
+            this.MarginTop = -thicknessY * s;
+        }
 
-        float alpha = 1f - (Mathf.Abs(t - 0.5f) * 2f);
-        alpha = Mathf.SmoothStep(0f, 1f, alpha);
+        if (fade) {
+            float alpha = 1f - (Mathf.Abs(t - 0.5f) * 2f);
+            alpha = Mathf.SmoothStep(0f, 1f, alpha);
 
-        Color modulate = this.Modulate;
-        modulate.a = alpha;
-        this.Modulate = modulate;
+            Color modulate = this.Modulate;
+            modulate.a = alpha;
+            this.Modulate = modulate;
+        }
 
         if (t > 1f) {
             QueueFree();

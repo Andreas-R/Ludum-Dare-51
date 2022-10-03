@@ -100,7 +100,7 @@ animations = [ {
 } ]
 
 [sub_resource type="CircleShape2D" id=17]
-radius = 101.005
+radius = 91.0055
 
 [node name="Player" type="RigidBody2D"]
 collision_mask = 6

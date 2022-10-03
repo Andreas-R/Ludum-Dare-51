@@ -20,6 +20,9 @@
 
 [node name="AbilityUpgradeHandler" parent="." instance=ExtResource( 3 )]
 
+[node name="EnemyManager" type="Node" parent="."]
+script = ExtResource( 8 )
+
 [node name="HUD" parent="." instance=ExtResource( 6 )]
 margin_left = -1000.0
 margin_top = -560.0
@@ -43,8 +46,5 @@ position = Vector2( -350, -100 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 
-[node name="EnemyManager" type="Node" parent="."]
-script = ExtResource( 8 )
-
 [connection signal="OnEnemyDeathSignal" from="EnemyManager" to="BgMusicHandler" method="OnDifficultyChanged"]
-[connection signal="OnEnemySpawnSignal" from="EnemyManager" to="Metronome" method="OnDifficultyChanged"]
+[connection signal="OnEnemySpawnSignal" from="EnemyManager" to="BgMusicHandler" method="OnDifficultyChanged"]
