@@ -209,8 +209,6 @@ public class RoomHandler : Node2D {
                 int numberOfEnemies = Mathf.CeilToInt(Mathf.FloorToInt(3 + roomCounter * 0.5f) * room.numberOfEnemiesSpawnFactor);
                 int bossIndex = -1;
 
-                spawnBoss = true;
-
                 if (room.canContainBosses && spawnBoss) {
                     bossIndex = rng.RandiRange(0, numberOfEnemies - 1);
                     spawnBoss = false;
