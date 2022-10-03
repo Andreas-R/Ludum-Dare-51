@@ -92,12 +92,6 @@ public class Goblin : AbstractEnemy
     }
 
     public void GrantBonus(){
-        RoomHandler.instance.GuaranteedChestSpawnNextRoom = true;
-    }
-
-    public override void OnEscape()
-    {
-        RoomHandler.instance.GuaranteedNoChestSpawnNextRoom = true;
-        base.OnEscape();
+        RoomHandler.instance.TripleChestSpawnNextRoom = true;
     }
 }

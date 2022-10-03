@@ -1,5 +1,5 @@
 using Godot;
-using System;
+using System.Collections.Generic;
 
 public class Chest : Sprite {
     [Export]
@@ -43,9 +43,9 @@ public class Chest : Sprite {
         this.Frame = this.upgradeMenu.Visible ? 1 : 0;
     }
 
-    public void Spawn() {
+    public void Spawn(List<AbilityUpgradeHandler.AbilityUpgrade> possibleUpgrades) {
         this.Visible = true;
-        this.upgradeMenu.LoadNewUpgrades();
+        this.upgradeMenu.LoadNewUpgrades(possibleUpgrades);
         this.looted = false;
     }
 
@@ -64,5 +64,12 @@ public class Chest : Sprite {
         this.Frame = 1;
 
         this.abilityUpgradeHandler.playerAbilityHandler.AddAbility(abilityType, upgradeType);
+    }
+
+    public void OnHealLoot() {
+        this.looted = true;
+        this.toolTip.Visible = false;
+        this.upgradeMenu.Visible = false;
+        this.Frame = 1;
     }
 }

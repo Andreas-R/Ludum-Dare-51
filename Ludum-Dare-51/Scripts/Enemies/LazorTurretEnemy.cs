@@ -45,6 +45,7 @@ public class LazorTurretEnemy : AbstractEnemy {
     }
 
     public override void _IntegrateForces(Physics2DDirectBodyState bodyState) {
+        this.LinearVelocity = Vector2.Zero; // pull the handbreak
         float delta = bodyState.Step;
         float beatTime = (Metronome.instance.currentBeat ) % 2.0f;
         if (beatTime <= rotationDuration) {

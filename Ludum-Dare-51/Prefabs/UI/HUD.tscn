@@ -27,6 +27,7 @@ rect_scale = Vector2( 5, 5 )
 texture = ExtResource( 5 )
 
 [node name="AudioSlider" type="VSlider" parent="TextureRect"]
+pause_mode = 2
 margin_left = 19.9999
 margin_top = 95.0
 margin_right = 35.9999

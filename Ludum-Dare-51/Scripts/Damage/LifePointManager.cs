@@ -28,4 +28,10 @@ public class LifePointManager : Node {
             EmitSignal(nameof(OnHit), direction, knockbackForce);
         }
     }
+
+    public void Heal(float amount) {
+        if (isInvulnerable) return;
+
+        currentHealth = Math.Min(maxHealth, currentHealth + amount);
+    }
 }

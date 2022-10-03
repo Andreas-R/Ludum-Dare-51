@@ -10,6 +10,8 @@ public class RoomHandler : Node2D {
     [Export]
     public RoomData[] rooms;
     [Export]
+    public RoomData treasureRoom;
+    [Export]
     public Vector2 roomStart = new Vector2(-600, -400);
     [Export]
     public Vector2 roomEnd = new Vector2(600, 400);
@@ -17,12 +19,15 @@ public class RoomHandler : Node2D {
     public float spawnWallMargin = 50f;
     [Export]
     public int chestSpawnFrequency = 4;
+    [Export]
+    public int lootGoblinSpawnFrequency = 4 * 4; // multiple of chestSpawnFrequency
 
-    public bool GuaranteedChestSpawnNextRoom{ get; set; }
-    public bool GuaranteedNoChestSpawnNextRoom{ get; set; }
+    public bool TripleChestSpawnNextRoom{ get; set; }
 
     private Sprite roomSprite;
-    private Chest chest;
+    private Chest chest1;
+    private Chest chest2;
+    private Chest chest3;
     private BgMusicHandler bgMusicHandler;
 
     public int roomCounter = 0;
@@ -31,6 +36,7 @@ public class RoomHandler : Node2D {
     private int spriteCount = 0;
     public RoomData currentRoom;
     private EnemyManager enemyManager;
+    private AbilityUpgradeHandler abilityUpgradeHandler;
     private static Vector2 scale = new Vector2(5f, 5f);
     private bool spawnBoss = false;
 
@@ -39,15 +45,23 @@ public class RoomHandler : Node2D {
     public override void _Ready() {
         instance = this;
         roomSprite = GetNode<Sprite>("RoomSprite");
-        chest = GetNode<Chest>("Chest");
+        chest1 = GetTree().Root.GetNode<Chest>("Main/Chest1");
+        chest2 = GetTree().Root.GetNode<Chest>("Main/Chest2");
+        chest3 = GetTree().Root.GetNode<Chest>("Main/Chest3");
         bgMusicHandler = GetTree().Root.GetNode<BgMusicHandler>("Main/BgMusicHandler");
         enemyManager = GetTree().Root.GetNode<EnemyManager>("Main/EnemyManager");
+        abilityUpgradeHandler = GetTree().Root.GetNode<AbilityUpgradeHandler>("Main/AbilityUpgradeHandler");
 
         foreach (RoomData room in rooms) {
             roomEnemies[room.id] = new List<PackedScene>();
             foreach (string prefabPath in room.spawnableEnemyPrefabPaths) {
                 roomEnemies[room.id].Add(ResourceLoader.Load(prefabPath) as PackedScene);
             }
+        }
+
+        roomEnemies[treasureRoom.id] = new List<PackedScene>();
+        foreach (string prefabPath in treasureRoom.spawnableEnemyPrefabPaths) {
+            roomEnemies[treasureRoom.id].Add(ResourceLoader.Load(prefabPath) as PackedScene);
         }
         
         rng.Randomize();
@@ -105,26 +119,59 @@ public class RoomHandler : Node2D {
     }
 
     private void ChangeToRoom(RoomData room) {
-        if(currentRoom != null && currentRoom.id == "TreasureRoom"){
+        if (currentRoom != null && currentRoom.id == "TreasureRoom"){
             Goblin survivingGoblin = GetNodeOrNull<Goblin>("../Goblin");
-            if(survivingGoblin != null){
+            if (survivingGoblin != null){
                 survivingGoblin.OnEscape();
             }
         }
-
-        currentRoom = room;
-        spriteCount = room.roomImage.Length;
-        roomSprite.Texture = room.roomImage[0];
         
-        if (chest.Visible) chest.Despawn();
+        if (chest1.Visible) chest1.Despawn();
+        if (chest2.Visible) chest2.Despawn();
+        if (chest3.Visible) chest3.Despawn();
 
-        if (!GuaranteedNoChestSpawnNextRoom && (GuaranteedChestSpawnNextRoom || roomCounter % chestSpawnFrequency == chestSpawnFrequency - 1)) {
-            GuaranteedChestSpawnNextRoom = false;
-            chest.Spawn();
-        } else {
-            this.SpawnEnemies(room);
+        // loot goblin room
+        if (roomCounter % lootGoblinSpawnFrequency == lootGoblinSpawnFrequency - 2) {
+            currentRoom = treasureRoom;
+            spriteCount = currentRoom.roomImage.Length;
+            roomSprite.Texture = currentRoom.roomImage[0];
+            this.SpawnEnemies(currentRoom);
         }
-        bgMusicHandler.ChangeMainBackgroundMusic(room.bgMusicSamples, enemyManager.totalEnemyDifficulty);
+        // treasure room
+        else if (roomCounter % chestSpawnFrequency == chestSpawnFrequency - 1) {
+            List<AbilityUpgradeHandler.AbilityUpgrade> possibleUpgrades = this.abilityUpgradeHandler.GetPossibleUpgrades();
+            Utils.Shuffle<AbilityUpgradeHandler.AbilityUpgrade>(possibleUpgrades);
+
+            if (possibleUpgrades.Count > 0) {
+                currentRoom = treasureRoom;
+                spriteCount = currentRoom.roomImage.Length;
+                roomSprite.Texture = currentRoom.roomImage[0];
+            
+                if (TripleChestSpawnNextRoom) {
+                    chest1.Spawn(possibleUpgrades.GetRange(0, Math.Min(2, possibleUpgrades.Count)));
+                    if (possibleUpgrades.Count > 2) chest2.Spawn(possibleUpgrades.GetRange(2, Math.Min(4, possibleUpgrades.Count) - 2));
+                    if (possibleUpgrades.Count > 4) chest3.Spawn(possibleUpgrades.GetRange(4, Math.Min(6, possibleUpgrades.Count) - 4));
+                    TripleChestSpawnNextRoom = false;
+                } else {
+                    chest1.Spawn(possibleUpgrades.GetRange(0, Math.Min(2, possibleUpgrades.Count)));
+                }
+            } else {
+                // fallback to random room
+                currentRoom = room;
+                spriteCount = currentRoom.roomImage.Length;
+                roomSprite.Texture = currentRoom.roomImage[0];
+                this.SpawnEnemies(currentRoom);
+            }
+        }
+        // other rooms
+        else {
+            currentRoom = room;
+            spriteCount = currentRoom.roomImage.Length;
+            roomSprite.Texture = currentRoom.roomImage[0];
+            this.SpawnEnemies(currentRoom);
+        }
+
+        bgMusicHandler.ChangeMainBackgroundMusic(currentRoom.bgMusicSamples, enemyManager.totalEnemyDifficulty);
     }
 
     private void SpawnEnemies(RoomData room) {
@@ -183,9 +230,9 @@ public class RoomHandler : Node2D {
     }
 
     private Vector2 GetRandomSpawnPosition() {
-        return new Vector2(
-            rng.RandfRange(roomStart.x + spawnWallMargin, roomEnd.x + spawnWallMargin),
-            rng.RandfRange(roomStart.y - spawnWallMargin, roomEnd.y - spawnWallMargin)
+        return GlobalPosition + new Vector2(
+            rng.RandfRange(roomStart.x + spawnWallMargin, roomEnd.x - spawnWallMargin),
+            rng.RandfRange(roomStart.y + spawnWallMargin, roomEnd.y - spawnWallMargin)
         );
     }
 }

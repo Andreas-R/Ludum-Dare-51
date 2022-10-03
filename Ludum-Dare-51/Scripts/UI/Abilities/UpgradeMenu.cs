@@ -2,12 +2,18 @@ using Godot;
 using System.Collections.Generic;
 
 public class UpgradeMenu : TextureRect {
+    [Export]
+    public Texture hpRecoverMenuImage;
+    [Export]
+    public Texture hpRecoverMenuHoverImage;
+
     private AbilityUpgradeHandler abilityUpgradeHandler;
     private Chest chest;
     private TextureButton upgrade1Button;
     private TextureButton upgrade2Button;
     private TextureButton upgrade3Button;
     private ColorRect remainingTime;
+    private LifePointManager playerLifePointManager;
 
     private float initialRemainingTimeMarginLeft;
     private float initialRemainingTimeMarginRight;
@@ -21,6 +27,7 @@ public class UpgradeMenu : TextureRect {
         this.upgrade2Button = GetNode<TextureButton>("Upgrade2");
         this.upgrade3Button = GetNode<TextureButton>("Upgrade3");
         this.remainingTime = GetNode<ColorRect>("RemainingTime");
+        this.playerLifePointManager = GetTree().Root.GetNode<LifePointManager>("Main/Player/LifePointManager");
 
         this.initialRemainingTimeMarginLeft = this.remainingTime.MarginLeft;
         this.initialRemainingTimeMarginRight = this.remainingTime.MarginRight;
@@ -32,10 +39,9 @@ public class UpgradeMenu : TextureRect {
         this.remainingTime.MarginRight = this.initialRemainingTimeMarginLeft + (this.initialRemainingTimeMarginRight - this.initialRemainingTimeMarginLeft) * (1f - (Metronome.instance.elapsedTime / Metronome.CYCLE_TIME));
     }
 
-    public void LoadNewUpgrades() {
+    public void LoadNewUpgrades(List<AbilityUpgradeHandler.AbilityUpgrade> possibleUpgrades) {
         this.currentUpgrades.Clear();
-        this.currentUpgrades = this.abilityUpgradeHandler.GetPossibleUpgrades();
-        Utils.Shuffle<AbilityUpgradeHandler.AbilityUpgrade>(this.currentUpgrades);
+        this.currentUpgrades = possibleUpgrades;
 
         if (currentUpgrades.Count > 0) {
             upgrade1Button.TextureNormal = abilityUpgradeHandler.abilityMenuImages[this.currentUpgrades[0].type][this.currentUpgrades[0].upgradeType];
@@ -45,17 +51,12 @@ public class UpgradeMenu : TextureRect {
             upgrade1Button.TextureHover = null;
         }
 
-        if (currentUpgrades.Count > 1) {
-            upgrade2Button.TextureNormal = abilityUpgradeHandler.abilityMenuImages[this.currentUpgrades[1].type][this.currentUpgrades[1].upgradeType];
-            upgrade2Button.TextureHover = abilityUpgradeHandler.abilityMenuHoveredImages[this.currentUpgrades[1].type][this.currentUpgrades[1].upgradeType];
-        } else {
-            upgrade2Button.TextureNormal = null;
-            upgrade2Button.TextureHover = null;
-        }
+        upgrade2Button.TextureNormal = hpRecoverMenuImage;
+        upgrade2Button.TextureHover = hpRecoverMenuHoverImage;
 
-        if (currentUpgrades.Count > 2) {
-            upgrade3Button.TextureNormal = abilityUpgradeHandler.abilityMenuImages[this.currentUpgrades[2].type][this.currentUpgrades[2].upgradeType];
-            upgrade3Button.TextureHover = abilityUpgradeHandler.abilityMenuHoveredImages[this.currentUpgrades[2].type][this.currentUpgrades[2].upgradeType];
+        if (currentUpgrades.Count > 1) {
+            upgrade3Button.TextureNormal = abilityUpgradeHandler.abilityMenuImages[this.currentUpgrades[1].type][this.currentUpgrades[1].upgradeType];
+            upgrade3Button.TextureHover = abilityUpgradeHandler.abilityMenuHoveredImages[this.currentUpgrades[1].type][this.currentUpgrades[1].upgradeType];
         } else {
             upgrade3Button.TextureNormal = null;
             upgrade3Button.TextureHover = null;
@@ -69,14 +70,13 @@ public class UpgradeMenu : TextureRect {
     }
 
     public void Upgrade2Selected() {
-        if (currentUpgrades.Count > 1) {
-            chest.OnLoot(this.currentUpgrades[1].type, this.currentUpgrades[1].upgradeType);
-        }
+        playerLifePointManager.Heal(playerLifePointManager.maxHealth * 0.25f);
+        chest.OnHealLoot();
     }
 
     public void Upgrade3Selected() {
-        if (currentUpgrades.Count > 2) {
-            chest.OnLoot(this.currentUpgrades[2].type, this.currentUpgrades[2].upgradeType);
+        if (currentUpgrades.Count > 1) {
+            chest.OnLoot(this.currentUpgrades[1].type, this.currentUpgrades[1].upgradeType);
         }
     }
 }
