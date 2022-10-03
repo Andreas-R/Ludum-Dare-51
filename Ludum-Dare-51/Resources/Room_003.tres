@@ -1,9 +1,11 @@
-[gd_resource type="Resource" load_steps=5 format=2]
+[gd_resource type="Resource" load_steps=7 format=2]
 
 [ext_resource path="res://Scripts/Level/RoomData.cs" type="Script" id=1]
 [ext_resource path="res://Textures/ice_room1.png" type="Texture" id=2]
 [ext_resource path="res://Textures/ice_room2.png" type="Texture" id=3]
-[ext_resource path="res://Sound/defaultMedium.wav" type="AudioStream" id=5]
+[ext_resource path="res://Sound/glitchMedium.wav" type="AudioStream" id=4]
+[ext_resource path="res://Sound/glitchFast.wav" type="AudioStream" id=5]
+[ext_resource path="res://Sound/glitchSlow.wav" type="AudioStream" id=6]
 
 [resource]
 script = ExtResource( 1 )
@@ -12,4 +14,4 @@ roomImage = [ ExtResource( 2 ), ExtResource( 3 ) ]
 spawnWeight = 10.0
 minSpawnRoomCount = 0
 spawnableEnemyPrefabPaths = PoolStringArray( "res://Prefabs/Enemies/Penguin.tscn" )
-bgMusicSample = ExtResource( 5 )
+bgMusicSamples = [ ExtResource( 6 ), ExtResource( 4 ), ExtResource( 5 ) ]

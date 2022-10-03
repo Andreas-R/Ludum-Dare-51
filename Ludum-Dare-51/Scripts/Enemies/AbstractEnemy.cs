@@ -5,9 +5,12 @@ public class AbstractEnemy : RigidBody2D {
     protected AnimatedSprite weaponSprite = null;
     protected Timer hitTimer;
     protected Player player;
+    protected EnemyManager enemyManager;
     
     protected Color hitColor = new Color(1f, 0.5f, 0.5f);
     protected Color defaultColor = new Color(1f, 1f, 1f);
+    [Export]
+    public float difficultyFactor = 1f;
 
     public override void _Ready() {
         this.sprite = GetNode<AnimatedSprite>("Sprite");
@@ -16,6 +19,7 @@ public class AbstractEnemy : RigidBody2D {
         }
         this.hitTimer = GetNode<Timer>("HitTimer");
         this.player = GetTree().Root.GetNode<Player>("Main/Player");
+        this.enemyManager = GetTree().Root.GetNode<EnemyManager>("Main/EnemyManager");
     }
 
     public void StartMoveAnimation() {
@@ -75,6 +79,7 @@ public class AbstractEnemy : RigidBody2D {
     }
 
     public virtual void OnDeath() {
+        enemyManager.OnEnemyDeath(this);
         this.QueueFree();
     }
 }

@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/defaultEasy.wav-2b462c4741c32ab9d6911ae7cd568470.sample"
+path="res://.import/dnbFast.wav-2467d59f3fc53dce9f602b7006963004.sample"
 
 [deps]
 
-source_file="res://Sound/defaultEasy.wav"
-dest_files=[ "res://.import/defaultEasy.wav-2b462c4741c32ab9d6911ae7cd568470.sample" ]
+source_file="res://Sound/dnbFast.wav"
+dest_files=[ "res://.import/dnbFast.wav-2467d59f3fc53dce9f602b7006963004.sample" ]
 
 [params]
 
