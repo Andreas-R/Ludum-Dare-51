@@ -13,7 +13,7 @@ public class Sword : Node2D {
 
     private bool isAttacking = false;
     private float startRotation;
-    private float attackArchAngleRadians;
+    public float attackArchAngleRadians;
     private float lastSwingDirection = 1f;
     private BgMusicHandler bgMusicHandler;
 

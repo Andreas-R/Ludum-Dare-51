@@ -10,6 +10,7 @@ margin_right = 34.0
 margin_bottom = 34.0
 script = ExtResource( 2 )
 abilityType = 3
+totalMaxLevels = 5
 
 [node name="Icon" type="TextureRect" parent="."]
 margin_left = -13.0

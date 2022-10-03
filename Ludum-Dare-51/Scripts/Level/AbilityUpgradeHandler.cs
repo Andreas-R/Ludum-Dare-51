@@ -14,6 +14,10 @@ public class AbilityUpgradeHandler : Node {
     }
 
     [Export]
+    public Texture[] swordUpgradeMenuImages;
+    [Export]
+    public Texture[] swordUpgradeMenuHoveredImages;
+    [Export]
     public Texture[] fireBallUpgradeMenuImages;
     [Export]
     public Texture[] fireBallUpgradeMenuHoveredImages;
@@ -42,11 +46,13 @@ public class AbilityUpgradeHandler : Node {
         this.abilityMenuImages.Add(AbilityType.ICE_NOVA, iceNovaUpgradeMenuImages);
         this.abilityMenuImages.Add(AbilityType.CHAIN_LIGHTNING, chainLightningUpgradeMenuImages);
         this.abilityMenuImages.Add(AbilityType.MOVE_SPEED, moveSpeedUpgradeMenuImages);
+        this.abilityMenuImages.Add(AbilityType.SWORD, swordUpgradeMenuImages);
 
         this.abilityMenuHoveredImages.Add(AbilityType.FIREBALL, fireBallUpgradeMenuHoveredImages);
         this.abilityMenuHoveredImages.Add(AbilityType.ICE_NOVA, iceNovaUpgradeMenuHoveredImages);
         this.abilityMenuHoveredImages.Add(AbilityType.CHAIN_LIGHTNING, chainLightningUpgradeMenuHoveredImages);
         this.abilityMenuHoveredImages.Add(AbilityType.MOVE_SPEED, moveSpeedUpgradeMenuHoverImages);
+        this.abilityMenuHoveredImages.Add(AbilityType.SWORD, swordUpgradeMenuHoveredImages);
     }
 
     public List<AbilityUpgrade> GetPossibleUpgrades() {
