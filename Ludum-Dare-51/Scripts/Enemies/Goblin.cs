@@ -7,6 +7,8 @@ public class Goblin : AbstractEnemy
     public float moveSpeed;
     [Export]
     public float dashSpeed;
+    [Export]
+    public float maxPlayerDistance;
 
     private bool isDashing;
     private Timer dashTimer;
@@ -29,31 +31,36 @@ public class Goblin : AbstractEnemy
             }
             else{
                 Vector2 moveDir = (this.GlobalPosition - this.player.GlobalPosition);
-                moveDir = moveDir.Normalized() * this.moveSpeed;
-                Physics2DDirectSpaceState spaceState = GetWorld2d().DirectSpaceState;
-                CapsuleShape2D colliderShape = (CapsuleShape2D)(collider.Shape);
-                Vector2 rayCastTarget = collider.GlobalPosition + moveDir.Normalized() * (colliderShape.Radius + 5f);
-                if(spaceState.IntersectRay(collider.GlobalPosition, rayCastTarget, new Godot.Collections.Array { this }, 2).Count>0){
-                    bool yBlocked = false;
-                    bool xBlocked = false;
-                    if(spaceState.IntersectRay(collider.GlobalPosition, new Vector2(0, rayCastTarget.y), new Godot.Collections.Array { this }, 2).Count>0){
-                        yBlocked = true;
+                if((-1*moveDir).Length() < maxPlayerDistance){
+                    moveDir = moveDir.Normalized() * this.moveSpeed;
+                    Physics2DDirectSpaceState spaceState = GetWorld2d().DirectSpaceState;
+                    CapsuleShape2D colliderShape = (CapsuleShape2D)(collider.Shape);
+                    Vector2 rayCastTarget = collider.GlobalPosition + moveDir.Normalized() * (colliderShape.Radius + 5f);
+                    if(spaceState.IntersectRay(collider.GlobalPosition, rayCastTarget, new Godot.Collections.Array { this }, 2).Count>0){
+                        bool yBlocked = false;
+                        bool xBlocked = false;
+                        if(spaceState.IntersectRay(collider.GlobalPosition, new Vector2(0, rayCastTarget.y), new Godot.Collections.Array { this }, 2).Count>0){
+                            yBlocked = true;
+                        }
+                        if(spaceState.IntersectRay(collider.GlobalPosition, new Vector2(rayCastTarget.x, 0), new Godot.Collections.Array { this }, 2).Count>0){
+                            xBlocked = true;
+                        }
+                        if(xBlocked && yBlocked){
+                            moveDir = Vector2.Zero;
+                        }
+                        else if(xBlocked){
+                            moveDir = new Vector2(0, moveDir.y).Normalized() * this.moveSpeed;
+                        }
+                        else if(yBlocked){
+                            moveDir = new Vector2(moveDir.x, 0).Normalized() * this.moveSpeed;
+                        }
                     }
-                    if(spaceState.IntersectRay(collider.GlobalPosition, new Vector2(rayCastTarget.x, 0), new Godot.Collections.Array { this }, 2).Count>0){
-                        xBlocked = true;
-                    }
-                    if(xBlocked && yBlocked){
-                        moveDir = Vector2.Zero;
-                    }
-                    else if(xBlocked){
-                        moveDir = new Vector2(0, moveDir.y).Normalized() * this.moveSpeed;
-                    }
-                    else if(yBlocked){
-                        moveDir = new Vector2(moveDir.x, 0).Normalized() * this.moveSpeed;
-                    }
+                    bodyState.LinearVelocity = moveDir;
+                    HandleSpriteFlip(moveDir);
                 }
-                bodyState.LinearVelocity = moveDir;
-                HandleSpriteFlip(moveDir);
+                else{
+                    bodyState.LinearVelocity = Vector2.Zero;
+                }
             }
         }
     }
