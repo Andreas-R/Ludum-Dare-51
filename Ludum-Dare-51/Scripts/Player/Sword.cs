@@ -6,8 +6,8 @@ public class Sword : Node2D {
 
     private Timer attackTimer;
     private Sprite swordSprite;
-    private AnimatedSprite slash;
-    private CollisionShape2D swordCollider;
+    public AnimatedSprite slash;
+    public CollisionShape2D swordCollider;
     private AudioStreamPlayer audioPlayer;
     private Player player;
 
@@ -77,5 +77,9 @@ public class Sword : Node2D {
         t = Mathf.Clamp(t * 1.8f - 0.4f, 0f, 1f);
         t = Mathf.SmoothStep(0f, 1f, t);
         this.Rotation = startRotation - attackArchAngleRadians * t * lastSwingDirection;
+    }
+
+    public void setSprite(Texture texture){
+        swordSprite.Texture = texture;
     }
 }

@@ -185,7 +185,7 @@ public class Player : RigidBody2D {
     public void OnDeath() {
         if (state == PlayerState.DEAD) return;
         DieAnimation();
-        bodyState.LinearVelocity = Vector2.Zero;
+        //bodyState.LinearVelocity = Vector2.Zero;
         ChangeState(PlayerState.DEAD);
     }
 

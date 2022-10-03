@@ -1,8 +1,14 @@
 using Godot;
 
 public class SwordAbility : AbstractAbility {
-    private static PackedScene fireballPrefab = ResourceLoader.Load("res://Prefabs/Player/Abilities/Fireball.tscn") as PackedScene;
-
+    private static Texture[] sprites = {
+        ResourceLoader.Load("res://Textures/sword1.png") as Texture,
+        ResourceLoader.Load("res://Textures/sword2.png") as Texture,
+        ResourceLoader.Load("res://Textures/sword3.png") as Texture,
+        ResourceLoader.Load("res://Textures/sword4.png") as Texture,
+        ResourceLoader.Load("res://Textures/sword5.png") as Texture
+    };
+    private float swordLengthIncreasePerLevel = 5f;
     private Sword sword;
 
     public SwordAbility(Sword sword) {
@@ -23,7 +29,15 @@ public class SwordAbility : AbstractAbility {
                 break;
             }
             case 2: {
-                sword.Scale *= GetScaleMultiplicator();
+                //sword.Scale *= GetScaleMultiplicator();
+                GD.Print(level2);
+                sword.setSprite(sprites[level2]);
+                CapsuleShape2D swordColliderShape = (CapsuleShape2D) sword.swordCollider.Shape;
+                swordColliderShape.Height += swordLengthIncreasePerLevel;
+                sword.swordCollider.Position -= new Vector2(0, swordLengthIncreasePerLevel / 2);
+                if(level2 == 2){
+                    swordColliderShape.Radius += 1;
+                }
                 break;
             }
             case 3: {

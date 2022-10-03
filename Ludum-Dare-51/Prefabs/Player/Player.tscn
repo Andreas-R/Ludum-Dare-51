@@ -1,9 +1,9 @@
-[gd_scene load_steps=39 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://Scripts/Player/Player.cs" type="Script" id=1]
 [ext_resource path="res://Physics/PlayerPhysics.tres" type="PhysicsMaterial" id=2]
 [ext_resource path="res://Textures/rex.png" type="Texture" id=3]
-[ext_resource path="res://Textures/sword.png" type="Texture" id=4]
+[ext_resource path="res://Textures/sword1.png" type="Texture" id=4]
 [ext_resource path="res://Scripts/Player/Sword.cs" type="Script" id=5]
 [ext_resource path="res://Audio/wosh_2.wav" type="AudioStream" id=6]
 [ext_resource path="res://Scripts/Player/Abilities/AbilityHandler.cs" type="Script" id=7]
@@ -14,26 +14,6 @@
 [ext_resource path="res://Textures/slash.png" type="Texture" id=12]
 [ext_resource path="res://Scripts/Player/Abilities/SpecificAbilities/IceNova.cs" type="Script" id=13]
 [ext_resource path="res://Textures/ice_nova3.png" type="Texture" id=14]
-
-[sub_resource type="AtlasTexture" id=23]
-atlas = ExtResource( 3 )
-region = Rect2( 32, 64, 32, 32 )
-
-[sub_resource type="AtlasTexture" id=24]
-atlas = ExtResource( 3 )
-region = Rect2( 64, 64, 32, 32 )
-
-[sub_resource type="AtlasTexture" id=25]
-atlas = ExtResource( 3 )
-region = Rect2( 64, 32, 32, 32 )
-
-[sub_resource type="AtlasTexture" id=26]
-atlas = ExtResource( 3 )
-region = Rect2( 0, 64, 32, 32 )
-
-[sub_resource type="AtlasTexture" id=27]
-atlas = ExtResource( 3 )
-region = Rect2( 32, 32, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 3 )
@@ -49,21 +29,6 @@ region = Rect2( 0, 0, 32, 32 )
 
 [sub_resource type="SpriteFrames" id=5]
 animations = [ {
-"frames": [ SubResource( 23 ), SubResource( 24 ) ],
-"loop": true,
-"name": "dead",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 25 ), SubResource( 26 ) ],
-"loop": false,
-"name": "die",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 27 ) ],
-"loop": false,
-"name": "hit",
-"speed": 10.0
-}, {
 "frames": [ SubResource( 3 ), SubResource( 4 ), SubResource( 2 ), SubResource( 4 ), SubResource( 2 ) ],
 "loop": false,
 "name": "running",
@@ -151,7 +116,6 @@ runSpeed = 250.0
 position = Vector2( 0, -3.8147e-06 )
 scale = Vector2( 5, 5 )
 frames = SubResource( 5 )
-animation = "dead"
 playing = true
 offset = Vector2( 0, -7 )
 
@@ -191,8 +155,7 @@ script = ExtResource( 11 )
 damage = 135.0
 
 [node name="Sprite" type="Sprite" parent="SwordPivot/Sword"]
-visible = false
-position = Vector2( 0, 2.6 )
+position = Vector2( 0, -8.6 )
 rotation = 1.5708
 texture = ExtResource( 4 )
 
