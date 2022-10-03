@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 
 public class RoomHandler : Node2D {
+
+    public static RoomHandler instance;
     private static RandomNumberGenerator rng = new RandomNumberGenerator();
 
     [Export]
@@ -16,6 +18,9 @@ public class RoomHandler : Node2D {
     [Export]
     public int chestSpawnFrequency = 2;
 
+    public bool GuaranteedChestSpawnNextRoom{ get; set; }
+    public bool GuaranteedNoChestSpawnNextRoom{ get; set; }
+
     private Sprite roomSprite;
     private Chest chest;
     private BgMusicHandler bgMusicHandler;
@@ -24,15 +29,18 @@ public class RoomHandler : Node2D {
     private int lastRoomIndex = -1;
     private int spriteIndex = 0;
     private int spriteCount = 0;
-    private RoomData currentRoom;
+    public RoomData currentRoom;
+    private EnemyManager enemyManager;
     private static Vector2 scale = new Vector2(5f, 5f);
 
     private Dictionary<string, List<PackedScene>> roomEnemies = new Dictionary<string, List<PackedScene>>();
 
     public override void _Ready() {
+        instance = this;
         roomSprite = GetNode<Sprite>("RoomSprite");
         chest = GetNode<Chest>("Chest");
         bgMusicHandler = GetTree().Root.GetNode<BgMusicHandler>("Main/BgMusicHandler");
+        enemyManager = GetTree().Root.GetNode<EnemyManager>("Main/EnemyManager");
 
         foreach (RoomData room in rooms) {
             roomEnemies[room.id] = new List<PackedScene>();
@@ -96,31 +104,51 @@ public class RoomHandler : Node2D {
     }
 
     private void ChangeToRoom(RoomData room) {
+        if(currentRoom != null && currentRoom.id == "TreasureRoom"){
+            Goblin survivingGoblin = GetNodeOrNull<Goblin>("../Goblin");
+            if(survivingGoblin != null){
+                survivingGoblin.OnEscape();
+            }
+        }
+
         currentRoom = room;
         spriteCount = room.roomImage.Length;
         roomSprite.Texture = room.roomImage[0];
-        bgMusicHandler.ChangeMainBackgroundMusic(room.bgMusicSample);
-
+        
         if (chest.Visible) chest.Despawn();
 
-        if (roomCounter % chestSpawnFrequency == chestSpawnFrequency - 1) {
+        if (!GuaranteedNoChestSpawnNextRoom && (GuaranteedChestSpawnNextRoom || roomCounter % chestSpawnFrequency == chestSpawnFrequency - 1)) {
+            GuaranteedChestSpawnNextRoom = false;
             chest.Spawn();
             this.SpawnEnemies(room);
         } else {
             this.SpawnEnemies(room);
         }
+        bgMusicHandler.ChangeMainBackgroundMusic(room.bgMusicSamples, enemyManager.totalEnemyDifficulty);
     }
 
     private void SpawnEnemies(RoomData room) {
-        int numberOfEnemies = 3 + roomCounter;
-        float lifeMultiplier = 1f + (roomCounter * 0.2f);
+        switch(room.id){
+            case "TreasureRoom":
+                SpawnEnemy(room);
+                break;
+            default:
+                int numberOfEnemies = 3 + roomCounter;
+                float lifeMultiplier = 1f + (roomCounter * 0.2f);
 
-        for (int i = 0; i < numberOfEnemies; i += 1) {
-            PackedScene enemyPrefab = roomEnemies[room.id][rng.RandiRange(0, roomEnemies[room.id].Count - 1)];
-            AbstractEnemy enemy = enemyPrefab.Instance() as AbstractEnemy;
-            enemy.GlobalPosition = this.GetRandomSpawnPosition();
-            GetTree().Root.GetNode<Node>("Main").AddChild(enemy);
+                for (int i = 0; i < numberOfEnemies; i += 1) {
+                    SpawnEnemy(room);
+                }
+                break;
         }
+    }
+
+    private void SpawnEnemy(RoomData room){
+        PackedScene enemyPrefab = roomEnemies[room.id][rng.RandiRange(0, roomEnemies[room.id].Count - 1)];
+        AbstractEnemy enemy = enemyPrefab.Instance() as AbstractEnemy;
+        enemy.GlobalPosition = this.GetRandomSpawnPosition();
+        GetTree().Root.GetNode<Node>("Main").AddChild(enemy);
+        enemyManager.OnEnemySpawn(enemy);
     }
 
     private Vector2 GetRandomSpawnPosition() {

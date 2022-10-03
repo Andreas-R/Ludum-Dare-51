@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Room-003.png-7cc0bb8d73d77d3729cc66bf314c9a92.stex"
+path="res://.import/ice-nova-upgrade-hover-2.png-221c9559d948f769acdf5161f3ba9b47.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/Room-003.png"
-dest_files=[ "res://.import/Room-003.png-7cc0bb8d73d77d3729cc66bf314c9a92.stex" ]
+source_file="res://Textures/ice-nova-upgrade-hover-2.png"
+dest_files=[ "res://.import/ice-nova-upgrade-hover-2.png-221c9559d948f769acdf5161f3ba9b47.stex" ]
 
 [params]
 

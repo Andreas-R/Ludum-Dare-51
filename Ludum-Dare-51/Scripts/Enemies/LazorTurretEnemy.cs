@@ -27,7 +27,9 @@ public class LazorTurretEnemy : AbstractEnemy {
     public override void _Ready() {
         base._Ready();
         rng.Randomize();
-        this.targetAngle = rng.RandfRange(0, 2 * Mathf.Pi);
+        Vector2 direction = Position - player.Position;
+        float angle = direction.AngleTo(Vector2.Left);
+        this.targetAngle = angle;
         this.currentRotation = this.targetAngle;
         this.Rotation = this.targetAngle;
         this.startAngle = this.targetAngle;
@@ -67,7 +69,7 @@ public class LazorTurretEnemy : AbstractEnemy {
             this.sprite.Frame = 2;
         } else if (beatTime < 1.0f) {
             this.lazorBeam.sprite.Frame = 1;
-            this.lazorBeam.sprite.Modulate = new Color(1.0f, 1.0f, 1.0f, 0.7f);
+            this.lazorBeam.sprite.Modulate = new Color(1.0f, 1.0f, 1.0f, 1f);
             this.sprite.Frame = 3;
         } else if (beatTime < 1.0625f) {
             this.collisionShape.SetDeferred("disabled", false);
@@ -79,7 +81,10 @@ public class LazorTurretEnemy : AbstractEnemy {
             this.sprite.Frame = 4;
             if (!this.newRotationSet) {
               this.startAngle = this.currentRotation;
-              this.targetAngle = rng.RandfRange(0, 2 * Mathf.Pi);
+              float error = rng.RandfRange(0, Mathf.Pi / 8) - Mathf.Pi / 16;
+              Vector2 direction = Position - player.GetCenter();
+              float angle = -(direction.AngleTo(Vector2.Right) - Mathf.Pi) + error;
+              this.targetAngle = angle;
               this.newRotationSet = true;
             }
         } else if (beatTime < 1.85f) {

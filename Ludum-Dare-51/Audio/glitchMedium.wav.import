@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/glitchMedium.wav-89dc4ad524be2dd00b3779e4e418c9b4.sample"
+path="res://.import/glitchMedium.wav-0a3a744586ea5662de835f480fe91a10.sample"
 
 [deps]
 
-source_file="res://Sound/glitchMedium.wav"
-dest_files=[ "res://.import/glitchMedium.wav-89dc4ad524be2dd00b3779e4e418c9b4.sample" ]
+source_file="res://Audio/glitchMedium.wav"
+dest_files=[ "res://.import/glitchMedium.wav-0a3a744586ea5662de835f480fe91a10.sample" ]
 
 [params]
 

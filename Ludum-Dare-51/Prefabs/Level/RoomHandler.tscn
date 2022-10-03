@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Resources/Room_001.tres" type="Resource" id=1]
 [ext_resource path="res://Scripts/Level/RoomHandler.cs" type="Script" id=2]
@@ -10,6 +10,8 @@
 [ext_resource path="res://Scripts/UI/Abilities/UpgradeMenu.cs" type="Script" id=8]
 [ext_resource path="res://Scripts/Level/Chest.cs" type="Script" id=9]
 [ext_resource path="res://Resources/Room_003.tres" type="Resource" id=10]
+[ext_resource path="res://Resources/TreasureRoom.tres" type="Resource" id=11]
+[ext_resource path="res://Resources/Room_004.tres" type="Resource" id=12]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 200, 400 )
@@ -20,7 +22,7 @@ extents = Vector2( 1000, 200 )
 [node name="RoomHandler" type="Node2D"]
 position = Vector2( 0, -50 )
 script = ExtResource( 2 )
-rooms = [ ExtResource( 1 ), ExtResource( 5 ), ExtResource( 10 ) ]
+rooms = [ ExtResource( 1 ), ExtResource( 5 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ) ]
 
 [node name="RoomSprite" type="Sprite" parent="."]
 scale = Vector2( 5, 5 )
