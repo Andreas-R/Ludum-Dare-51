@@ -38,6 +38,8 @@ public class SwordAbility : AbstractAbility {
                 if(level2 == 2){
                     swordColliderShape.Radius += 1;
                 }
+                sword.slash.Position -= new Vector2(0, swordLengthIncreasePerLevel-1.5f);
+                sword.slash.Scale += new Vector2(0.25f, 0.25f);
                 break;
             }
             case 3: {
