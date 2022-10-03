@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Scripts/UI/Timeline/Timeline.cs" type="Script" id=1]
 [ext_resource path="res://Textures/fireball.png" type="Texture" id=2]
@@ -12,14 +12,298 @@
 [ext_resource path="res://Prefabs/UI/AbilityDisplay.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Fonts/DraconianPixelsMinimal/DraconianPixelsMinimal.tres" type="DynamicFont" id=11]
 [ext_resource path="res://Textures/ui-screen-timeline-overlay.png" type="Texture" id=12]
+[ext_resource path="res://Textures/ui-screen-black.png" type="Texture" id=13]
+[ext_resource path="res://Textures/lightning-paralyzed.png" type="Texture" id=14]
+[ext_resource path="res://Textures/ui-power-button-pressed.png" type="Texture" id=15]
+[ext_resource path="res://Textures/ui-power-button.png" type="Texture" id=16]
+[ext_resource path="res://Textures/ui-pause-button-pressed.png" type="Texture" id=17]
+[ext_resource path="res://Textures/ui-pause-button.png" type="Texture" id=18]
+[ext_resource path="res://Scripts/UI/HUD.cs" type="Script" id=19]
 
 [sub_resource type="StyleBoxTexture" id=1]
 
+[sub_resource type="Animation" id=3]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("White:margin_left")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("White:margin_top")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("White:margin_right")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("White:margin_bottom")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Logo:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath(".:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath(".:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("White:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("Logo:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "turnOff"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/path = NodePath("White:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Logo:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "turnOn"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("White:margin_left")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, -140.0, -140.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("White:margin_top")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, -5.0, -100.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("White:margin_right")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.2, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 140.0, 140.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("White:margin_bottom")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.2, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 5.0, 100.0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Logo:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.7, 1, 2.5, 2.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath(".:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 2.8, 3.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath(".:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 3.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ true, false ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("White:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("Logo:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+
 [node name="HUD" type="Control"]
+pause_mode = 2
 margin_left = -880.0
 margin_top = -640.0
 margin_right = 880.0
 margin_bottom = 640.0
+script = ExtResource( 19 )
 
 [node name="Screen" type="TextureRect" parent="."]
 margin_right = 40.0
@@ -27,38 +311,23 @@ margin_bottom = 40.0
 rect_scale = Vector2( 5, 5 )
 texture = ExtResource( 5 )
 
-[node name="AudioSlider" type="VSlider" parent="Screen"]
-pause_mode = 2
-margin_left = 19.9999
-margin_top = 95.0
-margin_right = 35.9999
-margin_bottom = 186.0
-custom_icons/grabber_disabled = ExtResource( 6 )
-custom_icons/grabber_highlight = ExtResource( 6 )
-custom_icons/grabber = ExtResource( 6 )
-custom_styles/slider = SubResource( 1 )
-min_value = 0.001
-max_value = 1.0
-step = 0.0
-value = 1.0
-script = ExtResource( 7 )
-
-[node name="LifeAndAbilitiesPanel" type="TextureRect" parent="Screen"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 48.0
-margin_bottom = 74.0
+[node name="LifeAndAbilitiesPanel" type="TextureRect" parent="."]
+margin_left = 35.0
+margin_top = 35.0
+margin_right = 76.0
+margin_bottom = 102.0
+rect_scale = Vector2( 5, 5 )
 texture = ExtResource( 8 )
 script = ExtResource( 9 )
 
-[node name="Lifebar" type="ColorRect" parent="Screen/LifeAndAbilitiesPanel"]
+[node name="Lifebar" type="ColorRect" parent="LifeAndAbilitiesPanel"]
 margin_left = 5.0
 margin_top = 5.0
 margin_right = 36.0
 margin_bottom = 9.0
 color = Color( 0.65098, 0.8, 0.203922, 1 )
 
-[node name="Room" type="Label" parent="Screen/LifeAndAbilitiesPanel"]
+[node name="Room" type="Label" parent="LifeAndAbilitiesPanel"]
 margin_left = 5.0
 margin_top = 11.0
 margin_right = 25.0
@@ -67,7 +336,7 @@ rect_scale = Vector2( 0.8, 0.8 )
 custom_fonts/font = ExtResource( 11 )
 text = "Room:"
 
-[node name="Number" type="Label" parent="Screen/LifeAndAbilitiesPanel"]
+[node name="Number" type="Label" parent="LifeAndAbilitiesPanel"]
 margin_left = 21.0
 margin_top = 11.0
 margin_right = 41.0
@@ -77,30 +346,47 @@ custom_fonts/font = ExtResource( 11 )
 text = "001"
 align = 2
 
-[node name="FireballAbilityDisplay" parent="Screen/LifeAndAbilitiesPanel" instance=ExtResource( 10 )]
+[node name="FireballAbilityDisplay" parent="LifeAndAbilitiesPanel" instance=ExtResource( 10 )]
 
-[node name="IceNovaAbilityDisplay" parent="Screen/LifeAndAbilitiesPanel" instance=ExtResource( 10 )]
+[node name="IceNovaAbilityDisplay" parent="LifeAndAbilitiesPanel" instance=ExtResource( 10 )]
 margin_top = 42.0
 margin_bottom = 47.0
 abilityType = 1
 
-[node name="Icon" parent="Screen/LifeAndAbilitiesPanel/IceNovaAbilityDisplay" index="0"]
+[node name="Icon" parent="LifeAndAbilitiesPanel/IceNovaAbilityDisplay" index="0"]
 margin_left = -14.0
 margin_top = -2.0
 margin_right = -6.0
 texture = ExtResource( 3 )
 
-[node name="ChainLightningAbilityDisplay" parent="Screen/LifeAndAbilitiesPanel" instance=ExtResource( 10 )]
+[node name="ChainLightningAbilityDisplay" parent="LifeAndAbilitiesPanel" instance=ExtResource( 10 )]
 margin_top = 53.0
 margin_bottom = 58.0
 abilityType = 2
 
-[node name="Icon" parent="Screen/LifeAndAbilitiesPanel/ChainLightningAbilityDisplay" index="0"]
+[node name="Icon" parent="LifeAndAbilitiesPanel/ChainLightningAbilityDisplay" index="0"]
 margin_left = -14.0
 margin_top = -2.99999
 margin_right = -6.0
 margin_bottom = 8.00001
 texture = ExtResource( 4 )
+
+[node name="AudioSlider" type="VSlider" parent="."]
+pause_mode = 2
+margin_left = 99.9997
+margin_top = 475.0
+margin_right = 116.0
+margin_bottom = 566.0
+rect_scale = Vector2( 5, 5 )
+custom_icons/grabber_disabled = ExtResource( 6 )
+custom_icons/grabber_highlight = ExtResource( 6 )
+custom_icons/grabber = ExtResource( 6 )
+custom_styles/slider = SubResource( 1 )
+min_value = 0.001
+max_value = 1.0
+step = 0.0
+value = 1.0
+script = ExtResource( 7 )
 
 [node name="Timeline" type="Control" parent="."]
 anchor_top = 1.0
@@ -142,8 +428,69 @@ margin_bottom = 1145.0
 rect_scale = Vector2( 5, 5 )
 texture = ExtResource( 12 )
 
-[connection signal="value_changed" from="Screen/AudioSlider" to="Screen/AudioSlider" method="OnChange"]
+[node name="PowerButton" type="TextureButton" parent="."]
+margin_left = 30.0
+margin_top = 1125.0
+margin_right = 50.0
+margin_bottom = 1148.0
+rect_scale = Vector2( 5, 5 )
+texture_normal = ExtResource( 16 )
+texture_pressed = ExtResource( 15 )
 
-[editable path="Screen/LifeAndAbilitiesPanel/FireballAbilityDisplay"]
-[editable path="Screen/LifeAndAbilitiesPanel/IceNovaAbilityDisplay"]
-[editable path="Screen/LifeAndAbilitiesPanel/ChainLightningAbilityDisplay"]
+[node name="PauseButton" type="TextureButton" parent="."]
+margin_left = 140.0
+margin_top = 1125.0
+margin_right = 160.0
+margin_bottom = 1148.0
+rect_scale = Vector2( 5, 5 )
+texture_normal = ExtResource( 18 )
+texture_pressed = ExtResource( 17 )
+
+[node name="BlackScreen" type="TextureRect" parent="."]
+margin_left = 300.0
+margin_top = 60.0
+margin_right = 580.0
+margin_bottom = 260.0
+rect_scale = Vector2( 5, 5 )
+texture = ExtResource( 13 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="BlackScreen"]
+reset_on_save = false
+anims/RESET = SubResource( 3 )
+anims/turnOff = SubResource( 4 )
+anims/turnOn = SubResource( 2 )
+
+[node name="White" type="ColorRect" parent="BlackScreen"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -140.0
+margin_top = -100.0
+margin_right = 140.0
+margin_bottom = 100.0
+
+[node name="Logo" type="TextureRect" parent="BlackScreen"]
+visible = false
+modulate = Color( 1, 1, 1, 0 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -120.0
+margin_top = -80.0
+margin_right = 120.0
+margin_bottom = 80.0
+texture = ExtResource( 14 )
+expand = true
+stretch_mode = 6
+
+[connection signal="value_changed" from="AudioSlider" to="AudioSlider" method="OnChange"]
+[connection signal="pressed" from="PowerButton" to="." method="OnPower"]
+[connection signal="pressed" from="PauseButton" to="." method="OnPause"]
+[connection signal="animation_finished" from="BlackScreen/AnimationPlayer" to="." method="OnAnimationFinished"]
+
+[editable path="LifeAndAbilitiesPanel/FireballAbilityDisplay"]
+[editable path="LifeAndAbilitiesPanel/IceNovaAbilityDisplay"]
+[editable path="LifeAndAbilitiesPanel/ChainLightningAbilityDisplay"]
