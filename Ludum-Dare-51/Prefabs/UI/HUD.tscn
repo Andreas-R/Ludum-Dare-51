@@ -389,7 +389,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0, 2, 3, 5 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Color( 0, 0, 0, 0.392157 ), Color( 0, 0, 0, 0.392157 ), Color( 0, 0, 0, 0.392157 ), Color( 0, 0, 0, 1 ) ]
+"values": [ Color( 0, 0, 0, 0.392157 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ) ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("Label:modulate")
@@ -654,7 +654,6 @@ anims/RESET = SubResource( 5 )
 anims/outro = SubResource( 6 )
 
 [node name="Label" type="Label" parent="GameOverScreen"]
-modulate = Color( 1, 1, 1, 0.95 )
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
