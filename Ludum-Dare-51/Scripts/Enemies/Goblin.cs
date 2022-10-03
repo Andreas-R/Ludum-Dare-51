@@ -13,85 +13,70 @@ public class Goblin : AbstractEnemy
     private bool isDashing;
     private Timer dashTimer;
     private CollisionShape2D collider;
-
+    private AnimatedSprite animatedSprite;
+    static RandomNumberGenerator randomGenerator = new RandomNumberGenerator();
     public override void _Ready()
     {
         base._Ready();
         dashTimer = GetNode<Timer>("DashTimer");
         collider = GetNode<CollisionShape2D>("Collider");
+        animatedSprite = GetNode<AnimatedSprite>("Sprite");
     }
 
     public override void _IntegrateForces(Physics2DDirectBodyState bodyState) {
-        if(!isDashing){
-            /* if(Metronome.instance.IsBeat(5, 0f)){
-                Teleport(bodyState);
-            } */
-            if(Metronome.instance.IsBeat(new[]{1,3,7,9}, new[]{0f})){
+        if (!isDashing){
+            if (Metronome.instance.IsBeat(-1, 0)) {
                 InitDash(bodyState);
             }
-            else{
-                Vector2 moveDir = (this.GlobalPosition - this.player.GlobalPosition);
-                if((-1*moveDir).Length() < maxPlayerDistance){
-                    moveDir = moveDir.Normalized() * this.moveSpeed;
-                    Physics2DDirectSpaceState spaceState = GetWorld2d().DirectSpaceState;
-                    CapsuleShape2D colliderShape = (CapsuleShape2D)(collider.Shape);
-                    Vector2 rayCastTarget = collider.GlobalPosition + moveDir.Normalized() * (colliderShape.Radius + 5f);
-                    if(spaceState.IntersectRay(collider.GlobalPosition, rayCastTarget, new Godot.Collections.Array { this }, 2).Count>0){
-                        bool yBlocked = false;
-                        bool xBlocked = false;
-                        if(spaceState.IntersectRay(collider.GlobalPosition, new Vector2(0, rayCastTarget.y), new Godot.Collections.Array { this }, 2).Count>0){
-                            yBlocked = true;
-                        }
-                        if(spaceState.IntersectRay(collider.GlobalPosition, new Vector2(rayCastTarget.x, 0), new Godot.Collections.Array { this }, 2).Count>0){
-                            xBlocked = true;
-                        }
-                        if(xBlocked && yBlocked){
-                            moveDir = Vector2.Zero;
-                        }
-                        else if(xBlocked){
-                            moveDir = new Vector2(0, moveDir.y).Normalized() * this.moveSpeed;
-                        }
-                        else if(yBlocked){
-                            moveDir = new Vector2(moveDir.x, 0).Normalized() * this.moveSpeed;
-                        }
-                    }
-                    bodyState.LinearVelocity = moveDir;
+            else {
+                Vector2 playerDirection = (this.GlobalPosition - this.player.GlobalPosition);
+                if (playerDirection.Length() < maxPlayerDistance) {
+                    Vector2 moveDir = GetDirection();
+                    bodyState.LinearVelocity = moveDir * this.moveSpeed;
                     HandleSpriteFlip(moveDir);
                 }
-                else{
+                else {
                     bodyState.LinearVelocity = Vector2.Zero;
                 }
             }
         }
     }
 
-    private void InitDash(Physics2DDirectBodyState bodyState){
+    private void InitDash(Physics2DDirectBodyState bodyState) {
         isDashing = true;
-        //TODO: Dash animation
+        animatedSprite.Frame = 0;
+        animatedSprite.Play("dash");
         dashTimer.Start();
-        RandomNumberGenerator randomGenerator = new RandomNumberGenerator();
-        randomGenerator.Randomize();
-        //TODO: Maybe exclude some directions, like dashing straight into the player
-        float angle = randomGenerator.RandfRange((float)-Math.PI,(float)Math.PI);
-        Vector2 moveDir = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
+        Vector2 moveDir = GetDirection();
         bodyState.LinearVelocity = moveDir * this.dashSpeed;
         HandleSpriteFlip(moveDir);
     }
 
-    /* private void Teleport(Physics2DDirectBodyState bodyState){
-        bodyState.Transform.origin = new Vector2();
-    } */
+    private Vector2 GetDirection() {
+        Vector2 playerDirection = (this.GlobalPosition - this.player.GlobalPosition).Normalized();
+        Vector2 awayFromPlayerDirection = playerDirection * 400f; // scaling in order to counter the vector to center
+        Vector2 resultingDirection = (awayFromPlayerDirection - this.GlobalPosition).Normalized();
+        // add some Randomness
+        randomGenerator.Randomize();
+        float angle = randomGenerator.RandfRange((float)-Math.PI / 4, (float) Math.PI / 4);
+        resultingDirection.Rotated(angle);
+        return resultingDirection;
+    }
 
-    public void StopDash(){
+    public void StopDash() {
         isDashing = false;
     }
 
-    public override void OnDeath(){
+    public override void OnDeath() {
         GrantBonus();
         base.OnDeath();
     }
 
-    public void GrantBonus(){
+    public void GrantBonus() {
         RoomHandler.instance.TripleChestSpawnNextRoom = true;
+    }
+    
+    public void OnAnimationFinished() {
+        animatedSprite.Play("idle");
     }
 }

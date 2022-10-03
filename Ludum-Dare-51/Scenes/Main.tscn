@@ -37,6 +37,7 @@ position = Vector2( -120, 80 )
 current = true
 
 [node name="RoomHandler" parent="." instance=ExtResource( 1 )]
+treasureRoom = null
 
 [node name="Chest1" parent="." instance=ExtResource( 9 )]
 position = Vector2( 0, 50 )
