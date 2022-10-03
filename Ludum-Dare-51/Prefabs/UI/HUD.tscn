@@ -437,18 +437,18 @@ color = Color( 0.65098, 0.8, 0.203922, 1 )
 [node name="Room" type="Label" parent="LifeAndAbilitiesPanel"]
 margin_left = 5.0
 margin_top = 11.0
-margin_right = 25.0
-margin_bottom = 16.0
-rect_scale = Vector2( 0.8, 0.8 )
+margin_right = 205.0
+margin_bottom = 97.0
+rect_scale = Vector2( 0.08, 0.08 )
 custom_fonts/font = ExtResource( 11 )
 text = "Room:"
 
 [node name="Number" type="Label" parent="LifeAndAbilitiesPanel"]
-margin_left = 21.0
+margin_left = 25.0
 margin_top = 11.0
-margin_right = 41.0
-margin_bottom = 16.0
-rect_scale = Vector2( 0.8, 0.8 )
+margin_right = 175.0
+margin_bottom = 97.0
+rect_scale = Vector2( 0.08, 0.08 )
 custom_fonts/font = ExtResource( 11 )
 text = "001"
 align = 2
