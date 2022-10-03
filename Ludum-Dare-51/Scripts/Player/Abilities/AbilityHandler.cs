@@ -8,6 +8,7 @@ public class AbilityHandler : Node {
     public override void _Ready() {
         this.player = GetParent<Player>();
         AddAbility(AbilityType.MOVE_SPEED, 0);
+        AddAbility(AbilityType.SWORD, 0);
     }
 
     public override void _Process(float delta) {
@@ -60,7 +61,11 @@ public class AbilityHandler : Node {
                     return true;
                 }
                 case AbilityType.MOVE_SPEED: {
-                    this.abilities[abilityType] = new moveSpeedAbility();
+                    this.abilities[abilityType] = new moveSpeedAbility(player);
+                    return true;
+                }
+                case AbilityType.SWORD: {
+                    this.abilities[abilityType] = new SwordAbility(player.GetNode<Sword>("SwordPivot"));
                     return true;
                 }
                 default: {

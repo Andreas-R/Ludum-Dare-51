@@ -88,10 +88,10 @@ public class CrazyEnemy : AbstractEnemy {
         Vector2 oldSpeed = bodyState.LinearVelocity;
 
 
-        GD.Print(targetSpeed);
+        //GD.Print(targetSpeed);
         Vector2 filteredSpeed = this.velocityFilterConstant * targetSpeed + (1.0f - this.velocityFilterConstant) * oldSpeed;
 
-        GD.Print(filteredSpeed);
+        //GD.Print(filteredSpeed);
 
         bodyState.LinearVelocity = filteredSpeed;
     }

@@ -18,7 +18,7 @@ public class HUD : Control {
 
     public override void _Process(float detla) {
         bool pauseVisible = gameRunning && GetTree().Paused;
-        GD.Print(pauseVisible);
+        //GD.Print(pauseVisible);
         if (pauseScreen.Visible != pauseVisible) pauseScreen.Visible = pauseVisible;
     }
 
