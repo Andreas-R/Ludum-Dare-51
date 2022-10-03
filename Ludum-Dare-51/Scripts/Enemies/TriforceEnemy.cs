@@ -30,10 +30,12 @@ public class TriforceEnemy : AbstractEnemy {
     private Vector2 basePosition;
 
     private Vector2 paintPos;
+    private SoundManager soundManager;
 
     public override void _Ready() {
         base._Ready();
         this.basePosition = this.GlobalPosition;
+        this.soundManager = GetTree().Root.GetNode<SoundManager>("Main/SoundManager");
     }
 
     public override void _Draw() {
@@ -57,6 +59,9 @@ public class TriforceEnemy : AbstractEnemy {
             this.basePosition -= (moveDir * this.moveSpeed * delta);
         }
         float beatTime = (Metronome.instance.currentBeat + phaseDelay) % 1.0f;
+        if (Metronome.instance.IsBeatWithAudioDelay(-1, 0.75f)) {
+            soundManager.PlaySfx(SoundManager.Sfx.robot);
+        }
 
         float targetDiffPositionX;
         float targetDiffPositionY;
