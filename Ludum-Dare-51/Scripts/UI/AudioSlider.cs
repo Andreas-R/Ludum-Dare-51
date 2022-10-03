@@ -1,7 +1,7 @@
 using Godot;
 
 public class AudioSlider : VSlider {
-    private static float AUDIO_VALUE = 1f;
+    private static float AUDIO_VALUE = 0.5f;
 
     public override void _Ready() {
         Value = AUDIO_VALUE;

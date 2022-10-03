@@ -247,7 +247,7 @@ public class RoomHandler : Node2D {
         enemy.GlobalPosition = this.GetRandomSpawnPosition();
 
         Spawn spawn = spawnPrefab.Instance() as Spawn;
-        spawn.GlobalPosition = enemy.GlobalPosition;
+        spawn.Position = enemy.Position;
         spawn.SetEnemy(enemy);
         GetTree().Root.GetNode<Node>("Main").AddChild(spawn);
         enemyManager.OnEnemySpawn(enemy);
