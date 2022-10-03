@@ -14,7 +14,7 @@ public class ChainLightning : Node2D {
     private Timer deplayTimer;
     private Timer attackTimer;
     private AnimatedSprite lightningConnector;
-    private Sprite paralyzedEffect;
+    private AnimatedSprite paralyzedEffect;
 
     private Vector2 start;
     private Vector2 end;
@@ -23,7 +23,7 @@ public class ChainLightning : Node2D {
         this.deplayTimer = GetNode<Timer>("DelayTimer");
         this.attackTimer = GetNode<Timer>("AttackTimer");
         this.lightningConnector = GetNode<AnimatedSprite>("LightningConnector");
-        this.paralyzedEffect = GetNode<Sprite>("ParalyzedEffect");
+        this.paralyzedEffect = GetNode<AnimatedSprite>("ParalyzedEffect");
 
         this.deplayTimer.WaitTime *= (this.depth + 1);
         this.deplayTimer.Start();

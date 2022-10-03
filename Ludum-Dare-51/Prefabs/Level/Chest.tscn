@@ -64,9 +64,9 @@ margin_right = 51.0
 margin_bottom = 29.0
 color = Color( 0.196078, 0.760784, 0, 1 )
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="ChestShadow" type="Sprite" parent="."]
 position = Vector2( 0, -0.5 )
-z_index = -1
+z_index = -2
 texture = ExtResource( 8 )
 
 [connection signal="pressed" from="MenuParent/UpgradeMenu/Upgrade1" to="MenuParent/UpgradeMenu" method="Upgrade1Selected"]

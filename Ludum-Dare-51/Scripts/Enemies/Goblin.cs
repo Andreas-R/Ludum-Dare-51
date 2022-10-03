@@ -33,7 +33,7 @@ public class Goblin : AbstractEnemy
                 if (playerDirection.Length() < maxPlayerDistance) {
                     Vector2 moveDir = GetDirection();
                     bodyState.LinearVelocity = moveDir * this.moveSpeed;
-                    HandleSpriteFlip(moveDir);
+                    HandleTurn(moveDir);
                 }
                 else {
                     bodyState.LinearVelocity = Vector2.Zero;
@@ -49,6 +49,20 @@ public class Goblin : AbstractEnemy
         dashTimer.Start();
         Vector2 moveDir = GetDirection();
         bodyState.LinearVelocity = moveDir * this.dashSpeed;
+        HandleTurn(moveDir);
+    }
+
+    private void HandleTurn(Vector2 moveDir) {
+        if (moveDir.x > 0) {
+            if (animatedSprite.FlipH != true) {
+                animatedSprite.Position = new Vector2(animatedSprite.Position.x * -1,  animatedSprite.Position.y);
+            }
+        }
+        if (moveDir.x < 0) {
+            if (animatedSprite.FlipH != false) {
+                animatedSprite.Position = new Vector2(animatedSprite.Position.x * -1,  animatedSprite.Position.y);
+            }
+        }
         HandleSpriteFlip(moveDir);
     }
 
@@ -77,6 +91,10 @@ public class Goblin : AbstractEnemy
     }
     
     public void OnAnimationFinished() {
-        animatedSprite.Play("idle");
+        if (animatedSprite.Animation == "escape") {
+            QueueFree();
+        } else {
+            animatedSprite.Play("idle");
+        }
     }
 }
