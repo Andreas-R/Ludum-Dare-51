@@ -4,7 +4,7 @@ public class IceNovaAbility : AbstractAbility {
     public IceNovaAbility() {
         level1Max = 4;
         level2Max = 4;
-        level3Max = 3;
+        level3Max = 2;
     }
 
     public override void OnProcess(Player player, float delta) {
