@@ -42,7 +42,10 @@ public class Player : RigidBody2D {
     }
 
     public override void _IntegrateForces(Physics2DDirectBodyState bodyState) {
-        if (this.state == PlayerState.DEAD) return;
+        if (this.state == PlayerState.DEAD) {
+            bodyState.LinearVelocity = Vector2.Zero;
+            return;
+        }
         
         Vector2 movementInput = this.GetMoveInputDirection();
 
@@ -185,7 +188,6 @@ public class Player : RigidBody2D {
     public void OnDeath() {
         if (state == PlayerState.DEAD) return;
         DieAnimation();
-        bodyState.LinearVelocity = Vector2.Zero;
         ChangeState(PlayerState.DEAD);
     }
 
