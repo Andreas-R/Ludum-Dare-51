@@ -57,7 +57,7 @@ public class ShootingEnemy : AbstractEnemy {
     }
 
     public void OnShootFinished() {
-         Aim(this.GlobalPosition + (IsFlipped() ? Vector2.Right : Vector2.Left));
+        Aim(this.GlobalPosition + (IsFlipped() ? Vector2.Right : Vector2.Left));
     }
 
 
