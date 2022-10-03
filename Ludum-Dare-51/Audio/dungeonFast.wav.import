@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/defaultSlow.wav-1ed8ad7eb018efe50ed68151dd6b7aa4.sample"
+path="res://.import/dungeonFast.wav-08cbc4ce842f1134d7838e9faa1f84d1.sample"
 
 [deps]
 
-source_file="res://Sound/defaultSlow.wav"
-dest_files=[ "res://.import/defaultSlow.wav-1ed8ad7eb018efe50ed68151dd6b7aa4.sample" ]
+source_file="res://Audio/dungeonFast.wav"
+dest_files=[ "res://.import/dungeonFast.wav-08cbc4ce842f1134d7838e9faa1f84d1.sample" ]
 
 [params]
 
@@ -17,7 +17,7 @@ force/max_rate=false
 force/max_rate_hz=44100
 edit/trim=false
 edit/normalize=false
-edit/loop_mode=1
+edit/loop_mode=0
 edit/loop_begin=0
 edit/loop_end=-1
 compress/mode=0

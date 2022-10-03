@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://Scripts/Player/Player.cs" type="Script" id=1]
 [ext_resource path="res://Physics/PlayerPhysics.tres" type="PhysicsMaterial" id=2]
@@ -13,7 +13,7 @@
 [ext_resource path="res://Scripts/Damage/SwordDamageDealer.cs" type="Script" id=11]
 [ext_resource path="res://Textures/slash.png" type="Texture" id=12]
 [ext_resource path="res://Scripts/Player/Abilities/SpecificAbilities/IceNova.cs" type="Script" id=13]
-[ext_resource path="res://Textures/ice-nova-ground.png" type="Texture" id=14]
+[ext_resource path="res://Textures/ice_nova3.png" type="Texture" id=14]
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 3 )
@@ -71,16 +71,32 @@ animations = [ {
 "speed": 12.0
 } ]
 
-[sub_resource type="AtlasTexture" id=15]
+[sub_resource type="AtlasTexture" id=18]
 atlas = ExtResource( 14 )
-region = Rect2( 0, 0, 64, 47 )
+region = Rect2( 0, 0, 40, 42 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 14 )
+region = Rect2( 40, 0, 40, 42 )
+
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 14 )
+region = Rect2( 80, 0, 40, 42 )
+
+[sub_resource type="AtlasTexture" id=21]
+atlas = ExtResource( 14 )
+region = Rect2( 0, 42, 40, 42 )
+
+[sub_resource type="AtlasTexture" id=22]
+atlas = ExtResource( 14 )
+region = Rect2( 40, 42, 40, 42 )
 
 [sub_resource type="SpriteFrames" id=16]
 animations = [ {
-"frames": [ SubResource( 15 ) ],
+"frames": [ SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ) ],
 "loop": false,
 "name": "nova",
-"speed": 5.0
+"speed": 20.0
 } ]
 
 [sub_resource type="CircleShape2D" id=17]

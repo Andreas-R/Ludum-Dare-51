@@ -25,6 +25,7 @@ public class IceNova : DamageDealer {
 
     public void OnAttack() {
         this.collider.SetDeferred("disabled", false);
+        animatedSprite.Frame = 0;
         animatedSprite.Play("nova");
         animatedSprite.Visible = true;
         this.attackTimer.Start();

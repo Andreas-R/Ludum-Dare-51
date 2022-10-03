@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/glitchSlow.wav-46f3d30144bc87fa978d5e5dc600640f.sample"
+path="res://.import/defaultSlow.wav-3f3dad540517d1ebda20b4b53bfee690.sample"
 
 [deps]
 
-source_file="res://Sound/glitchSlow.wav"
-dest_files=[ "res://.import/glitchSlow.wav-46f3d30144bc87fa978d5e5dc600640f.sample" ]
+source_file="res://Audio/defaultSlow.wav"
+dest_files=[ "res://.import/defaultSlow.wav-3f3dad540517d1ebda20b4b53bfee690.sample" ]
 
 [params]
 

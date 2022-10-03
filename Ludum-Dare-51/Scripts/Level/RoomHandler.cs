@@ -113,16 +113,27 @@ public class RoomHandler : Node2D {
     }
 
     private void SpawnEnemies(RoomData room) {
-        int numberOfEnemies = 3 + roomCounter;
-        float lifeMultiplier = 1f + (roomCounter * 0.2f);
+        switch(room.id){
+            case "TreasureRoom":
+                SpawnEnemy(room);
+                break;
+            default:
+                int numberOfEnemies = 3 + roomCounter;
+                float lifeMultiplier = 1f + (roomCounter * 0.2f);
 
-        for (int i = 0; i < numberOfEnemies; i += 1) {
-            PackedScene enemyPrefab = roomEnemies[room.id][rng.RandiRange(0, roomEnemies[room.id].Count - 1)];
-            AbstractEnemy enemy = enemyPrefab.Instance() as AbstractEnemy;
-            enemyManager.OnEnemySpawn(enemy);
-            enemy.GlobalPosition = this.GetRandomSpawnPosition();
-            GetTree().Root.GetNode<Node>("Main").AddChild(enemy);
+                for (int i = 0; i < numberOfEnemies; i += 1) {
+                    SpawnEnemy(room);
+                }
+                break;
         }
+    }
+
+    private void SpawnEnemy(RoomData room){
+        PackedScene enemyPrefab = roomEnemies[room.id][rng.RandiRange(0, roomEnemies[room.id].Count - 1)];
+        AbstractEnemy enemy = enemyPrefab.Instance() as AbstractEnemy;
+        enemy.GlobalPosition = this.GetRandomSpawnPosition();
+        GetTree().Root.GetNode<Node>("Main").AddChild(enemy);
+        enemyManager.OnEnemySpawn(enemy);
     }
 
     private Vector2 GetRandomSpawnPosition() {
