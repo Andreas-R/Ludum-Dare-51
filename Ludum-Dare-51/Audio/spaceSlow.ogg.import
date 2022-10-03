@@ -11,5 +11,5 @@ dest_files=[ "res://.import/spaceSlow.ogg-49da4d8644e55cb695dab7e7cafaaff3.oggst
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

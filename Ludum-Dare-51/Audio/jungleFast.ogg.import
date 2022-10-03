@@ -11,5 +11,5 @@ dest_files=[ "res://.import/jungleFast.ogg-3505c760237bdc10ba1194740b96d628.oggs
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0
