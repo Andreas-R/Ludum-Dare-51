@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/defaultMedium.wav-35525019eb526d67f8191149416359bc.sample"
+path="res://.import/defaultSlow.wav-3f3dad540517d1ebda20b4b53bfee690.sample"
 
 [deps]
 
-source_file="res://Sound/defaultMedium.wav"
-dest_files=[ "res://.import/defaultMedium.wav-35525019eb526d67f8191149416359bc.sample" ]
+source_file="res://Audio/defaultSlow.wav"
+dest_files=[ "res://.import/defaultSlow.wav-3f3dad540517d1ebda20b4b53bfee690.sample" ]
 
 [params]
 

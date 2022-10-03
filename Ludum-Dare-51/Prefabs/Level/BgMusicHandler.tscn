@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://Sound/recordScratch.ogg" type="AudioStream" id=1]
+[ext_resource path="res://Audio/recordScratch.ogg" type="AudioStream" id=1]
 [ext_resource path="res://Scripts/Music/BgMusicHandler.cs" type="Script" id=2]
 
 [node name="BgMusicHandler" type="Node"]
@@ -14,3 +14,5 @@ script = ExtResource( 2 )
 stream = ExtResource( 1 )
 
 [node name="MusicFadeInTween" type="Tween" parent="."]
+
+[node name="MusicFadeOutTween" type="Tween" parent="."]

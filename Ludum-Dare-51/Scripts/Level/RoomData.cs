@@ -17,5 +17,5 @@ public class RoomData : Resource {
   public string[] spawnableEnemyPrefabPaths;
 
   [Export]
-  public AudioStreamSample bgMusicSample;
+  public AudioStreamSample[] bgMusicSamples;
 }

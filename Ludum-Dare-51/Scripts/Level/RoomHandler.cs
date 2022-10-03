@@ -29,7 +29,8 @@ public class RoomHandler : Node2D {
     private int lastRoomIndex = -1;
     private int spriteIndex = 0;
     private int spriteCount = 0;
-    private RoomData currentRoom;
+    public RoomData currentRoom;
+    private EnemyManager enemyManager;
     private static Vector2 scale = new Vector2(5f, 5f);
 
     private Dictionary<string, List<PackedScene>> roomEnemies = new Dictionary<string, List<PackedScene>>();
@@ -39,6 +40,7 @@ public class RoomHandler : Node2D {
         roomSprite = GetNode<Sprite>("RoomSprite");
         chest = GetNode<Chest>("Chest");
         bgMusicHandler = GetTree().Root.GetNode<BgMusicHandler>("Main/BgMusicHandler");
+        enemyManager = GetTree().Root.GetNode<EnemyManager>("Main/EnemyManager");
 
         foreach (RoomData room in rooms) {
             roomEnemies[room.id] = new List<PackedScene>();
@@ -112,8 +114,7 @@ public class RoomHandler : Node2D {
         currentRoom = room;
         spriteCount = room.roomImage.Length;
         roomSprite.Texture = room.roomImage[0];
-        bgMusicHandler.ChangeMainBackgroundMusic(room.bgMusicSample);
-
+        
         if (chest.Visible) chest.Despawn();
 
         if (!GuaranteedNoChestSpawnNextRoom && (GuaranteedChestSpawnNextRoom || roomCounter % chestSpawnFrequency == chestSpawnFrequency - 1)) {
@@ -122,6 +123,7 @@ public class RoomHandler : Node2D {
         } else {
             this.SpawnEnemies(room);
         }
+        bgMusicHandler.ChangeMainBackgroundMusic(room.bgMusicSamples, enemyManager.totalEnemyDifficulty);
     }
 
     private void SpawnEnemies(RoomData room) {
@@ -145,6 +147,7 @@ public class RoomHandler : Node2D {
         AbstractEnemy enemy = enemyPrefab.Instance() as AbstractEnemy;
         enemy.GlobalPosition = this.GetRandomSpawnPosition();
         GetTree().Root.GetNode<Node>("Main").AddChild(enemy);
+        enemyManager.OnEnemySpawn(enemy);
     }
 
     private Vector2 GetRandomSpawnPosition() {

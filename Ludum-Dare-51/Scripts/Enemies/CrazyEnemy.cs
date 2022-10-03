@@ -31,8 +31,6 @@ public class CrazyEnemy : AbstractEnemy {
 
     private Vector2 paintPos;
 
-
-
     private float phase;
 
     public override void _Ready() {
