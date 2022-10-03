@@ -11,5 +11,5 @@ dest_files=[ "res://.import/jungleSlow.ogg-c23b6a2d9819ceafbf0f674c3a6e33a4.oggs
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

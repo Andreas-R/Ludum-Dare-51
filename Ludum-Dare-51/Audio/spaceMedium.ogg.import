@@ -11,5 +11,5 @@ dest_files=[ "res://.import/spaceMedium.ogg-2e9626fcf31f30f5036f1440b25824c3.ogg
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

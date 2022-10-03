@@ -11,5 +11,5 @@ dest_files=[ "res://.import/jungleMedium.ogg-75491a30a3b974decc8ed658cc1777b2.og
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

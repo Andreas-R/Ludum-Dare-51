@@ -11,5 +11,5 @@ dest_files=[ "res://.import/iceSlow.ogg-3751e92e2ba462351fac6276393a5884.oggstr"
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://Scripts/Player/Player.cs" type="Script" id=1]
 [ext_resource path="res://Physics/PlayerPhysics.tres" type="PhysicsMaterial" id=2]
@@ -15,6 +15,26 @@
 [ext_resource path="res://Scripts/Player/Abilities/SpecificAbilities/IceNova.cs" type="Script" id=13]
 [ext_resource path="res://Textures/ice_nova3.png" type="Texture" id=14]
 
+[sub_resource type="AtlasTexture" id=23]
+atlas = ExtResource( 3 )
+region = Rect2( 32, 64, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=24]
+atlas = ExtResource( 3 )
+region = Rect2( 64, 64, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=26]
+atlas = ExtResource( 3 )
+region = Rect2( 64, 32, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=27]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 64, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=25]
+atlas = ExtResource( 3 )
+region = Rect2( 32, 32, 32, 32 )
+
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 3 )
 region = Rect2( 32, 0, 32, 32 )
@@ -29,6 +49,21 @@ region = Rect2( 0, 0, 32, 32 )
 
 [sub_resource type="SpriteFrames" id=5]
 animations = [ {
+"frames": [ SubResource( 23 ), SubResource( 24 ) ],
+"loop": true,
+"name": "dead",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 26 ), SubResource( 27 ) ],
+"loop": true,
+"name": "die",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 25 ) ],
+"loop": true,
+"name": "hit",
+"speed": 5.0
+}, {
 "frames": [ SubResource( 3 ), SubResource( 4 ), SubResource( 2 ), SubResource( 4 ), SubResource( 2 ) ],
 "loop": false,
 "name": "running",
@@ -116,6 +151,8 @@ runSpeed = 250.0
 position = Vector2( 0, -3.8147e-06 )
 scale = Vector2( 5, 5 )
 frames = SubResource( 5 )
+animation = "running"
+frame = 4
 playing = true
 offset = Vector2( 0, -7 )
 
