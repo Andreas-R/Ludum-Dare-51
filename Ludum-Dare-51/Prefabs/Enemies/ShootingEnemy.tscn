@@ -65,6 +65,7 @@ physics_material_override = ExtResource( 7 )
 gravity_scale = 0.0
 can_sleep = false
 script = ExtResource( 2 )
+difficultyFactor = 3.0
 moveSpeed = 100.0
 range = 300.0
 rangeOverFollow = 0.35

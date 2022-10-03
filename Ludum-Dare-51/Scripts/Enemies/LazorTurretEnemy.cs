@@ -48,10 +48,9 @@ public class LazorTurretEnemy : AbstractEnemy {
         this.soundManager = GetTree().Root.GetNode<SoundManager>("Main/SoundManager");
     }
 
-    public override void _IntegrateForces(Physics2DDirectBodyState bodyState) {
-        this.LinearVelocity = Vector2.Zero; // pull the handbreak
-        float delta = bodyState.Step;
-        float beatTime = (Metronome.instance.currentBeat + (spawnIndex % 2f)) % 2f;
+    public override void _Process(float delta) {
+        base._Process(delta);
+        
         if (spawnIndex % 2 == 0) {
             if (Metronome.instance.IsBeatWithAudioDelay(new int[]{1,3,5,7}, new float[]{0})) {
                 soundManager.PlaySfx(SoundManager.Sfx.laser);
@@ -61,6 +60,13 @@ public class LazorTurretEnemy : AbstractEnemy {
                 soundManager.PlaySfx(SoundManager.Sfx.laser);
             }
         }
+    }
+
+    public override void _IntegrateForces(Physics2DDirectBodyState bodyState) {
+        this.LinearVelocity = Vector2.Zero; // pull the handbreak
+        float delta = bodyState.Step;
+        float beatTime = (Metronome.instance.currentBeat + (spawnIndex % 2f)) % 2f;
+      
         if (skippedFirstBeat) {
           
             if (beatTime <= rotationDuration) {

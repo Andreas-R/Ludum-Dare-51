@@ -17,9 +17,9 @@ public class BgMusicHandler : Node
     private RoomHandler roomHandler;
     private bool isCurrentBgPlaying;
     [Export]
-    private float difficultyThresholdMedium = 10;
+    private float difficultyThresholdMedium = 15;
     [Export]
-    private float difficultyThresholdFast = 20;
+    private float difficultyThresholdFast = 30;
     private enum MusicSpeed {
         SLOW,
         MEDIUM,

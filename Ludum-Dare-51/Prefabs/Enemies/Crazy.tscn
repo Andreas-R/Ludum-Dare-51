@@ -50,6 +50,7 @@ contacts_reported = 1
 contact_monitor = true
 can_sleep = false
 script = ExtResource( 2 )
+difficultyFactor = 3.0
 maxSpeed = 500.0
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
