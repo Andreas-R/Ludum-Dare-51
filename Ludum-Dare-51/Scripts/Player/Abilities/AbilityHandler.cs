@@ -9,17 +9,6 @@ public class AbilityHandler : Node {
         this.player = GetParent<Player>();
         AddAbility(AbilityType.MOVE_SPEED, 0);
         AddAbility(AbilityType.SWORD, 0);
-        AddAbility(AbilityType.FIREBALL, 0);
-        AddAbility(AbilityType.FIREBALL, 1);
-        AddAbility(AbilityType.FIREBALL, 1);
-        AddAbility(AbilityType.FIREBALL, 1);
-        AddAbility(AbilityType.FIREBALL, 1);
-        AddAbility(AbilityType.FIREBALL, 2);
-        AddAbility(AbilityType.FIREBALL, 2);
-        AddAbility(AbilityType.FIREBALL, 2);
-        AddAbility(AbilityType.FIREBALL, 2);
-        AddAbility(AbilityType.FIREBALL, 3);
-        AddAbility(AbilityType.FIREBALL, 3);
     }
 
     public override void _Process(float delta) {
