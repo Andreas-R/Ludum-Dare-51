@@ -155,6 +155,7 @@ script = ExtResource( 11 )
 damage = 135.0
 
 [node name="Sprite" type="Sprite" parent="SwordPivot/Sword"]
+visible = false
 position = Vector2( 0, -8.6 )
 rotation = 1.5708
 texture = ExtResource( 4 )
