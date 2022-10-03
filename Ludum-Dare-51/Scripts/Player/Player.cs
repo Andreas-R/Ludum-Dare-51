@@ -36,6 +36,7 @@ public class Player : RigidBody2D {
 
     public override void _Process(float delta) {
         if (this.state == PlayerState.DEAD) return;
+
         if (Metronome.instance.IsBeat(-1, 0)) {
             StartMoveAnimation();
         }
@@ -189,6 +190,9 @@ public class Player : RigidBody2D {
         if (state == PlayerState.DEAD) return;
         DieAnimation();
         ChangeState(PlayerState.DEAD);
+
+        HUD hud = GetTree().Root.GetNode<HUD>("Main/HUD Parent/HUD");
+        hud.OnGameOver();
     }
 
     public void OnAnimationFinished() {

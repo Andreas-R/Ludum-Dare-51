@@ -3,6 +3,7 @@ using Godot;
 public class HUD : Control {
     private Metronome metronome;
     private AnimationPlayer introAnimationPlayer;
+    private AnimationPlayer outroAnimationPlayer;
     private ColorRect pauseScreen;
     private bool turnedOn = false;
     private bool gameRunning = false;
@@ -10,6 +11,7 @@ public class HUD : Control {
     public override void _Ready() {
         metronome = GetTree().Root.GetNode<Metronome>("Main/Metronome");
         introAnimationPlayer = GetNode<AnimationPlayer>("BlackScreen/AnimationPlayer");
+        outroAnimationPlayer = GetNode<AnimationPlayer>("GameOverScreen/AnimationPlayer");
         pauseScreen = GetNode<ColorRect>("PauseScreen");
         GetTree().Paused = true;
     }
@@ -43,6 +45,8 @@ public class HUD : Control {
             this.OnIntroFinished();
         } else if (animationName == "turnOff") {
             GetTree().ReloadCurrentScene();
+        } else if (animationName == "outro") {
+            GetTree().ReloadCurrentScene();
         }
     }
 
@@ -50,5 +54,9 @@ public class HUD : Control {
         GetTree().Paused = false;
         metronome.Start();
         gameRunning = true;
+    }
+
+    public void OnGameOver() {
+        outroAnimationPlayer.Play("outro");
     }
 }

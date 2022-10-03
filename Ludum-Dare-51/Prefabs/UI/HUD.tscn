@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://Scripts/UI/Timeline/Timeline.cs" type="Script" id=1]
 [ext_resource path="res://Textures/fireball.png" type="Texture" id=2]
@@ -21,6 +21,7 @@
 [ext_resource path="res://Scripts/UI/HUD.cs" type="Script" id=19]
 [ext_resource path="res://Prefabs/UI/5AbilityDisplay.tscn" type="PackedScene" id=20]
 [ext_resource path="res://Textures/move-speed-icon.png" type="Texture" id=21]
+[ext_resource path="res://Fonts/graph-35-pix/graph-35-pix.tres" type="DynamicFont" id=22]
 
 [sub_resource type="StyleBoxTexture" id=1]
 
@@ -299,6 +300,109 @@ tracks/8/keys = {
 "values": [ true ]
 }
 
+[sub_resource type="Animation" id=5]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Label:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "outro"
+length = 5.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2, 3, 5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ true, true, true, true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 2, 3, 5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 2, 3, 5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 0.392157 ), Color( 0, 0, 0, 0.392157 ), Color( 0, 0, 0, 0.392157 ), Color( 0, 0, 0, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Label:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 3, 5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
 [node name="HUD" type="Control"]
 pause_mode = 2
 margin_left = -880.0
@@ -528,10 +632,41 @@ margin_top = -200.0
 margin_right = 150.0
 margin_bottom = 200.0
 
+[node name="GameOverScreen" type="ColorRect" parent="."]
+visible = false
+margin_left = 300.0
+margin_top = 60.0
+margin_right = 1700.0
+margin_bottom = 1060.0
+color = Color( 0, 0, 0, 0.392157 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="GameOverScreen"]
+reset_on_save = false
+anims/RESET = SubResource( 5 )
+anims/outro = SubResource( 6 )
+
+[node name="Label" type="Label" parent="GameOverScreen"]
+modulate = Color( 1, 1, 1, 0.95 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -342.0
+margin_top = -55.0
+margin_right = -293.0
+margin_bottom = -47.0
+rect_scale = Vector2( 15, 15 )
+custom_colors/font_color = Color( 0.815686, 0.211765, 0.211765, 1 )
+custom_fonts/font = ExtResource( 22 )
+text = "YOU DIED"
+align = 1
+valign = 1
+
 [connection signal="value_changed" from="AudioSlider" to="AudioSlider" method="OnChange"]
 [connection signal="pressed" from="PowerButton" to="." method="OnPower"]
 [connection signal="pressed" from="PauseButton" to="." method="OnPause"]
 [connection signal="animation_finished" from="BlackScreen/AnimationPlayer" to="." method="OnAnimationFinished"]
+[connection signal="animation_finished" from="GameOverScreen/AnimationPlayer" to="." method="OnAnimationFinished"]
 
 [editable path="LifeAndAbilitiesPanel/MoveSpeedAbilityDisplay"]
 [editable path="LifeAndAbilitiesPanel/FireballAbilityDisplay"]

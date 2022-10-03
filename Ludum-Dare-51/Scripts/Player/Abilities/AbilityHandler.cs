@@ -11,6 +11,8 @@ public class AbilityHandler : Node {
     }
 
     public override void _Process(float delta) {
+        if (player.IsDead()) return;
+
         foreach (AbstractAbility ability in this.abilities.Values) {
             ability.OnProcess(player, delta);
         }
