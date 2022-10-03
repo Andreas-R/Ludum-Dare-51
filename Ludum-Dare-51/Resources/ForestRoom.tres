@@ -2,10 +2,10 @@
 
 [ext_resource path="res://Scripts/Level/RoomData.cs" type="Script" id=1]
 [ext_resource path="res://Textures/jungle_room2.png" type="Texture" id=2]
-[ext_resource path="res://Audio/jungleSlow.wav" type="AudioStream" id=3]
+[ext_resource path="res://Audio/jungleFast.ogg" type="AudioStream" id=3]
 [ext_resource path="res://Textures/jungle_room1.png" type="Texture" id=4]
-[ext_resource path="res://Audio/jungleFast.wav" type="AudioStream" id=5]
-[ext_resource path="res://Audio/jungleMedium.wav" type="AudioStream" id=6]
+[ext_resource path="res://Audio/jungleMedium.ogg" type="AudioStream" id=5]
+[ext_resource path="res://Audio/jungleSlow.ogg" type="AudioStream" id=6]
 
 [resource]
 script = ExtResource( 1 )
@@ -16,4 +16,4 @@ minSpawnRoomCount = 0
 spawnableEnemyPrefabPaths = PoolStringArray( "res://Prefabs/Enemies/Slime.tscn" )
 numberOfEnemiesSpawnFactor = 1.0
 canContainBosses = true
-bgMusicSamples = [ ExtResource( 3 ), ExtResource( 6 ), ExtResource( 5 ) ]
+bgMusicSamples = [ ExtResource( 6 ), ExtResource( 5 ), ExtResource( 3 ) ]

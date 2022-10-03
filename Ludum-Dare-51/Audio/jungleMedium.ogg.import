@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/jungleMedium.ogg-75491a30a3b974decc8ed658cc1777b2.oggstr"
+
+[deps]
+
+source_file="res://Audio/jungleMedium.ogg"
+dest_files=[ "res://.import/jungleMedium.ogg-75491a30a3b974decc8ed658cc1777b2.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

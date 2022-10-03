@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/jungleFast.ogg-3505c760237bdc10ba1194740b96d628.oggstr"
+
+[deps]
+
+source_file="res://Audio/jungleFast.ogg"
+dest_files=[ "res://.import/jungleFast.ogg-3505c760237bdc10ba1194740b96d628.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

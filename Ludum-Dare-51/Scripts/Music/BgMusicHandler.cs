@@ -62,7 +62,7 @@ public class BgMusicHandler : Node
         }
     }
 
-    public AudioStreamSample GetCorrectDifficultySample(AudioStreamSample[] samples, float totalEnemyDifficulty) {
+    public AudioStreamOGGVorbis GetCorrectDifficultySample(AudioStreamOGGVorbis[] samples, float totalEnemyDifficulty) {
         MusicSpeed newMusicSpeed = GetMusicSpeedFromDifficulty(totalEnemyDifficulty);
         if (newMusicSpeed == MusicSpeed.FAST) {
             return samples[samples.Length - 1];
@@ -73,7 +73,7 @@ public class BgMusicHandler : Node
         return samples[0];
     }
 
-    private void ChangeMainBackgroundMusic(AudioStreamSample sample, MusicSpeed newMusicSpeed, bool playRecordScratch = true) {
+    private void ChangeMainBackgroundMusic(AudioStreamOGGVorbis sample, MusicSpeed newMusicSpeed, bool playRecordScratch = true) {
         var fadeOutPlayer = isCurrentBgPlaying ? currentMainBgPlayer : nextMainBgPlayer;
         var fadeInPlayer = isCurrentBgPlaying ? nextMainBgPlayer : currentMainBgPlayer;
 
@@ -90,7 +90,7 @@ public class BgMusicHandler : Node
         currentMusicSpeed = newMusicSpeed;
     }
 
-    public void ChangeMainBackgroundMusic(AudioStreamSample[] samples, float totalEnemyDifficulty) {
+    public void ChangeMainBackgroundMusic(AudioStreamOGGVorbis[] samples, float totalEnemyDifficulty) {
         MusicSpeed newMusicSpeed = GetMusicSpeedFromDifficulty(totalEnemyDifficulty);
         var sample = GetCorrectDifficultySample(samples, totalEnemyDifficulty);
         ChangeMainBackgroundMusic(sample, newMusicSpeed);

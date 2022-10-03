@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/dungeonSlow.ogg-8f15a6865d8cfbe293a7ddfe09c8f9cd.oggstr"
+
+[deps]
+
+source_file="res://Audio/dungeonSlow.ogg"
+dest_files=[ "res://.import/dungeonSlow.ogg-8f15a6865d8cfbe293a7ddfe09c8f9cd.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0
