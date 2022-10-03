@@ -36,6 +36,10 @@ public class ShootingEnemy : AbstractEnemy {
             GetTree().Root.GetNode<Node>("Main").AddChild(arrow);
         }
 
+        if(Metronome.instance.IsBeatWithAudioDelay(GetBeatFrequency(), GetSubBeatFrequency())){
+            SoundManager.instance.PlaySfx(SoundManager.Sfx.bowShot);
+        }
+
         if (Metronome.instance.IsBeat(-1, 0f)) {
             StartMoveAnimation();
         }
