@@ -14,6 +14,6 @@ roomImage = [ ExtResource( 6 ), ExtResource( 2 ) ]
 spawnWeight = 5.0
 minSpawnRoomCount = 10
 spawnableEnemyPrefabPaths = PoolStringArray( "res://Prefabs/Enemies/LazorTurret.tscn", "res://Prefabs/Enemies/Robot.tscn" )
-numberOfEnemiesSpawnFactor = 1.0
+numberOfEnemiesSpawnFactor = 0.33
 canContainBosses = true
 bgMusicSamples = [ ExtResource( 5 ), ExtResource( 4 ), ExtResource( 3 ) ]

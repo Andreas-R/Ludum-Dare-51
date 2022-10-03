@@ -53,10 +53,9 @@ script = ExtResource( 2 )
 maxSpeed = 500.0
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
-position = Vector2( 0, 5.68434e-14 )
+position = Vector2( 0, -20 )
 scale = Vector2( 5, 5 )
 frames = SubResource( 4 )
-frame = 1
 playing = true
 offset = Vector2( 0, -3 )
 
@@ -66,10 +65,11 @@ scale = Vector2( 5, 5 )
 z_index = -1
 
 [node name="Collider" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -13 )
+position = Vector2( 0, -33 )
 shape = SubResource( 10 )
 
 [node name="DamageReceiver" type="Area2D" parent="."]
+position = Vector2( 0, -20 )
 collision_layer = 512
 collision_mask = 0
 script = ExtResource( 5 )
@@ -79,6 +79,7 @@ position = Vector2( 0, -13 )
 shape = SubResource( 8 )
 
 [node name="DamageDealer" type="Area2D" parent="."]
+position = Vector2( 0, -20 )
 collision_layer = 0
 collision_mask = 256
 script = ExtResource( 6 )

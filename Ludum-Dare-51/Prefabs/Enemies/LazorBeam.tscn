@@ -31,14 +31,7 @@ animations = [ {
 [sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 0.5, 3 )
 
-[node name="LazorBeam" type="RigidBody2D"]
-collision_layer = 8
-collision_mask = 2
-mode = 3
-gravity_scale = 0.0
-contacts_reported = 1
-contact_monitor = true
-can_sleep = false
+[node name="LazorBeam" type="Node2D"]
 script = ExtResource( 2 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
@@ -53,5 +46,4 @@ damage = 10.0
 [node name="Collider" type="CollisionShape2D" parent="DamageDealer"]
 shape = SubResource( 6 )
 
-[connection signal="body_entered" from="." to="." method="OnBodyEntered"]
 [connection signal="area_entered" from="DamageDealer" to="DamageDealer" method="OnArea2DEnter"]

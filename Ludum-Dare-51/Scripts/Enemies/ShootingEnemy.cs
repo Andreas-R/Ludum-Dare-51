@@ -57,29 +57,23 @@ public class ShootingEnemy : AbstractEnemy {
     }
 
     public void OnShootFinished() {
-         Aim(this.GlobalPosition + (IsFlipped() ? Vector2.Right : Vector2.Left));
+        Aim(this.GlobalPosition + (IsFlipped() ? Vector2.Right : Vector2.Left));
     }
 
 
     private int[] GetBeatFrequency() {
-        switch(spawnIndex % 4) {
+        switch(spawnIndex % 2) {
             case 0: {
-                return new int[] {0, 4};
+                return new int[] {0, 2, 4, 6};
             }
             case 1: {
-                return new int[] {1, 5};
-            }
-            case 2: {
-                return new int[] {2, 6};
-            }
-            case 3: {
-                return new int[] {3, 7};
+                return new int[] {1, 3, 5, 7};
             }
         }
         return new int[] {};
     }
 
     private float[] GetSubBeatFrequency() {
-        return new float[] {0f, 0.25f};
+        return new float[] {0f};
     }
 }
