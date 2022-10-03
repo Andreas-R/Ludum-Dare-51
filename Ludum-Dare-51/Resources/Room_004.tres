@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=7 format=2]
+
+[ext_resource path="res://Scripts/Level/RoomData.cs" type="Script" id=1]
+[ext_resource path="res://Textures/mech_room1.png" type="Texture" id=2]
+[ext_resource path="res://Textures/mech_room2.png" type="Texture" id=3]
+[ext_resource path="res://Audio/glitchFast.wav" type="AudioStream" id=4]
+[ext_resource path="res://Audio/glitchMedium.wav" type="AudioStream" id=5]
+[ext_resource path="res://Audio/glitchSlow.wav" type="AudioStream" id=6]
+
+[resource]
+script = ExtResource( 1 )
+id = "Room_004"
+roomImage = [ ExtResource( 2 ), ExtResource( 3 ) ]
+spawnWeight = 10.0
+minSpawnRoomCount = 0
+spawnableEnemyPrefabPaths = PoolStringArray( "res://Prefabs/Enemies/LazorTurret.tscn" )
+bgMusicSamples = [ ExtResource( 6 ), ExtResource( 5 ), ExtResource( 4 ) ]
