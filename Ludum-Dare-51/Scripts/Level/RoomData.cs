@@ -20,5 +20,8 @@ public class RoomData : Resource {
   public float numberOfEnemiesSpawnFactor = 1f;
 
   [Export]
+  public bool canContainBosses = true;
+
+  [Export]
   public AudioStreamSample[] bgMusicSamples;
 }

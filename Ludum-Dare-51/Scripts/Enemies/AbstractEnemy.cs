@@ -1,6 +1,14 @@
 using Godot;
 
 public class AbstractEnemy : RigidBody2D {
+    public static float bossSizeScale = 2f;
+    public static float bossLifeScale = 5f;
+
+    [Export]
+    public float difficultyFactor = 1f;
+    
+    public bool isBoss = false;
+
     protected AnimatedSprite sprite;
     protected AnimatedSprite weaponSprite = null;
     protected Timer hitTimer;
@@ -9,8 +17,6 @@ public class AbstractEnemy : RigidBody2D {
     
     protected Color hitColor = new Color(1f, 0.5f, 0.5f);
     protected Color defaultColor = new Color(1f, 1f, 1f);
-    [Export]
-    public float difficultyFactor = 1f;
 
     public override void _Ready() {
         this.sprite = GetNode<AnimatedSprite>("Sprite");
@@ -58,6 +64,14 @@ public class AbstractEnemy : RigidBody2D {
         }
     }
 
+    public void SetScale(float scale) {
+        foreach (Node node in this.GetChildren()) {
+            Node2D node2D = node as Node2D;
+            if (node2D != null) {
+                node2D.Scale *= scale;
+            }
+        }
+    }
 
     public bool IsFlipped() {
         return this.sprite.FlipH;

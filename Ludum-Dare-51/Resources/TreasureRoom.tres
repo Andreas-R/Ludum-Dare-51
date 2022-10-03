@@ -13,4 +13,5 @@ spawnWeight = 3.0
 minSpawnRoomCount = 15
 spawnableEnemyPrefabPaths = PoolStringArray( "res://Prefabs/Enemies/Goblin.tscn" )
 numberOfEnemiesSpawnFactor = 1.0
+canContainBosses = false
 bgMusicSamples = [ ExtResource( 4 ) ]

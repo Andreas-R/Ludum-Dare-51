@@ -15,4 +15,5 @@ spawnWeight = 10.0
 minSpawnRoomCount = 0
 spawnableEnemyPrefabPaths = PoolStringArray( "res://Prefabs/Enemies/Penguin.tscn" )
 numberOfEnemiesSpawnFactor = 1.0
+canContainBosses = true
 bgMusicSamples = [ ExtResource( 5 ), ExtResource( 4 ), ExtResource( 3 ) ]

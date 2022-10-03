@@ -9,7 +9,7 @@ public class Penguin : AbstractEnemy {
 
     public override void _Ready() {
         base._Ready();
-        this.moveTimer = GetNode<Timer>("MoveTimer"); 
+        this.moveTimer = GetNode<Timer>("MoveTimer");
     }
 
     public override void _IntegrateForces(Physics2DDirectBodyState bodyState) {

@@ -12,6 +12,13 @@ public class ShootingEnemy : AbstractEnemy {
     // value in range 0-1
     public float rangeOverFollow;
 
+    public override void _Ready() {
+        base._Ready();
+        if (isBoss) {
+            this.range *= AbstractEnemy.bossSizeScale;
+        }
+    }
+
     public override void _Process(float delta) {
         if (IsHit()) return;
         bool isFrame = Metronome.instance.IsBeat(-1, 0f);
@@ -26,6 +33,9 @@ public class ShootingEnemy : AbstractEnemy {
             arrow.direction = (playerPosition - this.GlobalPosition).Normalized();
             arrow.GlobalPosition = this.GlobalPosition + arrow.direction * 40f;
             arrow.GlobalRotation = this.GlobalPosition.AngleToPoint(playerPosition);
+            if (isBoss) {
+                arrow.Scale = new Vector2(arrow.Scale.x * AbstractEnemy.bossSizeScale, arrow.Scale.y * AbstractEnemy.bossSizeScale);
+            }
             GetTree().Root.GetNode<Node>("Main").AddChild(arrow);
         } 
         if (isFrame) {

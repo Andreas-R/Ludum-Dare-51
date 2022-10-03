@@ -32,6 +32,7 @@ public class RoomHandler : Node2D {
     public RoomData currentRoom;
     private EnemyManager enemyManager;
     private static Vector2 scale = new Vector2(5f, 5f);
+    private bool spawnBoss = false;
 
     private Dictionary<string, List<PackedScene>> roomEnemies = new Dictionary<string, List<PackedScene>>();
 
@@ -127,26 +128,56 @@ public class RoomHandler : Node2D {
     }
 
     private void SpawnEnemies(RoomData room) {
+        if (!spawnBoss) {
+            if (roomCounter >= 10) {
+                spawnBoss = (roomCounter - 1) % 10 == 0;
+            }
+            if (roomCounter >= 20) {
+                spawnBoss = (roomCounter - 1) % 5 == 0;
+            }
+            if (roomCounter >= 30) {
+                spawnBoss = (roomCounter - 1) % 3 == 0;
+            }
+            if (roomCounter >= 50) {
+                spawnBoss = true;
+            }
+        }
+
         switch(room.id){
             case "TreasureRoom":
-                SpawnEnemy(room);
+                SpawnEnemy(room, false);
                 break;
             default:
                 int numberOfEnemies = Mathf.CeilToInt(Mathf.FloorToInt(3 + roomCounter * 0.5f) * room.numberOfEnemiesSpawnFactor);
+                int bossIndex = -1;
+
+                if (room.canContainBosses && spawnBoss) {
+                    bossIndex = rng.RandiRange(0, numberOfEnemies - 1);
+                    spawnBoss = false;
+                }
 
                 for (int i = 0; i < numberOfEnemies; i += 1) {
-                    SpawnEnemy(room);
+                    SpawnEnemy(room, i == bossIndex);
                 }
                 break;
         }
     }
 
-    private void SpawnEnemy(RoomData room){
+    private void SpawnEnemy(RoomData room, bool isBoss){
         PackedScene enemyPrefab = roomEnemies[room.id][rng.RandiRange(0, roomEnemies[room.id].Count - 1)];
         AbstractEnemy enemy = enemyPrefab.Instance() as AbstractEnemy;
+
+        enemy.isBoss = isBoss;
         float lifeMultiplier = 1f + (roomCounter * 0.05f);
+
+        if (isBoss) {
+            enemy.SetScale(AbstractEnemy.bossSizeScale);
+            lifeMultiplier *= AbstractEnemy.bossLifeScale;
+        }
+
         enemy.GetNode<LifePointManager>("LifePointManager").maxHealth *= lifeMultiplier;
         enemy.GlobalPosition = this.GetRandomSpawnPosition();
+
         GetTree().Root.GetNode<Node>("Main").AddChild(enemy);
         enemyManager.OnEnemySpawn(enemy);
     }

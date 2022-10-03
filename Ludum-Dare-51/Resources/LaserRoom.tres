@@ -15,4 +15,5 @@ spawnWeight = 6.0
 minSpawnRoomCount = 10
 spawnableEnemyPrefabPaths = PoolStringArray( "res://Prefabs/Enemies/LazorTurret.tscn" )
 numberOfEnemiesSpawnFactor = 0.5
+canContainBosses = false
 bgMusicSamples = [ ExtResource( 5 ), ExtResource( 4 ), ExtResource( 3 ) ]
