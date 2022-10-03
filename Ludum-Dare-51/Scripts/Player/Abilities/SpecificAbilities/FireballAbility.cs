@@ -23,11 +23,11 @@ public class FireballAbility : AbstractAbility {
                 float scale = GetScale();
                 fireball.Scale = new Vector2(scale, scale);
                 fireball.direction = (player.GetGlobalMousePosition() - player.GetCenter()).Normalized();
-                fireball.GlobalRotation = player.GetCenter().AngleToPoint(player.GetGlobalMousePosition());
+                fireball.Rotation = player.GetCenter().AngleToPoint(player.GetGlobalMousePosition());
                 if (numberOfFireballs > 1) {
                     float rotationOffset = (-spreadAngleRad * (numberOfFireballs - 1)) * 0.5f + i * spreadAngleRad;
                     fireball.direction = fireball.direction.Rotated(rotationOffset);
-                    fireball.GlobalRotation += rotationOffset;
+                    fireball.Rotation += rotationOffset;
                 }
                 fireball.GlobalPosition = player.GetCenter() + fireball.direction * 20f;
                 fireball.GetNode<DamageDealer>("DamageDealer").damage *= GetDamageMultiplicator();

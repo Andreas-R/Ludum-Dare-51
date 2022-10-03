@@ -44,7 +44,7 @@ public class AbstractEnemy : RigidBody2D {
         Vector2 direction = this.GlobalPosition - targetPosition;
         float angle = Vector2.Left.AngleTo(direction);
         if (this.weaponSprite.FlipH == false) angle += Mathf.Pi;
-        this.weaponSprite.GlobalRotation = angle; 
+        this.weaponSprite.Rotation = angle; 
     }
 
     protected void HandleSpriteFlip(Vector2 movementInput) {

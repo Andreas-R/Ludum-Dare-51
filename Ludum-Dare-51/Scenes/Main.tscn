@@ -19,15 +19,14 @@
 [node name="LevelManager" parent="." instance=ExtResource( 4 )]
 
 [node name="AbilityUpgradeHandler" parent="." instance=ExtResource( 3 )]
-fireBallUpgradeMenuHoveredImages = null
-iceNovaUpgradeMenuHoveredImages = null
-chainLightningUpgradeMenuImages = null
-chainLightningUpgradeMenuHoveredImages = null
 
 [node name="EnemyManager" type="Node" parent="."]
 script = ExtResource( 8 )
 
-[node name="HUD" parent="." instance=ExtResource( 6 )]
+[node name="HUD Parent" type="Node2D" parent="."]
+z_index = 200
+
+[node name="HUD" parent="HUD Parent" instance=ExtResource( 6 )]
 margin_left = -1000.0
 margin_top = -560.0
 margin_right = 760.0
