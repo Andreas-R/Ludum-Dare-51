@@ -52,6 +52,3 @@ visible = false
 position = Vector2( -350, -100 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
-
-[connection signal="OnEnemyDeathSignal" from="EnemyManager" to="BgMusicHandler" method="OnDifficultyChanged"]
-[connection signal="OnEnemySpawnSignal" from="EnemyManager" to="BgMusicHandler" method="OnDifficultyChanged"]
