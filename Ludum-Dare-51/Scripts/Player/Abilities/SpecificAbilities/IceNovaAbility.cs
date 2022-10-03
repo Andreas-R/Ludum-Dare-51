@@ -1,6 +1,7 @@
 using Godot;
 
 public class IceNovaAbility : AbstractAbility {
+
     public IceNovaAbility() {
         level1Max = 4;
         level2Max = 4;
@@ -8,6 +9,9 @@ public class IceNovaAbility : AbstractAbility {
     }
 
     public override void OnProcess(Player player, float delta) {
+        if (Metronome.instance.IsBeatWithAudioDelay(this.GetBeatFrequency(), this.GetSubBeatFrequency())) {
+            SoundManager.instance.PlaySfx(SoundManager.Sfx.iceNova);
+        }
         if (Metronome.instance.IsBeat(this.GetBeatFrequency(), this.GetSubBeatFrequency())) {
             IceNova iceNova = player.GetNode<IceNova>("IceNova");
             iceNova.damage = iceNova.baseDamage * this.GetDamageMultiplicator();
