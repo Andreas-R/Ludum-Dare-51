@@ -683,6 +683,7 @@ margin_right = 150.0
 margin_bottom = 200.0
 
 [node name="GameOverScreen" type="ColorRect" parent="."]
+visible = false
 margin_left = 300.0
 margin_top = 60.0
 margin_right = 1700.0
