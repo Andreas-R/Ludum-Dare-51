@@ -12,6 +12,7 @@ script = ExtResource( 2 )
 
 [node name="RecordScratchPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 1 )
+volume_db = -6.0
 
 [node name="MusicFadeInTween" type="Tween" parent="."]
 
