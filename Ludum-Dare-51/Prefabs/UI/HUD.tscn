@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=38 format=2]
 
 [ext_resource path="res://Scripts/UI/Timeline/Timeline.cs" type="Script" id=1]
 [ext_resource path="res://Textures/fireball.png" type="Texture" id=2]
@@ -25,6 +25,10 @@
 [ext_resource path="res://Textures/sword-icon.png" type="Texture" id=23]
 [ext_resource path="res://Audio/borb.wav" type="AudioStream" id=24]
 [ext_resource path="res://Audio/switch.wav" type="AudioStream" id=25]
+[ext_resource path="res://Textures/ui-fullscreen-button.png" type="Texture" id=26]
+[ext_resource path="res://Textures/ui-fullscreen-button-pressed.png" type="Texture" id=27]
+[ext_resource path="res://Textures/ui-undo-fullscreen-button.png" type="Texture" id=28]
+[ext_resource path="res://Textures/ui-undo-fullscreen-button-pressed.png" type="Texture" id=29]
 
 [sub_resource type="StyleBoxTexture" id=1]
 
@@ -444,6 +448,8 @@ margin_top = -640.0
 margin_right = 880.0
 margin_bottom = 640.0
 script = ExtResource( 19 )
+fullScreenButtonTextures = [ ExtResource( 26 ), ExtResource( 27 ) ]
+undoFullScreenButtonTextures = [ ExtResource( 28 ), ExtResource( 29 ) ]
 
 [node name="Screen" type="TextureRect" parent="."]
 margin_right = 40.0
@@ -593,10 +599,10 @@ rect_scale = Vector2( 5, 5 )
 texture = ExtResource( 12 )
 
 [node name="PowerButton" type="TextureButton" parent="."]
-margin_left = 30.0
+margin_left = 5.0
 margin_top = 1125.0
-margin_right = 50.0
-margin_bottom = 1148.0
+margin_right = 23.0
+margin_bottom = 1147.0
 rect_scale = Vector2( 5, 5 )
 texture_normal = ExtResource( 16 )
 texture_pressed = ExtResource( 15 )
@@ -606,13 +612,22 @@ anims/RESET = SubResource( 7 )
 anims/pulse = SubResource( 8 )
 
 [node name="PauseButton" type="TextureButton" parent="."]
-margin_left = 140.0
+margin_left = 90.0
 margin_top = 1125.0
-margin_right = 160.0
-margin_bottom = 1148.0
+margin_right = 108.0
+margin_bottom = 1147.0
 rect_scale = Vector2( 5, 5 )
 texture_normal = ExtResource( 18 )
 texture_pressed = ExtResource( 17 )
+
+[node name="FullScreenButton" type="TextureButton" parent="."]
+margin_left = 175.0
+margin_top = 1125.0
+margin_right = 193.0
+margin_bottom = 1147.0
+rect_scale = Vector2( 5, 5 )
+texture_normal = ExtResource( 26 )
+texture_pressed = ExtResource( 27 )
 
 [node name="BlackScreen" type="TextureRect" parent="."]
 margin_left = 300.0
@@ -724,6 +739,7 @@ autostart = true
 [connection signal="value_changed" from="AudioSlider" to="AudioSlider" method="OnChange"]
 [connection signal="pressed" from="PowerButton" to="." method="OnPower"]
 [connection signal="pressed" from="PauseButton" to="." method="OnPause"]
+[connection signal="pressed" from="FullScreenButton" to="." method="OnFullScreen"]
 [connection signal="animation_finished" from="BlackScreen/AnimationPlayer" to="." method="OnAnimationFinished"]
 [connection signal="animation_finished" from="GameOverScreen/AnimationPlayer" to="." method="OnAnimationFinished"]
 [connection signal="timeout" from="PowerButtonTipTimer" to="." method="OnPowerButtonTip"]

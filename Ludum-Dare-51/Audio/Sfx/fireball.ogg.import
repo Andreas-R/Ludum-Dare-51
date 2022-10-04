@@ -11,5 +11,5 @@ dest_files=[ "res://.import/fireball.ogg-1270f5266690a45943febf2f4dc1755b.oggstr
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

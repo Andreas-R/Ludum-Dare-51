@@ -1,6 +1,11 @@
 using Godot;
 
 public class HUD : Control {
+    [Export]
+    public Texture[] fullScreenButtonTextures;
+    [Export]
+    public Texture[] undoFullScreenButtonTextures;
+
     private Metronome metronome;
     private AnimationPlayer introAnimationPlayer;
     private AnimationPlayer outroAnimationPlayer;
@@ -8,6 +13,7 @@ public class HUD : Control {
     private AudioStreamPlayer buttonAudioStreamPlayer;
     private ColorRect pauseScreen;
     private TextureButton powerButton;
+    private TextureButton fullScreenButton;
     private bool turnedOn = false;
     private bool gameRunning = false;
     private bool pressedPowerButtonAtLeastOnce = false;
@@ -20,12 +26,12 @@ public class HUD : Control {
         buttonAudioStreamPlayer = GetNode<AudioStreamPlayer>("ButtonAudioStreamPlayer");
         pauseScreen = GetNode<ColorRect>("PauseScreen");
         powerButton = GetNode<TextureButton>("PowerButton");
+        fullScreenButton = GetNode<TextureButton>("FullScreenButton");
         GetTree().Paused = true;
     }
 
     public override void _Process(float detla) {
         bool pauseVisible = gameRunning && GetTree().Paused;
-        //GD.Print(pauseVisible);
         if (pauseScreen.Visible != pauseVisible) pauseScreen.Visible = pauseVisible;
     }
 
@@ -48,6 +54,19 @@ public class HUD : Control {
         buttonAudioStreamPlayer.Play();
         if (gameRunning) {
             GetTree().Paused = !GetTree().Paused;
+        }
+    }
+
+    public void OnFullScreen() {
+        buttonAudioStreamPlayer.Play();
+        OS.WindowFullscreen = !OS.WindowFullscreen;
+
+        if (OS.WindowFullscreen) {
+            fullScreenButton.TextureNormal = undoFullScreenButtonTextures[0];
+            fullScreenButton.TexturePressed = undoFullScreenButtonTextures[1];
+        } else {
+            fullScreenButton.TextureNormal = fullScreenButtonTextures[0];
+            fullScreenButton.TexturePressed = fullScreenButtonTextures[1];
         }
     }
 

@@ -30,12 +30,13 @@ public class Sword : Node2D {
     }
 
     public override void _Process(float delta) {
-        if (player.IsDead()) return;
         if (Metronome.instance.IsBeatWithAudioDelay(-1, 1f)) {
+            if (player.IsDead()) return;
            this.audioPlayer.Play();
         }
 
         if (Metronome.instance.IsBeat(-1, 1f - Metronome.instance.TimeToBeat(this.attackTimer.WaitTime * 0.5f))) {
+            if (player.IsDead()) return;
             this.InitAttack();
         }
 

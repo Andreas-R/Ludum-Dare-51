@@ -64,7 +64,6 @@ offset = Vector2( 0, -3 )
 [node name="Shadow" parent="." instance=ExtResource( 3 )]
 position = Vector2( 0, 9.53674e-07 )
 scale = Vector2( 5, 5 )
-z_index = -1
 
 [node name="Collider" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -33 )

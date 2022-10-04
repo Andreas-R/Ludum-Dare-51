@@ -74,7 +74,7 @@ position = Vector2( 0, -28 )
 shape = SubResource( 10 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
-position = Vector2( 1.90735e-06, -9.53674e-07 )
+position = Vector2( 0, -2.5 )
 rotation = -6.28319
 scale = Vector2( 5, 5 )
 frames = SubResource( 4 )
@@ -84,7 +84,7 @@ offset = Vector2( 0, -6 )
 flip_h = true
 
 [node name="Weapon" type="AnimatedSprite" parent="."]
-position = Vector2( 12, -30 )
+position = Vector2( 2.5, -32.5 )
 rotation = -6.28319
 scale = Vector2( 5, 5 )
 frames = SubResource( 16 )
@@ -95,7 +95,6 @@ flip_h = true
 [node name="Shadow" parent="." instance=ExtResource( 4 )]
 position = Vector2( 0, 9.53674e-07 )
 scale = Vector2( 5, 5 )
-z_index = -1
 
 [node name="DamageReceiver" type="Area2D" parent="."]
 collision_layer = 512

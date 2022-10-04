@@ -66,12 +66,12 @@ animations = [ {
 } ]
 
 [sub_resource type="CapsuleShape2D" id=10]
-radius = 14.0
-height = 0.0
+radius = 22.0
+height = 10.0
 
 [sub_resource type="CapsuleShape2D" id=8]
-radius = 16.0
-height = 0.0
+radius = 24.0
+height = 10.0
 
 [node name="Goblin" type="RigidBody2D"]
 collision_layer = 4
@@ -99,10 +99,9 @@ offset = Vector2( 0, -13 )
 [node name="Shadow" parent="." instance=ExtResource( 3 )]
 position = Vector2( 0, 9.53674e-07 )
 scale = Vector2( 5, 5 )
-z_index = -1
 
 [node name="Collider" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -13 )
+position = Vector2( 0, -27 )
 shape = SubResource( 10 )
 
 [node name="DamageReceiver" type="Area2D" parent="."]
@@ -111,7 +110,7 @@ collision_mask = 0
 script = ExtResource( 5 )
 
 [node name="Collider" type="CollisionShape2D" parent="DamageReceiver"]
-position = Vector2( 0, -13 )
+position = Vector2( 0, -27 )
 shape = SubResource( 8 )
 
 [node name="LifePointManager" type="Node" parent="."]

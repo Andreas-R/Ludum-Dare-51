@@ -27,11 +27,13 @@ public class ShootingEnemy : AbstractEnemy {
             Aim(playerPosition);
             StartAttackAnimation();
             Arrow arrow = ShootingEnemy.arrowPrefab.Instance() as Arrow;
-            arrow.direction = (playerPosition - this.GlobalPosition).Normalized();
-            arrow.GlobalPosition = this.GlobalPosition + arrow.direction * 40f;
-            arrow.Rotation = this.GlobalPosition.AngleToPoint(playerPosition);
+            arrow.direction = (playerPosition - this.weaponSprite.GlobalPosition).Normalized();
+            arrow.Rotation = this.weaponSprite.GlobalPosition.AngleToPoint(playerPosition);
             if (isBoss) {
                 arrow.Scale = new Vector2(arrow.Scale.x * AbstractEnemy.bossSizeScale, arrow.Scale.y * AbstractEnemy.bossSizeScale);
+                arrow.GlobalPosition = this.weaponSprite.GlobalPosition + arrow.direction * 30f * AbstractEnemy.bossSizeScale;
+            } else {
+                arrow.GlobalPosition = this.weaponSprite.GlobalPosition + arrow.direction * 30f;
             }
             GetTree().Root.GetNode<Node>("Main").AddChild(arrow);
         }
