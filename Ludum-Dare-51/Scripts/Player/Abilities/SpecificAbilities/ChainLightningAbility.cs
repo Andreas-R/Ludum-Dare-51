@@ -105,7 +105,7 @@ public class ChainLightningAbility : AbstractAbility {
     }
 
     private int[] GetNumberOfChains() {
-        switch (this.level1) {
+        switch (this.level2) {
             case 0: {
                 return new int[] {1, 3};   // 4 enemies
             }
