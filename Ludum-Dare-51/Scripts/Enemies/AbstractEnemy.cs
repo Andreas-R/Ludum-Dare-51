@@ -103,6 +103,7 @@ public class AbstractEnemy : RigidBody2D {
     }
 
     public virtual void OnEscape(){
+        GetNode<LifePointManager>("LifePointManager").isInvulnerable = true;
         sprite.Play("escape");
     }
 
