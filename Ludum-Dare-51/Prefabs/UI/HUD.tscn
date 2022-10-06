@@ -1,12 +1,10 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://Scripts/UI/Timeline/Timeline.cs" type="Script" id=1]
 [ext_resource path="res://Textures/fireball.png" type="Texture" id=2]
 [ext_resource path="res://Textures/ice-nova-icon.png" type="Texture" id=3]
 [ext_resource path="res://Textures/chain-lightning-icon.png" type="Texture" id=4]
 [ext_resource path="res://Textures/ui-screen.png" type="Texture" id=5]
-[ext_resource path="res://Textures/analog_pad_1.png" type="Texture" id=6]
-[ext_resource path="res://Textures/analog_pad_2.png" type="Texture" id=7]
 [ext_resource path="res://Textures/ui-life-and-abilities.png" type="Texture" id=8]
 [ext_resource path="res://Scripts/UI/LifeAndAbilitiesPanel.cs" type="Script" id=9]
 [ext_resource path="res://Prefabs/UI/AbilityDisplay.tscn" type="PackedScene" id=10]
@@ -23,9 +21,8 @@
 [ext_resource path="res://Textures/move-speed-icon.png" type="Texture" id=21]
 [ext_resource path="res://Fonts/graph-35-pix/graph-35-pix.tres" type="DynamicFont" id=22]
 [ext_resource path="res://Textures/sword-icon.png" type="Texture" id=23]
-[ext_resource path="res://Scripts/UI/LeftAnalogPad.cs" type="Script" id=24]
+[ext_resource path="res://Scripts/UI/TouchPad.cs" type="Script" id=24]
 [ext_resource path="res://Audio/switch.wav" type="AudioStream" id=25]
-[ext_resource path="res://Scripts/UI/RightAnalogPad.cs" type="Script" id=26]
 
 [sub_resource type="Animation" id=7]
 length = 0.001
@@ -699,49 +696,8 @@ bus = "Sfx"
 wait_time = 6.0
 autostart = true
 
-[node name="LeftAnalogPad" type="Control" parent="."]
+[node name="TouchPad" type="Control" parent="."]
 script = ExtResource( 24 )
-
-[node name="AnalogKnob1" type="TextureRect" parent="LeftAnalogPad"]
-margin_left = 130.0
-margin_top = 965.0
-margin_right = 180.0
-margin_bottom = 1015.0
-rect_scale = Vector2( 5, 5 )
-rect_pivot_offset = Vector2( 25, 25 )
-texture = ExtResource( 6 )
-
-[node name="AnalogKnob2" type="TextureRect" parent="LeftAnalogPad"]
-margin_left = 130.0
-margin_top = 965.0
-margin_right = 180.0
-margin_bottom = 1015.0
-rect_scale = Vector2( 5, 5 )
-rect_pivot_offset = Vector2( 25, 25 )
-texture = ExtResource( 7 )
-stretch_mode = 4
-
-[node name="RightAnalogPad" type="Control" parent="."]
-script = ExtResource( 26 )
-
-[node name="AnalogKnob1" type="TextureRect" parent="RightAnalogPad"]
-margin_left = 1860.0
-margin_top = 965.0
-margin_right = 1910.0
-margin_bottom = 1015.0
-rect_scale = Vector2( 5, 5 )
-rect_pivot_offset = Vector2( 25, 25 )
-texture = ExtResource( 6 )
-
-[node name="AnalogKnob2" type="TextureRect" parent="RightAnalogPad"]
-margin_left = 1860.0
-margin_top = 965.0
-margin_right = 1910.0
-margin_bottom = 1015.0
-rect_scale = Vector2( 5, 5 )
-rect_pivot_offset = Vector2( 25, 25 )
-texture = ExtResource( 7 )
-stretch_mode = 4
 
 [connection signal="pressed" from="PauseButton" to="." method="OnPause"]
 [connection signal="pressed" from="PowerButton" to="." method="OnPower"]

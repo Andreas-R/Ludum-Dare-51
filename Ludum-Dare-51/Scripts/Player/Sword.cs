@@ -11,7 +11,6 @@ public class Sword : Node2D {
     private AudioStreamPlayer audioPlayer;
     private Player player;
     private BgMusicHandler bgMusicHandler;
-    private RightAnalogPad rightAnalogPad;
 
     private bool isAttacking = false;
     public Vector2 attackDir = Vector2.Left;
@@ -28,18 +27,20 @@ public class Sword : Node2D {
         this.audioPlayer = GetNode<AudioStreamPlayer>("AudioPlayer");
         this.player = GetParent<Player>();
         this.bgMusicHandler = GetTree().Root.GetNode<BgMusicHandler>("Main/BgMusicHandler");
-        this.rightAnalogPad = GetTree().Root.GetNode<RightAnalogPad>("Main/HUD Parent/HUD/RightAnalogPad");
 
         this.attackArchAngleRadians = Mathf.Deg2Rad(this.attackArchAngle);
     }
 
     public override void _Process(float delta) {
-        attackDir = this.rightAnalogPad.GetInput();
+        if (player.nearestEnemy != null) {
+            attackDir = (player.nearestEnemy.GlobalPosition - player.GlobalPosition).Normalized();
+        }
         if (attackDir == Vector2.Zero) {
             attackDir = lastAttackDir;
         } else {
             lastAttackDir = attackDir;
         }
+            GD.Print(lastAttackDir);
 
         if (Metronome.instance.IsBeatWithAudioDelay(-1, 1f)) {
             if (player.IsDead()) return;

@@ -1,4 +1,5 @@
 using Godot;
+using System.Collections.Generic;
 
 public class Player : RigidBody2D {
 
@@ -15,9 +16,11 @@ public class Player : RigidBody2D {
     private Timer invulnerableTimer;
     private CollisionShape2D damageReceiverCollider;
     public Sword sword;
-    private LeftAnalogPad leftAnalogPad;
+    private TouchPad touchPad;
     private Sprite aimer;
     private int runningFrame = 0;
+    private List<AbstractEnemy> enemies = new List<AbstractEnemy>();
+    public AbstractEnemy nearestEnemy;
 
     private Color hitColor = new Color(1f, 0.5f, 0.5f);
     private Color defaultColor = new Color(1f, 1f, 1f);
@@ -31,7 +34,7 @@ public class Player : RigidBody2D {
         this.lifePointManager = GetNode<LifePointManager>("LifePointManager");
         this.invulnerableTimer = GetNode<Timer>("InvulnerableTimer");
         this.damageReceiverCollider = GetNode<CollisionShape2D>("DamageReceiver/Collider");
-        this.leftAnalogPad = GetTree().Root.GetNode<LeftAnalogPad>("Main/HUD Parent/HUD/LeftAnalogPad");
+        this.touchPad = GetTree().Root.GetNode<TouchPad>("Main/HUD Parent/HUD/TouchPad");
         this.aimer = GetNode<Sprite>("Aimer");
 
         this.state = PlayerState.RUNNING;
@@ -40,6 +43,8 @@ public class Player : RigidBody2D {
     public override void _Process(float delta) {
         if (!this.aimer.Visible) this.aimer.Visible = true;
         this.aimer.Rotation = -sword.attackDir.AngleTo(Vector2.Left);
+
+        nearestEnemy = GetNearestEnemy();
 
         if (this.state == PlayerState.DEAD) return;
 
@@ -101,7 +106,7 @@ public class Player : RigidBody2D {
     }
 
     public Vector2 GetMoveInputDirection() {
-        return leftAnalogPad.GetInput(false);
+        return touchPad.GetInput(false);
     }
 
     private void HandleMovement(Physics2DDirectBodyState bodyState, Vector2 movementInput) {
@@ -153,6 +158,32 @@ public class Player : RigidBody2D {
 
     public Vector2 GetCenter() {
         return this.center.GlobalPosition;
+    }
+
+    private AbstractEnemy GetNearestEnemy() {
+        enemies.Clear();
+
+        Node2D main = GetTree().Root.GetNode<Node2D>("Main");
+        foreach (Node node in main.GetChildren()) {
+            AbstractEnemy enemy = node as AbstractEnemy;
+            if (enemy != null) {
+                enemies.Add(enemy);
+            }
+        }
+
+        Vector2 pos = GetCenter();
+        AbstractEnemy nearestEnemy = null;
+        float minSquareDist = Mathf.Inf;
+
+        foreach (AbstractEnemy enemy in enemies) {
+            float squareDist = (pos - enemy.GlobalPosition).LengthSquared();
+            if (squareDist < minSquareDist) {
+                minSquareDist = squareDist;
+                nearestEnemy = enemy;
+            }
+        }
+
+        return nearestEnemy;
     }
 
     private bool IsInvulnerable() {
