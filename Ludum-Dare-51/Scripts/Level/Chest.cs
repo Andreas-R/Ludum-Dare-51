@@ -1,13 +1,13 @@
 using Godot;
 using System.Collections.Generic;
 
-public class Chest : Sprite {
+public class Chest : Node2D {
     [Export]
     public float detectionRadius = 150f;
 
     private AbilityUpgradeHandler abilityUpgradeHandler;
     private Player player;
-    private Sprite toolTip;
+    private Sprite chestSprite;
     private UpgradeMenu upgradeMenu;
 
     private bool looted;
@@ -15,7 +15,7 @@ public class Chest : Sprite {
     public override void _Ready() {
         this.abilityUpgradeHandler = GetTree().Root.GetNode<AbilityUpgradeHandler>("Main/AbilityUpgradeHandler");
         this.player = GetTree().Root.GetNode<Player>("Main/Player");
-        this.toolTip = GetNode<Sprite>("ToolTip");
+        this.chestSprite = GetNode<Sprite>("Sprite");
         this.upgradeMenu = GetNode<UpgradeMenu>("MenuParent/UpgradeMenu");
     }
 
@@ -24,14 +24,11 @@ public class Chest : Sprite {
         if (this.looted) return;
 
         if ((this.player.GlobalPosition - this.GlobalPosition).LengthSquared() <= this.detectionRadius * this.detectionRadius) {
-            if (!this.toolTip.Visible) this.toolTip.Visible = true;
-
-            if (Input.IsActionJustPressed("interact")) {
-                this.upgradeMenu.Visible = !this.upgradeMenu.Visible;
+            if (!this.upgradeMenu.Visible) {
+                this.upgradeMenu.Visible = true;
                 this.UpdateChestFrame();
             }
         } else {
-            if (toolTip.Visible) toolTip.Visible = false;
             if (this.upgradeMenu.Visible) {
                 this.upgradeMenu.Visible = false;
                 this.UpdateChestFrame();
@@ -40,7 +37,7 @@ public class Chest : Sprite {
     }
 
     private void UpdateChestFrame() {
-        this.Frame = this.upgradeMenu.Visible ? 1 : 0;
+        this.chestSprite.Frame = this.upgradeMenu.Visible ? 1 : 0;
     }
 
     public void Spawn(List<AbilityUpgradeHandler.AbilityUpgrade> possibleUpgrades) {
@@ -52,24 +49,21 @@ public class Chest : Sprite {
     public void Despawn() {
         this.looted = true;
         this.Visible = false;
-        this.toolTip.Visible = false;
         this.upgradeMenu.Visible = false;
         this.UpdateChestFrame();
     }
 
     public void OnLoot(AbilityType abilityType, int upgradeType) {
         this.looted = true;
-        this.toolTip.Visible = false;
         this.upgradeMenu.Visible = false;
-        this.Frame = 1;
+        this.chestSprite.Frame = 1;
 
         this.abilityUpgradeHandler.playerAbilityHandler.AddAbility(abilityType, upgradeType);
     }
 
     public void OnHealLoot() {
         this.looted = true;
-        this.toolTip.Visible = false;
         this.upgradeMenu.Visible = false;
-        this.Frame = 1;
+        this.chestSprite.Frame = 1;
     }
 }

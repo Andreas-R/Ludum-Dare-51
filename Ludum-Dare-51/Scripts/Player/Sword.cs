@@ -10,12 +10,15 @@ public class Sword : Node2D {
     public CollisionShape2D swordCollider;
     private AudioStreamPlayer audioPlayer;
     private Player player;
+    private BgMusicHandler bgMusicHandler;
+    private RightAnalogPad rightAnalogPad;
 
     private bool isAttacking = false;
+    public Vector2 attackDir = Vector2.Left;
+    private Vector2 lastAttackDir = Vector2.Left;
     private float startRotation;
     public float attackArchAngleRadians;
     private float lastSwingDirection = 1f;
-    private BgMusicHandler bgMusicHandler;
 
     public override void _Ready() {
         this.attackTimer = GetNode<Timer>("AttackTimer");
@@ -25,11 +28,19 @@ public class Sword : Node2D {
         this.audioPlayer = GetNode<AudioStreamPlayer>("AudioPlayer");
         this.player = GetParent<Player>();
         this.bgMusicHandler = GetTree().Root.GetNode<BgMusicHandler>("Main/BgMusicHandler");
+        this.rightAnalogPad = GetTree().Root.GetNode<RightAnalogPad>("Main/HUD Parent/HUD/RightAnalogPad");
 
         this.attackArchAngleRadians = Mathf.Deg2Rad(this.attackArchAngle);
     }
 
     public override void _Process(float delta) {
+        attackDir = this.rightAnalogPad.GetInput();
+        if (attackDir == Vector2.Zero) {
+            attackDir = lastAttackDir;
+        } else {
+            lastAttackDir = attackDir;
+        }
+
         if (Metronome.instance.IsBeatWithAudioDelay(-1, 1f)) {
             if (player.IsDead()) return;
            this.audioPlayer.Play();
@@ -46,7 +57,6 @@ public class Sword : Node2D {
     }
 
     private void InitAttack() {
-        Vector2 attackDir = (GetGlobalMousePosition() - this.player.GetCenter()).Normalized();
         this.startRotation = -attackDir.AngleTo(Vector2.Up) + this.attackArchAngleRadians * 0.5f * this.lastSwingDirection;
         this.Rotation = this.startRotation;
 

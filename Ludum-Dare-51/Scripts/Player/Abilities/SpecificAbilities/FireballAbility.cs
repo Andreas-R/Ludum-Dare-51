@@ -25,8 +25,8 @@ public class FireballAbility : AbstractAbility {
                 Fireball fireball = FireballAbility.fireballPrefab.Instance() as Fireball;
                 float scale = GetScale();
                 fireball.Scale = new Vector2(scale, scale);
-                fireball.direction = (player.GetGlobalMousePosition() - player.GetCenter()).Normalized();
-                fireball.Rotation = player.GetCenter().AngleToPoint(player.GetGlobalMousePosition());
+                fireball.direction = player.sword.attackDir;
+                fireball.Rotation = -player.sword.attackDir.AngleTo(Vector2.Left);
                 if (numberOfFireballs > 1) {
                     float rotationOffset = (-spreadAngleRad * (numberOfFireballs - 1)) * 0.5f + i * spreadAngleRad;
                     fireball.direction = fireball.direction.Rotated(rotationOffset);

@@ -1,12 +1,12 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://Scripts/UI/Timeline/Timeline.cs" type="Script" id=1]
 [ext_resource path="res://Textures/fireball.png" type="Texture" id=2]
 [ext_resource path="res://Textures/ice-nova-icon.png" type="Texture" id=3]
 [ext_resource path="res://Textures/chain-lightning-icon.png" type="Texture" id=4]
 [ext_resource path="res://Textures/ui-screen.png" type="Texture" id=5]
-[ext_resource path="res://Textures/slider_knob.png" type="Texture" id=6]
-[ext_resource path="res://Scripts/UI/AudioSlider.cs" type="Script" id=7]
+[ext_resource path="res://Textures/analog_pad_1.png" type="Texture" id=6]
+[ext_resource path="res://Textures/analog_pad_2.png" type="Texture" id=7]
 [ext_resource path="res://Textures/ui-life-and-abilities.png" type="Texture" id=8]
 [ext_resource path="res://Scripts/UI/LifeAndAbilitiesPanel.cs" type="Script" id=9]
 [ext_resource path="res://Prefabs/UI/AbilityDisplay.tscn" type="PackedScene" id=10]
@@ -23,14 +23,9 @@
 [ext_resource path="res://Textures/move-speed-icon.png" type="Texture" id=21]
 [ext_resource path="res://Fonts/graph-35-pix/graph-35-pix.tres" type="DynamicFont" id=22]
 [ext_resource path="res://Textures/sword-icon.png" type="Texture" id=23]
-[ext_resource path="res://Audio/borb.wav" type="AudioStream" id=24]
+[ext_resource path="res://Scripts/UI/LeftAnalogPad.cs" type="Script" id=24]
 [ext_resource path="res://Audio/switch.wav" type="AudioStream" id=25]
-[ext_resource path="res://Textures/ui-fullscreen-button.png" type="Texture" id=26]
-[ext_resource path="res://Textures/ui-fullscreen-button-pressed.png" type="Texture" id=27]
-[ext_resource path="res://Textures/ui-undo-fullscreen-button.png" type="Texture" id=28]
-[ext_resource path="res://Textures/ui-undo-fullscreen-button-pressed.png" type="Texture" id=29]
-
-[sub_resource type="StyleBoxTexture" id=1]
+[ext_resource path="res://Scripts/UI/RightAnalogPad.cs" type="Script" id=26]
 
 [sub_resource type="Animation" id=7]
 length = 0.001
@@ -443,13 +438,11 @@ tracks/3/keys = {
 
 [node name="HUD" type="Control"]
 pause_mode = 2
-margin_left = -880.0
-margin_top = -640.0
-margin_right = 880.0
-margin_bottom = 640.0
+margin_left = -1020.0
+margin_top = -572.0
+margin_right = 1020.0
+margin_bottom = 573.0
 script = ExtResource( 19 )
-fullScreenButtonTextures = [ ExtResource( 26 ), ExtResource( 27 ) ]
-undoFullScreenButtonTextures = [ ExtResource( 28 ), ExtResource( 29 ) ]
 
 [node name="Screen" type="TextureRect" parent="."]
 margin_right = 40.0
@@ -458,11 +451,11 @@ rect_scale = Vector2( 5, 5 )
 texture = ExtResource( 5 )
 
 [node name="LifeAndAbilitiesPanel" type="TextureRect" parent="."]
-margin_left = 35.0
-margin_top = 35.0
-margin_right = 76.0
-margin_bottom = 102.0
-rect_scale = Vector2( 5, 5 )
+margin_left = 12.0
+margin_top = 12.0
+margin_right = 53.0
+margin_bottom = 88.0
+rect_scale = Vector2( 7, 7 )
 texture = ExtResource( 8 )
 script = ExtResource( 9 )
 
@@ -536,36 +529,15 @@ margin_right = -6.0
 margin_bottom = 8.00001
 texture = ExtResource( 4 )
 
-[node name="AudioSlider" type="VSlider" parent="."]
-margin_left = 99.9997
-margin_top = 475.0
-margin_right = 116.0
-margin_bottom = 566.0
-rect_scale = Vector2( 5, 5 )
-custom_icons/grabber_disabled = ExtResource( 6 )
-custom_icons/grabber_highlight = ExtResource( 6 )
-custom_icons/grabber = ExtResource( 6 )
-custom_styles/slider = SubResource( 1 )
-min_value = 0.001
-max_value = 1.0
-step = 0.0
-value = 1.0
-script = ExtResource( 7 )
-
-[node name="SliderAudioStreamPlayer" type="AudioStreamPlayer" parent="AudioSlider"]
-stream = ExtResource( 24 )
-volume_db = 5.0
-bus = "Sfx"
-
 [node name="Timeline" type="Control" parent="."]
 pause_mode = 1
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 285.0
-margin_top = -150.0
-margin_right = -45.0
-margin_bottom = -45.0
+margin_left = 320.0
+margin_top = -115.0
+margin_right = -320.0
+margin_bottom = -10.0
 script = ExtResource( 1 )
 fireBallTickImage = ExtResource( 2 )
 iceNovaTickImage = ExtResource( 3 )
@@ -591,49 +563,41 @@ margin_bottom = 52.0
 color = Color( 0.588235, 0.588235, 0.588235, 1 )
 
 [node name="Timeline Overlay" type="TextureRect" parent="."]
-margin_left = 240.0
-margin_top = 1120.0
-margin_right = 544.0
-margin_bottom = 1145.0
+margin_top = 1020.0
+margin_right = 408.0
+margin_bottom = 1045.0
 rect_scale = Vector2( 5, 5 )
 texture = ExtResource( 12 )
 
+[node name="PauseButton" type="TextureButton" parent="."]
+margin_left = 1755.0
+margin_top = 16.0
+margin_right = 1773.0
+margin_bottom = 38.0
+rect_scale = Vector2( 7, 7 )
+texture_normal = ExtResource( 18 )
+texture_pressed = ExtResource( 17 )
+flip_h = true
+
 [node name="PowerButton" type="TextureButton" parent="."]
-margin_left = 5.0
-margin_top = 1125.0
-margin_right = 23.0
-margin_bottom = 1147.0
-rect_scale = Vector2( 5, 5 )
+margin_left = 1896.0
+margin_top = 16.0
+margin_right = 1914.0
+margin_bottom = 38.0
+rect_scale = Vector2( 7, 7 )
 texture_normal = ExtResource( 16 )
 texture_pressed = ExtResource( 15 )
+flip_h = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="PowerButton"]
 anims/RESET = SubResource( 7 )
 anims/pulse = SubResource( 8 )
 
-[node name="PauseButton" type="TextureButton" parent="."]
-margin_left = 90.0
-margin_top = 1125.0
-margin_right = 108.0
-margin_bottom = 1147.0
-rect_scale = Vector2( 5, 5 )
-texture_normal = ExtResource( 18 )
-texture_pressed = ExtResource( 17 )
-
-[node name="FullScreenButton" type="TextureButton" parent="."]
-margin_left = 175.0
-margin_top = 1125.0
-margin_right = 193.0
-margin_bottom = 1147.0
-rect_scale = Vector2( 5, 5 )
-texture_normal = ExtResource( 26 )
-texture_pressed = ExtResource( 27 )
-
 [node name="BlackScreen" type="TextureRect" parent="."]
-margin_left = 300.0
-margin_top = 60.0
-margin_right = 580.0
-margin_bottom = 260.0
+margin_left = 320.0
+margin_top = 10.0
+margin_right = 600.0
+margin_bottom = 210.0
 rect_scale = Vector2( 5, 5 )
 texture = ExtResource( 13 )
 
@@ -671,10 +635,10 @@ stretch_mode = 6
 
 [node name="PauseScreen" type="ColorRect" parent="."]
 visible = false
-margin_left = 300.0
-margin_top = 60.0
-margin_right = 1700.0
-margin_bottom = 1060.0
+margin_left = 320.0
+margin_top = 10.0
+margin_right = 1720.0
+margin_bottom = 1010.0
 color = Color( 1, 1, 1, 0.392157 )
 
 [node name="ColorRect" type="ColorRect" parent="PauseScreen"]
@@ -699,10 +663,10 @@ margin_bottom = 200.0
 
 [node name="GameOverScreen" type="ColorRect" parent="."]
 visible = false
-margin_left = 300.0
-margin_top = 60.0
-margin_right = 1700.0
-margin_bottom = 1060.0
+margin_left = 320.0
+margin_top = 10.0
+margin_right = 1720.0
+margin_bottom = 1010.0
 color = Color( 0, 0, 0, 0.392157 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="GameOverScreen"]
@@ -735,11 +699,52 @@ bus = "Sfx"
 wait_time = 6.0
 autostart = true
 
-[connection signal="drag_ended" from="AudioSlider" to="AudioSlider" method="DragEnded"]
-[connection signal="value_changed" from="AudioSlider" to="AudioSlider" method="OnChange"]
-[connection signal="pressed" from="PowerButton" to="." method="OnPower"]
+[node name="LeftAnalogPad" type="Control" parent="."]
+script = ExtResource( 24 )
+
+[node name="AnalogKnob1" type="TextureRect" parent="LeftAnalogPad"]
+margin_left = 130.0
+margin_top = 965.0
+margin_right = 180.0
+margin_bottom = 1015.0
+rect_scale = Vector2( 5, 5 )
+rect_pivot_offset = Vector2( 25, 25 )
+texture = ExtResource( 6 )
+
+[node name="AnalogKnob2" type="TextureRect" parent="LeftAnalogPad"]
+margin_left = 130.0
+margin_top = 965.0
+margin_right = 180.0
+margin_bottom = 1015.0
+rect_scale = Vector2( 5, 5 )
+rect_pivot_offset = Vector2( 25, 25 )
+texture = ExtResource( 7 )
+stretch_mode = 4
+
+[node name="RightAnalogPad" type="Control" parent="."]
+script = ExtResource( 26 )
+
+[node name="AnalogKnob1" type="TextureRect" parent="RightAnalogPad"]
+margin_left = 1860.0
+margin_top = 965.0
+margin_right = 1910.0
+margin_bottom = 1015.0
+rect_scale = Vector2( 5, 5 )
+rect_pivot_offset = Vector2( 25, 25 )
+texture = ExtResource( 6 )
+
+[node name="AnalogKnob2" type="TextureRect" parent="RightAnalogPad"]
+margin_left = 1860.0
+margin_top = 965.0
+margin_right = 1910.0
+margin_bottom = 1015.0
+rect_scale = Vector2( 5, 5 )
+rect_pivot_offset = Vector2( 25, 25 )
+texture = ExtResource( 7 )
+stretch_mode = 4
+
 [connection signal="pressed" from="PauseButton" to="." method="OnPause"]
-[connection signal="pressed" from="FullScreenButton" to="." method="OnFullScreen"]
+[connection signal="pressed" from="PowerButton" to="." method="OnPower"]
 [connection signal="animation_finished" from="BlackScreen/AnimationPlayer" to="." method="OnAnimationFinished"]
 [connection signal="animation_finished" from="GameOverScreen/AnimationPlayer" to="." method="OnAnimationFinished"]
 [connection signal="timeout" from="PowerButtonTipTimer" to="." method="OnPowerButtonTip"]

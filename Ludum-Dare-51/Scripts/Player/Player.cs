@@ -15,8 +15,9 @@ public class Player : RigidBody2D {
     private Timer invulnerableTimer;
     private CollisionShape2D damageReceiverCollider;
     public Sword sword;
+    private LeftAnalogPad leftAnalogPad;
+    private Sprite aimer;
     private int runningFrame = 0;
-    private float movementDeadzone = 0.2f;
 
     private Color hitColor = new Color(1f, 0.5f, 0.5f);
     private Color defaultColor = new Color(1f, 1f, 1f);
@@ -30,11 +31,16 @@ public class Player : RigidBody2D {
         this.lifePointManager = GetNode<LifePointManager>("LifePointManager");
         this.invulnerableTimer = GetNode<Timer>("InvulnerableTimer");
         this.damageReceiverCollider = GetNode<CollisionShape2D>("DamageReceiver/Collider");
+        this.leftAnalogPad = GetTree().Root.GetNode<LeftAnalogPad>("Main/HUD Parent/HUD/LeftAnalogPad");
+        this.aimer = GetNode<Sprite>("Aimer");
 
         this.state = PlayerState.RUNNING;
     }
 
     public override void _Process(float delta) {
+        if (!this.aimer.Visible) this.aimer.Visible = true;
+        this.aimer.Rotation = -sword.attackDir.AngleTo(Vector2.Left);
+
         if (this.state == PlayerState.DEAD) return;
 
         if (Metronome.instance.IsBeat(-1, 0)) {
@@ -95,24 +101,7 @@ public class Player : RigidBody2D {
     }
 
     public Vector2 GetMoveInputDirection() {
-        float left = Input.GetActionRawStrength("move_left");
-        float right = Input.GetActionRawStrength("move_right");
-        float up = Input.GetActionRawStrength("move_up");
-        float down = Input.GetActionRawStrength("move_down");
-
-        Vector2 moveDir = new Vector2(right - left, down - up);
-
-        // dead zone for gamepad
-        if (moveDir.LengthSquared() < movementDeadzone * movementDeadzone) {
-            return Vector2.Zero;
-        }
-
-        // prevent diagonal speed gain
-        if (moveDir.LengthSquared() > 1) {
-            moveDir = moveDir.Normalized();
-        }
-
-        return moveDir;
+        return leftAnalogPad.GetInput(false);
     }
 
     private void HandleMovement(Physics2DDirectBodyState bodyState, Vector2 movementInput) {
@@ -121,15 +110,15 @@ public class Player : RigidBody2D {
     }
 
     private void HandleSpriteFlip() {
-        Vector2 attackDir = (GetGlobalMousePosition() - GetCenter()).Normalized();
-        if (attackDir.x > movementDeadzone) {
+        Vector2 attackDir = sword.attackDir;
+        if (attackDir.x > 0) {
             if (this.playerSprite.FlipH != true) {
                 this.sword.Position = new Vector2( this.sword.Position.x * -1,  this.sword.Position.y);
             }
             this.playerSprite.FlipH = true;
             this.swordSprite.FlipV = true;
         }
-        if (attackDir.x < -movementDeadzone) {
+        if (attackDir.x < 0) {
             if (this.playerSprite.FlipH != false) {
                 this.sword.Position = new Vector2( this.sword.Position.x * -1,  this.sword.Position.y);
             }
