@@ -115,7 +115,7 @@ shape = SubResource( 8 )
 
 [node name="LifePointManager" type="Node" parent="."]
 script = ExtResource( 4 )
-maxHealth = 400.0
+maxHealth = 300.0
 
 [node name="MoveTimer" type="Timer" parent="."]
 wait_time = 0.5

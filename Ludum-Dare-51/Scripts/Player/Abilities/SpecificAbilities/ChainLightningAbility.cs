@@ -122,7 +122,7 @@ public class ChainLightningAbility : AbstractAbility {
                 return new int[] {1, 2, 3, 2}; // 21 enemies
             }
             default: {
-                return new int[] {1, 4};
+                return new int[] {1, 3};
             }
         }
     }

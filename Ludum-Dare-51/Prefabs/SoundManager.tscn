@@ -24,7 +24,7 @@ bus = "Sfx"
 
 [node name="ChainLightning" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
-volume_db = 1.7
+volume_db = 1.5
 
 [node name="Laser" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
@@ -36,12 +36,12 @@ bus = "Sfx"
 
 [node name="IceNova" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
-volume_db = 8.0
+volume_db = 4.0
 bus = "Sfx"
 
 [node name="Fireball" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 8 )
-volume_db = -12.0
+volume_db = -11.5
 bus = "Sfx"
 
 [node name="BowShot" type="AudioStreamPlayer" parent="."]

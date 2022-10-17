@@ -9,6 +9,15 @@ public class AbilityHandler : Node {
         this.player = GetParent<Player>();
         AddAbility(AbilityType.MOVE_SPEED, 0);
         AddAbility(AbilityType.SWORD, 0);
+        AddAbility(AbilityType.FIREBALL, 0);
+        AddAbility(AbilityType.FIREBALL, 3);
+        AddAbility(AbilityType.FIREBALL, 3);
+        AddAbility(AbilityType.ICE_NOVA, 0);
+        AddAbility(AbilityType.ICE_NOVA, 3);
+        AddAbility(AbilityType.ICE_NOVA, 3);
+        AddAbility(AbilityType.CHAIN_LIGHTNING, 0);
+        AddAbility(AbilityType.CHAIN_LIGHTNING, 3);
+        AddAbility(AbilityType.CHAIN_LIGHTNING, 3);
     }
 
     public override void _Process(float delta) {
