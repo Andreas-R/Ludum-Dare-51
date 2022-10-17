@@ -55,7 +55,7 @@ public class FireballAbility : AbstractAbility {
     public override int[] GetBeatFrequency() {
         switch (this.level3) {
             case 0: {
-                return new int[] {1, 5};
+                return new int[] {3, 7};
             }
             case 1: {
                 return new int[] {1, 3, 5, 7};

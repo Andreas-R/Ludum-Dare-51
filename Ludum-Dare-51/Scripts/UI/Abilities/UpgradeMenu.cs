@@ -70,7 +70,7 @@ public class UpgradeMenu : TextureRect {
     }
 
     public void Upgrade2Selected() {
-        playerLifePointManager.Heal(playerLifePointManager.maxHealth * 0.35f);
+        playerLifePointManager.Heal(playerLifePointManager.maxHealth * 0.4f);
         chest.OnHealLoot();
     }
 

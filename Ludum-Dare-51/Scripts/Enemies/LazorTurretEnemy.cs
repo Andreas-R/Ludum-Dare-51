@@ -44,7 +44,8 @@ public class LazorTurretEnemy : AbstractEnemy {
         this.collisionShape = lazorBeam.GetNode<CollisionShape2D>("DamageDealer/Collider");
         this.collisionShape.SetDeferred("disabled", true);
         this.AddChild(lazorBeam);
-        this.lazorBeam.sprite.Modulate = new Color(1.0f, 1.0f, 1.0f, 0.2f);
+        this.lazorBeam.beamSprite.Modulate = new Color(1.0f, 1.0f, 1.0f, 0.2f);
+        this.lazorBeam.beamEndSprite.Modulate = new Color(1.0f, 1.0f, 1.0f, 0.2f);
         this.soundManager = GetTree().Root.GetNode<SoundManager>("Main/SoundManager");
     }
 
@@ -71,8 +72,10 @@ public class LazorTurretEnemy : AbstractEnemy {
           
             if (beatTime <= rotationDuration) {
                 this.collisionShape.SetDeferred("disabled", true);
-                this.lazorBeam.sprite.Frame = 0;
-                this.lazorBeam.sprite.Modulate = new Color(1.0f, 1.0f, 1.0f, 0.2f);
+                this.lazorBeam.beamSprite.Frame = 0;
+                this.lazorBeam.beamEndSprite.Frame = 0;
+                this.lazorBeam.beamSprite.Modulate = new Color(1.0f, 1.0f, 1.0f, 0.2f);
+                this.lazorBeam.beamEndSprite.Modulate = new Color(1.0f, 1.0f, 1.0f, 0.2f);
                 this.sprite.Frame = 0;
                 float totalRotation = targetAngle - startAngle;
                 if (totalRotation > Mathf.Pi) {
@@ -90,15 +93,19 @@ public class LazorTurretEnemy : AbstractEnemy {
             } else if (beatTime < 0.97f) {
                 this.sprite.Frame = 2;
             } else if (beatTime < 1.0f) {
-                this.lazorBeam.sprite.Frame = 1;
-                this.lazorBeam.sprite.Modulate = new Color(1.0f, 1.0f, 1.0f, 1f);
+                this.lazorBeam.beamSprite.Frame = 1;
+                this.lazorBeam.beamEndSprite.Frame = 1;
+                this.lazorBeam.beamSprite.Modulate = new Color(1.0f, 1.0f, 1.0f, 1f);
+                this.lazorBeam.beamEndSprite.Modulate = new Color(1.0f, 1.0f, 1.0f, 1f);
                 this.sprite.Frame = 3;
             } else if (beatTime < 1.0625f) {
                 this.collisionShape.SetDeferred("disabled", false);
                 this.sprite.Frame = 4;
-                this.lazorBeam.sprite.Frame = 2;
+                this.lazorBeam.beamSprite.Frame = 2;
+                this.lazorBeam.beamEndSprite.Frame = 2;
             } else if (beatTime < 1.125) {
-                this.lazorBeam.sprite.Frame = 3;
+                this.lazorBeam.beamSprite.Frame = 3;
+                this.lazorBeam.beamEndSprite.Frame = 3;
             } else if (beatTime < 1.75f) {
                 this.sprite.Frame = 4;
                 if (!this.newRotationSet) {
@@ -111,7 +118,8 @@ public class LazorTurretEnemy : AbstractEnemy {
                 }
             } else if (beatTime < 1.85f) {
                 this.collisionShape.SetDeferred("disabled", true);
-                this.lazorBeam.sprite.Frame = 0;
+                this.lazorBeam.beamSprite.Frame = 0;
+                this.lazorBeam.beamEndSprite.Frame = 0;
                 this.sprite.Frame = 5;
             } else {
                 this.sprite.Frame = 0;
@@ -135,6 +143,7 @@ public class LazorTurretEnemy : AbstractEnemy {
             Vector2 wallPosition = (Vector2)result["position"];
             float lazorLength = (wallPosition - from).Length();
             this.lazorBeam.Scale = new Vector2(lazorLength, 5.0f * (isBoss ? AbstractEnemy.bossSizeScale : 1f));
+            this.lazorBeam.beamEndSprite.Scale = new Vector2((5f * (isBoss ? AbstractEnemy.bossSizeScale : 1f)) / lazorLength, 1f);
             this.lazorBeam.Position = new Vector2(lazorLength / 2.0f + 40.0f, 0.0f);
 
         }

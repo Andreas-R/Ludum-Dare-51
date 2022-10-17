@@ -117,7 +117,10 @@ public class RoomHandler : Node2D {
         this.ChangeToRoom(roomsToChoose[randomRoomIndex]);
 
         roomCounter += 1;
-        lastRoomIndex = Array.FindIndex(rooms, room => room == roomsToChoose[randomRoomIndex]);
+
+        if (currentRoom != treasureRoom) {
+            lastRoomIndex = Array.FindIndex(rooms, room => room == roomsToChoose[randomRoomIndex]);
+        }
     }
 
     private void ChangeToRoom(RoomData room) {
@@ -157,10 +160,14 @@ public class RoomHandler : Node2D {
 
                 if (possibleUpgrades.Count > 2) {
                     chest2.Spawn(possibleUpgrades.GetRange(2, Math.Min(4, possibleUpgrades.Count) - 2));
+                } else {
+                    chest2.Spawn(new List<AbilityUpgradeHandler.AbilityUpgrade>());
                 }
 
                 if (possibleUpgrades.Count > 4) {
                     chest3.Spawn(possibleUpgrades.GetRange(4, Math.Min(6, possibleUpgrades.Count) - 4));
+                } else {
+                    chest3.Spawn(new List<AbilityUpgradeHandler.AbilityUpgrade>());
                 }
 
                 TripleChestSpawnNextRoom = false;
@@ -199,6 +206,12 @@ public class RoomHandler : Node2D {
             }
         }
 
+        int numberOfBosses = 1;
+
+        if (spawnBoss) {
+            numberOfBosses = 1 + Mathf.FloorToInt((Mathf.Max(0f, roomCounter - 50f) / 20f) * room.numberOfEnemiesSpawnFactor);
+        }
+
         enemyIndexCounters.Clear();
 
         switch(room.id){
@@ -207,15 +220,26 @@ public class RoomHandler : Node2D {
                 break;
             default:
                 int numberOfEnemies = Mathf.CeilToInt(Mathf.FloorToInt(3 + roomCounter * 0.5f) * room.numberOfEnemiesSpawnFactor);
-                int bossIndex = -1;
+                List<int> bossIndices = new List<int>();
 
                 if (room.canContainBosses && spawnBoss) {
-                    bossIndex = rng.RandiRange(0, numberOfEnemies - 1);
+                    List<int> possibleBossIndices = new List<int>();
+
+                    for (int i = 0; i < numberOfEnemies; i++) {
+                        possibleBossIndices.Add(i);
+                    }
+
+                    for (int i = 0; i < numberOfBosses; i++) {
+                        int randIndex = rng.RandiRange(0, possibleBossIndices.Count - 1);
+                        bossIndices.Add(possibleBossIndices[randIndex]);
+                        possibleBossIndices.RemoveAt(randIndex);
+                    }
+
                     spawnBoss = false;
                 }
 
                 for (int i = 0; i < numberOfEnemies; i += 1) {
-                    SpawnEnemy(room, i == bossIndex);
+                    SpawnEnemy(room, bossIndices.Contains(i));
                 }
                 break;
         }
@@ -236,7 +260,7 @@ public class RoomHandler : Node2D {
         enemy.isBoss = isBoss;
         enemy.spawnIndex = enemyIndexCounters[enemyTypeIndex];
 
-        float lifeMultiplier = 1f + (roomCounter * 0.05f);
+        float lifeMultiplier = 1f + (roomCounter * 0.05f) * ((250f + roomCounter) / 250f);
 
         if (isBoss) {
             enemy.SetScale(AbstractEnemy.bossSizeScale);
@@ -248,6 +272,7 @@ public class RoomHandler : Node2D {
 
         Spawn spawn = spawnPrefab.Instance() as Spawn;
         spawn.Position = enemy.Position;
+        spawn.Scale *= isBoss ? 2f : 1f;
         spawn.SetEnemy(enemy);
         GetTree().Root.GetNode<Node>("Main").AddChild(spawn);
         enemyManager.OnEnemySpawn(enemy);

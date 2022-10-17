@@ -1,28 +1,53 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Textures/lazor_beam.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Enemies/LazorBeam.cs" type="Script" id=2]
 [ext_resource path="res://Scripts/Damage/DamageDealer.cs" type="Script" id=3]
+[ext_resource path="res://Textures/lazor_beam_end.png" type="Texture" id=4]
 
-[sub_resource type="AtlasTexture" id=1]
+[sub_resource type="AtlasTexture" id=13]
 atlas = ExtResource( 1 )
 region = Rect2( 0, 0, 1, 6 )
 
-[sub_resource type="AtlasTexture" id=2]
+[sub_resource type="AtlasTexture" id=14]
 atlas = ExtResource( 1 )
 region = Rect2( 1, 0, 1, 6 )
 
-[sub_resource type="AtlasTexture" id=3]
+[sub_resource type="AtlasTexture" id=15]
 atlas = ExtResource( 1 )
 region = Rect2( 2, 0, 1, 6 )
 
-[sub_resource type="AtlasTexture" id=4]
+[sub_resource type="AtlasTexture" id=16]
 atlas = ExtResource( 1 )
 region = Rect2( 3, 0, 1, 6 )
 
-[sub_resource type="SpriteFrames" id=5]
+[sub_resource type="SpriteFrames" id=11]
 animations = [ {
-"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 4 ) ],
+"frames": [ SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 16 ) ],
+"loop": true,
+"name": "default",
+"speed": 4.0
+} ]
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 8, 8 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 4 )
+region = Rect2( 8, 0, 8, 8 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 4 )
+region = Rect2( 16, 0, 8, 8 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 4 )
+region = Rect2( 24, 0, 8, 8 )
+
+[sub_resource type="SpriteFrames" id=12]
+animations = [ {
+"frames": [ SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 10 ) ],
 "loop": true,
 "name": "default",
 "speed": 4.0
@@ -34,8 +59,14 @@ extents = Vector2( 0.5, 3 )
 [node name="LazorBeam" type="Node2D"]
 script = ExtResource( 2 )
 
-[node name="Sprite" type="AnimatedSprite" parent="."]
-frames = SubResource( 5 )
+[node name="BeamSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 11 )
+
+[node name="BeamEndSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 0.5, 0 )
+rotation = 3.14159
+frames = SubResource( 12 )
+offset = Vector2( -2, 0 )
 
 [node name="DamageDealer" type="Area2D" parent="."]
 collision_layer = 0

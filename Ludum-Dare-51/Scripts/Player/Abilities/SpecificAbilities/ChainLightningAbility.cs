@@ -7,9 +7,9 @@ public class ChainLightningAbility : AbstractAbility {
     private List<AbstractEnemy> enemies = new List<AbstractEnemy>();
     private Dictionary<Node2D, bool> selectedTargets = new Dictionary<Node2D, bool>();
     
+    private float playerDistanceFactor = 1.3f;
     private float maxDistance = 300f;
     private float maxDistanceSquared;
-
 
     public ChainLightningAbility() {
         level1Max = 4;
@@ -20,7 +20,7 @@ public class ChainLightningAbility : AbstractAbility {
     }
 
     public override void OnProcess(Player player, float delta) {
-        if (Metronome.instance.IsBeat(this.GetBeatFrequency(), this.GetSubBeatFrequency())) {
+        if (Metronome.instance.IsBeatWithAudioDelay(this.GetBeatFrequency(), this.GetSubBeatFrequency())) {
             // get all enemies
             enemies.Clear();
             selectedTargets.Clear();
@@ -35,32 +35,22 @@ public class ChainLightningAbility : AbstractAbility {
 
             int[] numberOfChains = GetNumberOfChains();
 
-            // first chain is between player and first enemy
-            Chain(player, player, 0, numberOfChains);
-        }
-        if (Metronome.instance.IsBeatWithAudioDelay(this.GetBeatFrequency(), this.GetSubBeatFrequency())){
-            enemies.Clear();
-            selectedTargets.Clear();
-            Node2D main = player.GetTree().Root.GetNode<Node2D>("Main");
-            foreach (Node node in main.GetChildren()) {
-                AbstractEnemy enemy = node as AbstractEnemy;
-                if (enemy != null) {
-                    enemies.Add(enemy);
-                }
-            }
-            if(GetNearestEnemy(player.GlobalPosition)!=null){
+            if (GetNearestEnemy(player.GlobalPosition, playerDistanceFactor) != null){
                 SoundManager.instance.PlaySfx(SoundManager.Sfx.chainLightning);
+
+                // first chain is between player and first enemy
+                Chain(player, player, 0, numberOfChains, playerDistanceFactor);
             }
         }
     }
 
-    private void Chain(Player player, Node2D currentTarget, int depth, int[] numberOfChains) {
+    private void Chain(Player player, Node2D currentTarget, int depth, int[] numberOfChains, float distanceFactor = 1f) {
         if (depth >= numberOfChains.Length) return;
 
         List<Node2D> chainedEnemies = new List<Node2D>();
 
         for (int i = 0; i < numberOfChains[depth]; i += 1) {
-            AbstractEnemy nearestEnemy = GetNearestEnemy(currentTarget.GlobalPosition);
+            AbstractEnemy nearestEnemy = GetNearestEnemy(currentTarget.GlobalPosition, distanceFactor);
 
             if (nearestEnemy != null) {
                 SpawnChainLightning(player, currentTarget, nearestEnemy, depth);
@@ -75,13 +65,13 @@ public class ChainLightningAbility : AbstractAbility {
         }
     }
 
-    private AbstractEnemy GetNearestEnemy(Vector2 pos) {
+    private AbstractEnemy GetNearestEnemy(Vector2 pos, float distanceFactor = 1f) {
         AbstractEnemy nearestEnemy = null;
         float minSquareDist = Mathf.Inf;
 
         foreach (AbstractEnemy enemy in enemies) {
             float squareDist = (pos - enemy.GlobalPosition).LengthSquared();
-            if (!selectedTargets.ContainsKey(enemy) && squareDist < minSquareDist && squareDist <= maxDistanceSquared) {
+            if (!selectedTargets.ContainsKey(enemy) && squareDist < minSquareDist && squareDist <= maxDistanceSquared * distanceFactor * distanceFactor) {
                 minSquareDist = squareDist;
                 nearestEnemy = enemy;
             }
@@ -130,16 +120,16 @@ public class ChainLightningAbility : AbstractAbility {
     public override int[] GetBeatFrequency() {
         switch (this.level3) {
             case 0: {
-                return new int[] {0, 4};
+                return new int[] {1, 5};
             }
             case 1: {
-                return new int[] {0, 4};
+                return new int[] {1, 5};
             }
             case 2: {
-                return new int[] {0, 2, 4, 6};
+                return new int[] {1, 3, 5, 7};
             }
             default: {
-                return new int[] {0, 4};
+                return new int[] {1, 5};
             }
         }
     }

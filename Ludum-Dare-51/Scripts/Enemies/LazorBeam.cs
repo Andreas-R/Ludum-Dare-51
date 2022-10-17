@@ -1,8 +1,11 @@
 using Godot;
 
 public class LazorBeam : Node2D {
-    public AnimatedSprite sprite;
+    public AnimatedSprite beamSprite;
+    public AnimatedSprite beamEndSprite;
+
     public override void _Ready() {
-        this.sprite = GetNode<AnimatedSprite>("Sprite");
+        this.beamSprite = GetNode<AnimatedSprite>("BeamSprite");
+        this.beamEndSprite = GetNode<AnimatedSprite>("BeamEndSprite");
     }
 }

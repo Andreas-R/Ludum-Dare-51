@@ -26,6 +26,7 @@ public class ChainLightning : Node2D {
         this.paralyzedEffect = GetNode<AnimatedSprite>("ParalyzedEffect");
 
         this.deplayTimer.WaitTime *= (this.depth + 1);
+        this.deplayTimer.WaitTime += Metronome.instance.audioServerDelay;
         this.deplayTimer.Start();
         
         this.lightningConnector.Visible = false;
