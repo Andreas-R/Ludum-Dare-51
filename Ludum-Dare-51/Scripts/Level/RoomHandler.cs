@@ -260,7 +260,7 @@ public class RoomHandler : Node2D {
         enemy.isBoss = isBoss;
         enemy.spawnIndex = enemyIndexCounters[enemyTypeIndex];
 
-        float lifeMultiplier = 1f + (roomCounter * 0.05f) * ((250f + roomCounter) / 250f);
+        float lifeMultiplier = 1f + (roomCounter * 0.05f) * ((250f + Mathf.Max(roomCounter - 50, 0)) / 250f);
 
         if (isBoss) {
             enemy.SetScale(AbstractEnemy.bossSizeScale);

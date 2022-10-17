@@ -221,7 +221,7 @@ bus = "Sfx"
 collision_layer = 0
 collision_mask = 512
 script = ExtResource( 13 )
-baseDamage = 50.0
+baseDamage = 90.0
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="IceNova"]
 visible = false

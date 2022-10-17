@@ -2,7 +2,7 @@ using Godot;
 
 public class ChainLightning : Node2D {
     [Export]
-    public float baseDamage = 50f;
+    public float baseDamage = 90f;
     [Export]
     public float lengthInPixels = 32f;
 

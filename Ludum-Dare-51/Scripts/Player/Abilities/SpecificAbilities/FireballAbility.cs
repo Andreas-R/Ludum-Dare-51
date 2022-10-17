@@ -41,7 +41,7 @@ public class FireballAbility : AbstractAbility {
     }
 
     private float GetDamageMultiplicator() {
-        return Mathf.Pow(1.5f, level1);
+        return Mathf.Pow(1.3f, level1);
     }
 
     private float GetScale() {
