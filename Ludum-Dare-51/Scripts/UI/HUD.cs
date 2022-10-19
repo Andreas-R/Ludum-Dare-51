@@ -26,6 +26,14 @@ public class HUD : Control {
     public override void _Process(float detla) {
         bool pauseVisible = gameRunning && GetTree().Paused;
         if (pauseScreen.Visible != pauseVisible) pauseScreen.Visible = pauseVisible;
+        if (Input.IsActionJustReleased("menu")){
+            if(!turnedOn){
+                OnPower();
+            }
+            else{
+                OnPause();
+            }
+        }
     }
 
     public void OnPower() {

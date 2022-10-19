@@ -46,7 +46,7 @@ public class Sword : Node2D {
     }
 
     private void InitAttack() {
-        Vector2 attackDir = (GetGlobalMousePosition() - this.player.GetCenter()).Normalized();
+        Vector2 attackDir = player.GetAimDirection();
         this.startRotation = -attackDir.AngleTo(Vector2.Up) + this.attackArchAngleRadians * 0.5f * this.lastSwingDirection;
         this.Rotation = this.startRotation;
 

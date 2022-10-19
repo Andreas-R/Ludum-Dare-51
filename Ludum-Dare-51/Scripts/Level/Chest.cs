@@ -17,6 +17,7 @@ public class Chest : Sprite {
         this.player = GetTree().Root.GetNode<Player>("Main/Player");
         this.toolTip = GetNode<Sprite>("ToolTip");
         this.upgradeMenu = GetNode<UpgradeMenu>("MenuParent/UpgradeMenu");
+        ControllerTooltipManager.instance.registerTooltipNode(GetNode<Sprite>("ToolTip/ControllerTooltip"), "r_down");
     }
 
     public override void _Process(float delta) {

@@ -31,10 +31,24 @@ public class UpgradeMenu : TextureRect {
 
         this.initialRemainingTimeMarginLeft = this.remainingTime.MarginLeft;
         this.initialRemainingTimeMarginRight = this.remainingTime.MarginRight;
+
+        ControllerTooltipManager.instance.registerTooltipNode(GetNode<Sprite>("Upgrade1/ControllerTooltip"), "r_left");
+        ControllerTooltipManager.instance.registerTooltipNode(GetNode<Sprite>("Upgrade2/ControllerTooltip"), "r_up");
+        ControllerTooltipManager.instance.registerTooltipNode(GetNode<Sprite>("Upgrade3/ControllerTooltip"), "r_right");
     }
 
     public override void _Process(float delta) {
         if (!Visible) return;
+
+        if(Input.IsActionJustReleased("select_upgrade_1")){
+            Upgrade1Selected();
+        }
+        else if(Input.IsActionJustReleased("select_upgrade_2")){
+            Upgrade2Selected();
+        }
+        else if(Input.IsActionJustReleased("select_upgrade_3")){
+            Upgrade3Selected();
+        }
 
         this.remainingTime.MarginRight = this.initialRemainingTimeMarginLeft + (this.initialRemainingTimeMarginRight - this.initialRemainingTimeMarginLeft) * (1f - (Metronome.instance.elapsedTime / Metronome.CYCLE_TIME));
     }

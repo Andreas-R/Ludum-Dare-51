@@ -11,15 +11,23 @@ public class Player : RigidBody2D {
     private Node2D center;
     private AnimatedSprite playerSprite;
     private Sprite swordSprite;
+    private Sprite aimer;
     private LifePointManager lifePointManager;
     private Timer invulnerableTimer;
     private CollisionShape2D damageReceiverCollider;
     public Sword sword;
     private int runningFrame = 0;
-    private float movementDeadzone = 0.2f;
+    private float movementDeadzone = 0.8f;
 
     private Color hitColor = new Color(1f, 0.5f, 0.5f);
     private Color defaultColor = new Color(1f, 1f, 1f);
+
+    private float time = 0;
+    private Vector2 lastMousePosition;
+    private float lastMousePositionChange;
+    private Vector2 lastControllerAimDirection;
+    private float lastControllerAimChange;
+    private bool usingController = false;
     
     public override void _Ready() {
         instance = this;
@@ -27,6 +35,7 @@ public class Player : RigidBody2D {
         this.sword = GetNode<Sword>("SwordPivot");
         this.playerSprite = GetNode<AnimatedSprite>("PlayerSprite");
         this.swordSprite = GetNode<Sprite>("SwordPivot/Sword/Sprite");
+        this.aimer = GetNode<Sprite>("Aimer");
         this.lifePointManager = GetNode<LifePointManager>("LifePointManager");
         this.invulnerableTimer = GetNode<Timer>("InvulnerableTimer");
         this.damageReceiverCollider = GetNode<CollisionShape2D>("DamageReceiver/Collider");
@@ -34,12 +43,35 @@ public class Player : RigidBody2D {
         this.state = PlayerState.RUNNING;
     }
 
+    public Vector2 GetAimDirection(){
+        if(usingController){
+            return lastControllerAimDirection.Normalized();
+        }
+        else{
+            return (GetGlobalMousePosition() - GetCenter()).Normalized();
+        }
+    }
+
     public override void _Process(float delta) {
+        time += delta;
         if (this.state == PlayerState.DEAD) return;
 
         if (Metronome.instance.IsBeat(-1, 0)) {
             StartMoveAnimation();
         }
+
+        if(GetGlobalMousePosition() != lastMousePosition){
+            lastMousePosition = GetGlobalMousePosition();
+            lastMousePositionChange = time;
+        }
+        Vector2 controllerAimDirection = Input.GetVector("aim_left", "aim_right", "aim_up", "aim_down");
+        if(controllerAimDirection != Vector2.Zero){
+            lastControllerAimDirection = controllerAimDirection;
+            lastControllerAimChange = time;
+        }
+        usingController = (lastControllerAimChange > lastMousePositionChange);
+        aimer.Visible = usingController;
+        aimer.Rotation = -GetAimDirection().AngleTo(Vector2.Left);
     }
 
     public override void _IntegrateForces(Physics2DDirectBodyState bodyState) {
@@ -102,6 +134,8 @@ public class Player : RigidBody2D {
 
         Vector2 moveDir = new Vector2(right - left, down - up);
 
+        //Vector2 moveDir = Input.GetVector("move_left", "move_right", "move_up", "move_down", 0.5f);
+
         // dead zone for gamepad
         if (moveDir.LengthSquared() < movementDeadzone * movementDeadzone) {
             return Vector2.Zero;
@@ -121,7 +155,7 @@ public class Player : RigidBody2D {
     }
 
     private void HandleSpriteFlip() {
-        Vector2 attackDir = (GetGlobalMousePosition() - GetCenter()).Normalized();
+        Vector2 attackDir = GetAimDirection();
         if (attackDir.x > movementDeadzone) {
             if (this.playerSprite.FlipH != true) {
                 this.sword.Position = new Vector2( this.sword.Position.x * -1,  this.sword.Position.y);
